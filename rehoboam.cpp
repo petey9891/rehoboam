@@ -21,7 +21,7 @@
 
 //Number of thread cores (or threads) to be represented on the ring
 #define CORES 256
-// #define CORES 12
+// #define CORES 6
 
 //Temperature thresholds for cool (blue), medium (green/yellow) and hot (red)
 #define T1 40.0 //Do not omit the decimal point. This will be used in the OpenGL shader which will otherwise interpret it as a float literal
@@ -245,7 +245,7 @@ bool checkShader(GLuint shader) {
 }
 
 void addDisorder(int index, float* threads, bool multiplier) {
-	float multi = multiplier ? CORES * 0.08f : 1.0f;
+	float multi = multiplier ? CORES * 0.1f : 1.0f;
 	threads[index] += ANIMSTEP * multi;
 
 	if (thread[index] >= 60 && discrepancies.find(index) == discrepancies.end()) {
@@ -256,7 +256,7 @@ void addDisorder(int index, float* threads, bool multiplier) {
 }
 
 void removeDisorder(int index, float* threads, bool multiplier) {
-	float multi = multiplier ? CORES * 0.08f : 1.0f;
+	float multi = multiplier ? CORES * 0.1f : 1.0f;
 	if (threads[index] <= ANIMSTEP * multi) {
 		thread[index] = 0.0f;
 	} else if (threads[index] >= ANIMSTEP * multi) {
@@ -267,8 +267,8 @@ void removeDisorder(int index, float* threads, bool multiplier) {
 		threads[index] = 0.0f;
 	}
 
-	if (threads[index] > 130.0f) {
-		threads[index] -= 40.0f;
+	if (threads[index] > 200.0f) {
+		threads[index] -= 50.0f;
 	}
 
 	if (threads[index] <= 60 && discrepancies.find(index) != discrepancies.end()) {
@@ -476,7 +476,7 @@ int main(int argc, char* argv[]) {
 	while (!interrupt_received) {
 		t += 0.01f;
 
-		bool multiplier = (gen() % 200 + 1) == 57;
+		bool multiplier = (gen() % 100 + 1) == 57;
 		if (discrepancies.size() < CORES * 0.8f) {
 			// try to balance it out but not adding anymore disorder
 			int addThreadIndex = gen() % CORES;
