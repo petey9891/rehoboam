@@ -10,6 +10,7 @@
 #include <math.h>
 #include <random>
 #include <chrono>
+#include <unordered_map>
 
 //Animation speed
 #define ANIMSTEP 0.5
@@ -20,7 +21,7 @@
 
 //Number of thread cores (or threads) to be represented on the ring
 #define CORES 256
-// #define CORES 36
+// #define CORES 12
 
 //Temperature thresholds for cool (blue), medium (green/yellow) and hot (red)
 #define T1 40.0 //Do not omit the decimal point. This will be used in the OpenGL shader which will otherwise interpret it as a float literal
@@ -31,9 +32,11 @@ using rgb_matrix::RGBMatrix;
 using rgb_matrix::Canvas;
 
 using namespace rgb_matrix;
+using namespace std;
 
-// float temperature = 30.0f;
-float temperature = 40.0f;
+unordered_map<int, float> discrepancies;
+
+float temperature = 30.0f;
 float thread[CORES];
 float tmpTemperature = 40.0f;
 float tmpThread[CORES];
@@ -241,21 +244,37 @@ bool checkShader(GLuint shader) {
     return true;
 }
 
-void addDisorder(int index, float* threads, float* t, bool multiplier) {
-	float multi = multiplier ? 130.0f : 1.0f;
+void addDisorder(int index, float* threads, bool multiplier) {
+	float multi = multiplier ? CORES * 0.08f : 1.0f;
 	threads[index] += ANIMSTEP * multi;
 
-	 if (thread[index] >= 60) {
-		temperature += 0.2f*ANIMSTEP;
-	}
+	if (thread[index] >= 60 && discrepancies.find(index) == discrepancies.end()) {
+		printf("<addDisorder> Adding discrepancy %d, current value: %f\n", index, threads[index]);
+		discrepancies[index] = threads[index];
+		printf("number of discrepancies: %d/%d\n", discrepancies.size(), CORES);
+	} 
 }
 
 void removeDisorder(int index, float* threads, bool multiplier) {
-	float multi = multiplier ? 30.0f : 1.0f;
-	if (threads[index] >= ANIMSTEP * multi) {
+	float multi = multiplier ? CORES * 0.08f : 1.0f;
+	if (threads[index] <= ANIMSTEP * multi) {
+		thread[index] = 0.0f;
+	} else if (threads[index] >= ANIMSTEP * multi) {
 		threads[index] -= ANIMSTEP * multi;
 	} else if (threads[index] >= ANIMSTEP) {
 		threads[index] -= ANIMSTEP;
+	} else {
+		threads[index] = 0.0f;
+	}
+
+	if (threads[index] > 130.0f) {
+		threads[index] -= 40.0f;
+	}
+
+	if (threads[index] <= 60 && discrepancies.find(index) != discrepancies.end()) {
+		printf("<removeDisorder> Removing discrepancy %d, current value: %f\n", index, threads[index]);
+		discrepancies.erase(index);
+		printf("number of discrepancies: %d/%d\n", discrepancies.size(), CORES);
 	}
 }
 
@@ -451,43 +470,47 @@ int main(int argc, char* argv[]) {
 
     std::mt19937 gen(seed);
 	for (int i = 0; i < CORES; i++) {
-		// std::mt19937::result_type distribution;
- 		// std::mt19937::result_type n;
-      	// while( ( distribution = gen() ) > std::mt19937::max() - ( std::mt19937::max() - 5 )%CORES ) {
-		// 	/* bad value retrieved so get next one */ 
-		// }
-
-        // // reject readings that would make n%6 non-uniformly distributed
-        // while( ( n = gen() ) > std::mt19937::max() - ( std::mt19937::max() - 5 )%100 ) {
-		// 	/* bad value retrieved so get next one */ 
-		// }
-
 		thread[i] = 0.0f;
-		// tmpThread[i] = 0.0f;
-	// printf("%d\n", distribution % CORES + 1);
-		// thread[i] = (distribution % 5 == 0 || distribution % 8 == 0) ? float(n % 100 + 1) : 0.0f;
 	}  
-
-
 
 	while (!interrupt_received) {
 		t += 0.01f;
 
-		int addThreadIndex = gen() % CORES;
-		int removeThreadIndex = gen() % CORES;
-
 		bool multiplier = (gen() % 200 + 1) == 57;
+		if (discrepancies.size() < CORES * 0.8f) {
+			// try to balance it out but not adding anymore disorder
+			int addThreadIndex = gen() % CORES;
+			addDisorder(addThreadIndex, thread, multiplier);
+		}
 
-		addDisorder(addThreadIndex, thread, &tmpTemperature, multiplier);
+		int removeThreadIndex = gen() % CORES;
 		removeDisorder(removeThreadIndex, thread, multiplier);
 
 		glUniform1f(timeLoc, t);
 		glUniform1f(ageLoc, float(t - updateTime));
 
-		// if (tmpTemperature > temperature)
-		// 	temperature += 0.2f*ANIMSTEP;
-		// if (tmpTemperature < temperature)
-		// 	temperature -= 0.2f*ANIMSTEP;
+
+		if (discrepancies.size() >= CORES/2 && temperature < 95.0f) { // 6
+			// cube will be red
+			temperature += 0.02f*ANIMSTEP;
+		} else if (discrepancies.size() >= CORES/3) { // 4
+			// cube will be yellow/orange
+			if (temperature > 69) {
+				temperature -= 0.05f*ANIMSTEP;
+			} else if (temperature < 69) {
+				temperature += 0.02f*ANIMSTEP;
+			}
+		} else if (discrepancies.size() >= CORES/4) { // 3
+			if (temperature > 52) {
+				temperature -= 0.05f*ANIMSTEP;
+			} else if (temperature <= 52) {
+				temperature += 0.02f*ANIMSTEP;
+			}
+		} else if (temperature > 30) {
+			// cube will start to lose color be blue/yellow
+			temperature -= 0.05f*ANIMSTEP;
+		}
+
 
 		glUniform1f(temperatureLoc, temperature);
 		glUniform1fv(threadLoc, CORES, thread);
