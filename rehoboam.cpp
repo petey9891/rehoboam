@@ -11,6 +11,7 @@
 #include <random>
 #include <chrono>
 #include <unordered_map>
+#include <ctime>
 
 //Animation speed
 #define ANIMSTEP 0.5
@@ -43,8 +44,6 @@ float tmpThread[CORES];
 
 float t = 0.0f;
 float updateTime = -10.0f;
-
-volatile bool interrupt_received = false;
 
 static const EGLint configAttribs[] = {
     EGL_SURFACE_TYPE, EGL_PBUFFER_BIT, EGL_BLUE_SIZE, 8, EGL_GREEN_SIZE, 8,
@@ -201,7 +200,8 @@ void threadShader(char *str, int i) {
 static const char* backgroundColorShader = STRINGIFY(
         vec2 background = backgroundCoord.xy * 0.5 * 10.0 - vec2(19.0); // background
         vec2 i = background;
-        float c = 1.0; // level of brightness for background?
+		// float c = 8.0; // 2-10 get darker, less saturated; 8 is almost pitch black; 10-13 seem very dark, more saturated; 13-15 are some deep colors, the smoke seems more intense
+        float c = 1.0; 
         float inten = 0.05; // background alpha/brightness?
         
         for (int n = 0; n < 8; n++) {
@@ -434,6 +434,7 @@ int main(int argc, char* argv[]) {
 	defaults.cols = 192;
 	defaults.chain_length = 1;
 	defaults.parallel = 1;
+	// defaults.brightness = 100; // 60 is a good brightness for downtime
 
 	runtime.drop_privileges = 0;
 	runtime.gpio_slowdown = 1;
@@ -474,18 +475,28 @@ int main(int argc, char* argv[]) {
 	}  
 
 	int maxDiscrepancies = CORES * 0.8f;
-	while (!interrupt_received) {
+
+	while (true) {
 		t += 0.01f;
 
-		bool multiplier = (gen() % 100 + 1) == 57;
-		if (discrepancies.size() < maxDiscrepancies) {
-			// try to balance it out but not adding anymore disorder
-			int addThreadIndex = gen() % CORES;
-			addDisorder(addThreadIndex, thread, multiplier);
-		}
+		const std::time_t now = std::time(nullptr); // get the current time point
+		const std::tm calendar_time = *std::localtime(std::addressof(now)); // convert it to local time
 
-		int removeThreadIndex = gen() % CORES;
-		removeDisorder(removeThreadIndex, thread, multiplier);
+		if (calendar_time.tm_hour == 23 && (calendar_time.tm_min >= 50 && calendar_time.tm_min <= 59)) {
+			bool multiplier = (gen() % 100 + 1) == 57;
+			int removeThreadIndex = gen() % CORES;
+			removeDisorder(removeThreadIndex, thread, multiplier);
+		} else {
+			bool multiplier = (gen() % 100 + 1) == 57;
+			if (discrepancies.size() < maxDiscrepancies) {
+				// try to balance it out but not adding anymore disorder
+				int addThreadIndex = gen() % CORES;
+				addDisorder(addThreadIndex, thread, multiplier);
+			}
+
+			int removeThreadIndex = gen() % CORES;
+			removeDisorder(removeThreadIndex, thread, multiplier);
+		}
 
 		glUniform1f(timeLoc, t);
 		glUniform1f(ageLoc, float(t - updateTime));
