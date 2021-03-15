@@ -20,8 +20,8 @@
 #define H 64
 
 //Number of thread cores (or threads) to be represented on the ring
-#define CORES 256
-// #define CORES 6
+// #define CORES 256
+#define CORES 128
 
 //Temperature thresholds for cool (blue), medium (green/yellow) and hot (red)
 #define T1 40.0 //Do not omit the decimal point. This will be used in the OpenGL shader which will otherwise interpret it as a float literal
@@ -473,11 +473,12 @@ int main(int argc, char* argv[]) {
 		thread[i] = 0.0f;
 	}  
 
+	int maxDiscrepancies = CORES * 0.8f;
 	while (!interrupt_received) {
 		t += 0.01f;
 
 		bool multiplier = (gen() % 100 + 1) == 57;
-		if (discrepancies.size() < CORES * 0.8f) {
+		if (discrepancies.size() < maxDiscrepancies) {
 			// try to balance it out but not adding anymore disorder
 			int addThreadIndex = gen() % CORES;
 			addDisorder(addThreadIndex, thread, multiplier);
