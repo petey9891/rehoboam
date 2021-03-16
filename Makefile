@@ -27,7 +27,7 @@ rehoboam.o: rehoboam.cpp
 	$(CXX) -I$(RGB_INCDIR) $(CXXFAGS) $(MAGICK_CXXFLAGS) -c -o $@ $<
 
 clean:
-	rm -f $(OBJECTS) $(BINARIeES)
+	rm -f $(OBJECTS) $(BINARIES)
 
 FORCE:
 .PHONY: FORCE
