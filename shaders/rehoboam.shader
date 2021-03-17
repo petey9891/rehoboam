@@ -50,44 +50,38 @@ mat2 rotate2d(float angle) {
 // v2 - the boundtry in which the circle can move away from its coordinates?
 // strength - the number of distortions on the circle
 // speed - the speed of the animation
-float variation(vec2 v1, vec2 v2, float strength, float speed) {
-	return sin(
-        dot(normalize(v1), normalize(v2)) * strength + time * speed
-    ) / 100.0;
+float variance(float normalizedCoord, float strength, float speed) {
+	return sin(normalizedCoord * strength + time * speed) / 100.0;
+
 }
 
-// Creates a painted circle vec3. Adds a variation animation to the circle.
+// Creates circle float. Adds a variance animation to the circle.
 // uv - the coordinates of the circle
 // rad - the circle radius
 // width - the circle's stroke
-vec3 paintCircle (vec2 uv, float rad, float width) {
-    
-    float len = length(uv);
-
-    if (!loading) {
-        // Adds variation to the top half of the circle
-        len += variation(uv, vec2(0.0, 1.0), 5.0, 0.5);
-
-        // Adds variation to the lower half of the cirlce
-        len -= variation(uv, vec2(1.0, 0.0), 5.0, 0.5);
-    }
-
-    // perform Hermite interpolation between two values
-    float circle = smoothstep(rad-width, rad, len) - smoothstep(rad, rad+width, len);
-
-    return vec3(circle);
-}
-
 float circle(vec2 uv, float rad, float width) {
     float strength = 5.0;
     float speed = 2.0;
-    // Compared to function above:
-    // normalizing only on uv instead of uv and vec2(1.0, 0.0)
-    float frame = length(uv) + (sin(normalize(uv).y * strength + time * speed) - sin(normalize(uv).x * strength + time * speed)) / 100.0;
+
+    float frame = length(uv);
+    if (!loading) {
+        vec2 normalizedCoords = normalize(uv);
+        // adds variance to each half of the circle by providing normalized x and y coords
+        frame += variance(normalizedCoords.y, strength, speed) - variance(normalizedCoords.x, strength, speed);
+    }
     
     // Multiply by threadf to enlarge one portion of the circle
     float frameWidth = width + width*threadf*0.1;
+
     return smoothstep(rad-frameWidth, rad, frame) - smoothstep(rad, rad+frameWidth, frame);
+}
+
+// Creates a circle vec3. Adds a variance animation to the circle.
+// uv - the coordinates of the circle
+// rad - the circle radius
+// width - the circle's stroke
+vec3 circleVec3(vec2 uv, float rad, float width) {
+    return vec3(circle(uv, rad, width));
 }
 
 void main() {
@@ -97,9 +91,9 @@ void main() {
     if (loading) {
         vec3 color;
         // Create circle for gradient
-        color = paintCircle(coords, radius, 0.01);
+        color = circleVec3(coords, radius, 0.01);
 
-        color += paintCircle(coords, radius, 0.01);
+        color += circleVec3(coords, radius, 0.01);
         vec2 v = rotate2d(time) * coords; // matrix multiplication to map rotated coordinates with original coordinates
         color *= vec3(v.x, v.y, 0.475-(v.x));
 
@@ -116,8 +110,8 @@ void main() {
 
         for (int n = 0; n < 8; n++) {
             float t = time * (0.7 - (0.2 / float(n+1)));
-                i = background + vec2(cos(t - i.x) + sin(t + i.y), sin(t - i.y) + cos(t + i.x)); // initial smoothing of waves
-                c += 1.0 / length(vec2(background.x / (2.0 * sin(i.x + t) / inten), background.y / (cos(i.y + t) / inten)));
+            i = background + vec2(cos(t - i.x) + sin(t + i.y), sin(t - i.y) + cos(t + i.x)); // initial smoothing of waves
+            c += 1.0 / length(vec2(background.x / (2.0 * sin(i.x + t) / inten), background.y / (cos(i.y + t) / inten)));
         }
 
         c /= 8.0;
@@ -141,6 +135,7 @@ void main() {
             coreIndex += 1.0;
         }
 
+        // Fades in
         outcolor *= vec3(fade);
 
         gl_FragColor = vec4(mix(outcolor, outcolor, smoothstep(5.0, 10.0, age)), 1.0);
