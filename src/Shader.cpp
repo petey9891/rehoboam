@@ -31,19 +31,6 @@ void Shader::unbind() const {
     GLCall(glUseProgram(0));
 }
 
-int Shader::getUniformLocation(const std::string& name) {
-    if (this->m_UniformLocationCache.find(name) != this->m_UniformLocationCache.end())
-        return this->m_UniformLocationCache[name];
-
-    GLCall(int location = glGetUniformLocation(this->m_RendererID, name.c_str()));
-    if (location == -1)
-        printf("No active uniform variable with name %s found\n", name.c_str());
-
-    this->m_UniformLocationCache[name] = location;
-
-    return location;
-}
-
 void Shader::setUniform1f(const std::string& name, float value) {
     GLCall(glUniform1f(this->getUniformLocation(name), value));
 }
@@ -56,10 +43,39 @@ void Shader::setUniform1fv(const std::string& name, float count, const float* va
     GLCall(glUniform1fv(this->getUniformLocation(name), count, value));
 }
 
-enum ShaderType
-{
-    NONE = -1, VERTEX = 0, FRAGMENT = 1
-};
+GLint Shader::getAttribute(const std::string& name) {
+    // return this->getAttributeLocation(name);
+    return  glGetAttribLocation(this->m_RendererID, name.c_str());
+}
+
+int Shader::getUniformLocation(const std::string& name) {
+    if (this->m_UniformLocationCache.find(name) != this->m_UniformLocationCache.end())
+        return this->m_UniformLocationCache[name];
+
+    GLCall(int location = glGetUniformLocation(this->m_RendererID, name.c_str()));
+    if (location == -1) {
+        printf("No active uniform variable with name %s found\n", name.c_str());
+    }
+
+    this->m_UniformLocationCache[name] = location;
+
+    return location;
+}
+
+int Shader::getAttributeLocation(const std::string& name) {
+    if (this->m_AttributeLocationCache.find(name) != this->m_AttributeLocationCache.end()) {
+        return this->m_AttributeLocationCache[name];
+    }
+
+    GLCall(int location = glGetAttribLocation(this->m_RendererID, name.c_str()));
+    if (location == -1) {
+        printf("No active attribute variable with name %s found\n", name.c_str());
+    }
+
+    this->m_AttributeLocationCache[name] = location;
+
+    return location;
+}
 
 struct ShaderProgramSource Shader::parseShader(const std::string& filepath) {
 
@@ -84,8 +100,7 @@ struct ShaderProgramSource Shader::parseShader(const std::string& filepath) {
     return sps;
 }
 
-unsigned int Shader::compileShader(unsigned int type, const std::string& source)
-{
+unsigned int Shader::compileShader(unsigned int type, const std::string& source) {
     GLCall(unsigned int id = glCreateShader(type));
     const char* src = source.c_str();
     GLCall(glShaderSource(id, 1, &src, nullptr));

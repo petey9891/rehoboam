@@ -115,6 +115,18 @@ static const GLfloat vcoords[] = {
     1.0f,
 };
 
+/*
+    3/16/21 EOD Thoughts
+
+    Something is wrong with the shader when setting/getting/everything
+    Found a bug where Shader::getAttributeLocation was returning 0 when the location was actually 1. Maybe an issue with caching?
+    Wonder if something similar is happeneing for setting the uniforms.
+
+    Currently the only thing in the pipeling is getting it to work with the Shader and Vertexbuffer, moving forward will need to refactor
+    the VertexArray since glGenVertexArrays is not available in the version of OpenGL that the PI supports.
+
+    To continue where I left off las time, toggle between the uncommented code and the code surrounding it
+*/
 int main(int argc, char* argv[]) {
     CubeWindow window;
     EGLWindow win = window.createEGLWindow();
@@ -129,6 +141,9 @@ int main(int argc, char* argv[]) {
 
 	    GLuint vbo, vbocoord;
     	GLint posLoc, coordLoc, temperatureLoc, threadLoc, timeLoc, ageLoc, loadingLoc, fadeLoc;
+
+        // VertexBuffer verticesBuffer(vertices, 36 * sizeof(float));
+        // VertexBuffer vcoordsBuffer(vcoords, 24 * sizeof(float));
 
         glGenBuffers(1, &vbo);
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -148,28 +163,42 @@ int main(int argc, char* argv[]) {
         GLCall(loadingLoc = glGetUniformLocation(shader.m_RendererID, "loading"));
         GLCall(fadeLoc = glGetUniformLocation(shader.m_RendererID, "fade"));
 
+        // printf("posLoc %d\n", posLoc);
+        // printf("coordLoc %d\n", coordLoc);
+        // printf("temperatureLoc %d\n", temperatureLoc);
+        // printf("threadLoc %d\n",threadLoc);
+        // printf("timeLoc %d\n", timeLoc);
+        // printf("ageLoc %d\n", ageLoc);
+        // printf("loadingLoc %d\n", loadingLoc);
+        // printf("fadeLoc %d\n", fadeLoc);
+
+        /* NEED TO REFACTOR */
+            // VertexArray verticesArray;
+            // VertexBufferLayout verticiesLayout;
+            // verticiesLayout.addFloat(3);
+            // verticesArray.addBuffer(verticesBuffer, verticiesLayout);
+
+            // VertexArray vcoordsArray;
+            // VertexBufferLayout vcoordsLayout;
+            // vcoordsLayout.addFloat(2);
+            // vcoordsArray.addBuffer(vcoordsBuffer, vcoordsLayout);
+        /********************/
+
         // Set our vertex data
+        // GLint pos = shader.getAttribute("pos");
+        // printf("pos %d\n", pos);
         GLCall(glEnableVertexAttribArray(posLoc));
+        // verticesBuffer.bind();
         GLCall(glBindBuffer(GL_ARRAY_BUFFER, vbo));
         GLCall(glVertexAttribPointer(posLoc, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) 0));
 
+        // GLint coord = shader.getAttribute("coord");
+        // printf("coord %d\n", coord);
         GLCall(glEnableVertexAttribArray(coordLoc));
+        // vcoordsBuffer.bind();
         GLCall(glBindBuffer(GL_ARRAY_BUFFER, vbocoord));
         GLCall(glVertexAttribPointer(coordLoc, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void *) 0));
 
-        // VertexBuffer verticesBuffer(vertices, 36 * sizeof(float));
-        // VertexBuffer vcoordsBuffer(vcoords, 24 * sizeof(float));
-
-
-        // VertexArray verticesArray;
-        // VertexBufferLayout verticiesLayout;
-        // verticiesLayout.addFloat(3);
-        // verticesArray.addBuffer(verticesBuffer, verticiesLayout);
-
-        // VertexArray vcoordsArray;
-        // VertexBufferLayout vcoordsLayout;
-        // vcoordsLayout.addFloat(2);
-        // vcoordsArray.addBuffer(vcoordsBuffer, vcoordsLayout);
 
         // LED Matrix Settings
         RGBMatrix::Options defaults;
@@ -213,6 +242,9 @@ int main(int argc, char* argv[]) {
         bool loading = true;
         bool changingScene = false;
 
+        // shader.setUniform1f("loading", loading);
+        // shader.setUniform1f("fade", fadeLevel);
+
         GLCall(glUniform1f(loadingLoc, loading));
         GLCall(glUniform1f(fadeLoc, fadeLevel));
         while (true) {
@@ -220,6 +252,11 @@ int main(int argc, char* argv[]) {
         
             t += loading ? 0.25f : 0.01f;
 
+
+            // shader.setUniform1f("time", t);
+            // shader.setUniform1f("age", float(t - updateTime));
+            // shader.setUniform1f("temperature", temperature);
+            // shader.setUniform1fv("thread", CORES, thread);
 		    GLCall(glUniform1f(timeLoc, t));
 		    GLCall(glUniform1f(ageLoc, float(t - updateTime)));
 		    GLCall(glUniform1f(temperatureLoc, temperature));
@@ -231,18 +268,24 @@ int main(int argc, char* argv[]) {
                  if (t > 100) {
                     // Fade loading screen
                     GLCall(glUniform1f(fadeLoc, fadeLevel));
+                    // shader.setUniform1f("fade", fadeLevel);
                     fadeLevel -= 0.03f;
 
                     if (fadeLevel <= 0.0f) {
                         loading = false;
                         GLCall(glUniform1f(loadingLoc, false));
                         GLCall(glUniform1f(fadeLoc, 0.0f));
+                        // shader.setUniform1f("loading", false);
+                        // shader.setUniform1f("fade", 0.0f);
+                        // GLCall(glUniform1f(loadingLoc, false));
+                        // GLCall(glUniform1f(fadeLoc, 0.0f));
                         
                         // Need to fade into new scene
                         changingScene = true;
                     }
                 } else if (t > 58) {
                     GLCall(glUniform1f(fadeLoc, fadeLevel));
+                    // shader.setUniform1f("fade", fadeLevel);
                     float nextFadeValue = fadeLevel + pulse;
                     if (nextFadeValue <= 0.00f || nextFadeValue > 1.00f) {
                         pulse *= -1.0f;
@@ -254,11 +297,13 @@ int main(int argc, char* argv[]) {
             }
 
             if (changingScene) {
-                GLCall(glUniform1f(fadeLoc, fadeLevel));
+                    GLCall(glUniform1f(fadeLoc, fadeLevel));
+                    // shader.setUniform1f("fade", fadeLevel);
                 fadeLevel += 0.03f;
 
                 if (fadeLevel >= 1.0f) {
                     GLCall(glUniform1f(fadeLoc, 1.0f));
+                    // shader.setUniform1f("fade", 1.0f);
                     changingScene = false;
                 }                
             }
