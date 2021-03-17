@@ -136,7 +136,7 @@ int main(int argc, char* argv[]) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
     {
-        Shader shader("../shaders/Rehoboam.shader");
+        Shader shader("/home/pi/rehoboam/shaders/Rehoboam.shader");
         shader.bind();
 
 	    GLuint vbo, vbocoord;
@@ -265,7 +265,7 @@ int main(int argc, char* argv[]) {
 
 
             if (loading) {
-                 if (t > 100) {
+                 if (t > 200) {
                     // Fade loading screen
                     GLCall(glUniform1f(fadeLoc, fadeLevel));
                     // shader.setUniform1f("fade", fadeLevel);
@@ -283,7 +283,7 @@ int main(int argc, char* argv[]) {
                         // Need to fade into new scene
                         changingScene = true;
                     }
-                } else if (t > 58) {
+                } else if (t > 158) {
                     GLCall(glUniform1f(fadeLoc, fadeLevel));
                     // shader.setUniform1f("fade", fadeLevel);
                     float nextFadeValue = fadeLevel + pulse;
