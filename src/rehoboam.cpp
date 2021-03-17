@@ -201,12 +201,12 @@ int main(int argc, char* argv[]) {
 
 	// Setup EGL
 	if ((display = eglGetDisplay(EGL_DEFAULT_DISPLAY)) == EGL_NO_DISPLAY) {
-		fprintf(stderr, "Failed to get EGL display! Error: %s\n", eglGetError());
+		fprintf(stderr, "Failed to get EGL display! Error: %d\n", eglGetError());
 		return EXIT_FAILURE;
 	}
 
 	if (eglInitialize(display, &major, &minor) == EGL_FALSE) {
-		fprintf(stderr, "Failed to get EGL version! Error: %s\n", eglGetError());
+		fprintf(stderr, "Failed to get EGL version! Error: %d\n", eglGetError());
 		eglTerminate(display);
 		return EXIT_FAILURE;
 	}
@@ -217,7 +217,7 @@ int main(int argc, char* argv[]) {
 	EGLint numConfigs;
 	EGLConfig config;
 	if (!eglChooseConfig(display, configAttribs, &config, 1, &numConfigs)) {
-		fprintf(stderr, "Failed to get EGL Config! Error: %s\n", eglGetError());
+		fprintf(stderr, "Failed to get EGL Config! Error: %d\n", eglGetError());
 		eglTerminate(display);
 		return EXIT_FAILURE;
 	}
@@ -225,7 +225,7 @@ int main(int argc, char* argv[]) {
 	// EGL Surface
 	EGLSurface surface = eglCreatePbufferSurface(display, config, pbufferAttribs);
 	if (surface == EGL_NO_SURFACE) {
-		fprintf(stderr, "Failed to create EGL surface! Error: %s\n", eglGetError());
+		fprintf(stderr, "Failed to create EGL surface! Error: %d\n", eglGetError());
 		eglTerminate(display);
 		return EXIT_FAILURE;
 	}
@@ -236,7 +236,7 @@ int main(int argc, char* argv[]) {
 	// EGL Context
 	EGLContext context = eglCreateContext(display, config, EGL_NO_CONTEXT, contextAttribs);
 	if (context == EGL_NO_CONTEXT) {
-		fprintf(stderr, "Failed to create EGL context! Error: %s\n", eglGetError());
+		fprintf(stderr, "Failed to create EGL context! Error: %d\n", eglGetError());
 		eglDestroySurface(display, surface);
 		eglTerminate(display);
 		return EXIT_FAILURE;
@@ -264,11 +264,11 @@ int main(int argc, char* argv[]) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
     {
-        Shader shader("../res/shaders/Circle.shader");
+        Shader shader("../shaders/Rehoboam.shader");
         shader.bind();
 
-	    GLuint program, vert, frag, vbo, vbocoord;
-    	GLint posLoc, coordLoc, temperatureLoc, threadLoc, timeLoc, ageLoc, loadingLoc, fadeLoc, result;
+	    GLuint vbo, vbocoord;
+    	GLint posLoc, coordLoc, temperatureLoc, threadLoc, timeLoc, ageLoc, loadingLoc, fadeLoc;
 
         glGenBuffers(1, &vbo);
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -345,7 +345,6 @@ int main(int argc, char* argv[]) {
 
         Renderer renderer;
 
-		// while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS && glfwWindowShouldClose(window) == 0 ) {
         GLCall(glUniform1f(loadingLoc, true));
         GLCall(glUniform1f(fadeLoc, 1.0f));
 
@@ -355,12 +354,13 @@ int main(int argc, char* argv[]) {
         bool loading = true;
         bool changingScene = false;
 
-
+        float pulse = 0.02f;
         while (true) {
             renderer.clear();
         
+            t += loading ? 0.25f : 0.01f;
             // t += 0.01f;
-            t += 0.03f;
+            // t += 0.03f;
 
 		    GLCall(glUniform1f(timeLoc, t));
 		    GLCall(glUniform1f(ageLoc, float(t - updateTime)));
@@ -370,7 +370,7 @@ int main(int argc, char* argv[]) {
 
 
             if (loading) {
-                if (t > 10) {
+                 if (t > 100) {
                     // Fade loading screen
                     GLCall(glUniform1f(fadeLoc, fadeLevel));
                     fadeLevel -= 0.03f;
@@ -383,6 +383,15 @@ int main(int argc, char* argv[]) {
                         // Need to fade into new scene
                         changingScene = true;
                     }
+                } else if (t > 58) {
+                    GLCall(glUniform1f(fadeLoc, fadeLevel));
+                    float nextFadeValue = fadeLevel + pulse;
+                    if (nextFadeValue <= 0.00f || nextFadeValue > 1.00f) {
+                        pulse *= -1.0f;
+                        pulse += pulse > 0.0f ? 0.015f : -0.015f;
+                        t += 0.15f;
+                    }
+                    fadeLevel += pulse;
                 }
             }
 

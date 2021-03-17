@@ -7,11 +7,12 @@
 #include <sstream>
 
 Shader::Shader(const std::string& filepath): m_RendererID(0), m_FilePath(filepath) {
+
     // printf("filepath: %s\n", filepath.c_str());
     ShaderProgramSource source = this->parseShader(filepath);
 
-    printf("\nVertex Shader:\n%s\n", source.vertexSource.c_str());
-    printf("\nFragment Shader:\n%s\n\n", source.fragmentSource.c_str());
+    // printf("\nVertex Shader:\n%s\n", source.vertexSource.c_str());
+    // printf("\nFragment Shader:\n%s\n\n", source.fragmentSource.c_str());
 
     this->m_RendererID = this->createShader(source.vertexSource, source.fragmentSource);
 
@@ -67,17 +68,14 @@ struct ShaderProgramSource Shader::parseShader(const std::string& filepath) {
     std::stringstream ss[2];
     ShaderType type = NONE;
 
-    while (getline(stream, line))
-    {
-        if (line.find("#shader") != std::string::npos)
-        {
+    while (getline(stream, line)) {
+        if (line.find("#shader") != std::string::npos) {
             if (line.find("vertex") != std::string::npos)
                 type = VERTEX;
             else if (line.find("fragment") != std::string::npos)
                 type = FRAGMENT;
         }
-        else
-        {
+        else {
             ss[(int)type] << line << '\n';
         }
     }
@@ -99,8 +97,7 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
 
     std::string shaderType = type == GL_VERTEX_SHADER ? "vertex" : "fragment";
     printf("%s shader compile status: %d\n", shaderType.c_str(), result);
-    if ( result == GL_FALSE )
-    {
+    if (result == GL_FALSE) {
         int length;
         GLCall(glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length));
         char* message = (char*) alloca(length * sizeof(char));
@@ -131,8 +128,7 @@ unsigned int Shader::createShader(const std::string& vertexShader, const std::st
 
     GLCall(glGetProgramiv(program, GL_LINK_STATUS, &program_linked));
     std::cout << "Program link status: " << program_linked << std::endl;
-    if (program_linked != GL_TRUE)
-    {
+    if (program_linked != GL_TRUE) {
         GLsizei log_length = 0;
         GLchar message[1024];
         GLCall(glGetProgramInfoLog(program, 1024, &log_length, message));
