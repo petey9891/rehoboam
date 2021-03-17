@@ -350,6 +350,7 @@ int main(int argc, char* argv[]) {
 
         float fadeLevel = 1.0f;
 
+        float increment = 0.05f;
 
         bool loading = true;
         bool changingScene = false;
@@ -404,6 +405,15 @@ int main(int argc, char* argv[]) {
                     changingScene = false;
                 }                
             }
+
+
+            if (!loading && !changingScene) {
+                // increment r
+                if (temperature < 0.0f || temperature > 100.0f)
+                    increment *= -1.0;
+                temperature += increment;
+            }
+
 
             // shader.bind();
             // shader.setUniform1f("time", t);
