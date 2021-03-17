@@ -1,6 +1,6 @@
 CXXFLAGS=-O2 -W -Wall -Wextra -Wno-unused-parameter -D_FILE_OFFSET_BITS=64
 
-OBJECTS=rehoboam.o IndexBuffer.o Renderer.o Shader.o VertexArray.o VertexBuffer.o
+OBJECTS=rehoboam.o IndexBuffer.o Renderer.o Shader.o VertexArray.o VertexBuffer.o Window.o
 BINARIES=rehoboam            
 
 CURRENT_DIRECTORY=$(shell pwd)
@@ -45,6 +45,9 @@ VertexArray.o: VertexArray.cpp
 	$(CXX) -I$(RGB_INCDIR) $(CXXFLAGS) -c -o $@ $<
 
 VertexBuffer.o: VertexBuffer.cpp
+	$(CXX) -I$(RGB_INCDIR) $(CXXFLAGS) -c -o $@ $<
+
+Window.o: Window.cpp
 	$(CXX) -I$(RGB_INCDIR) $(CXXFLAGS) -c -o $@ $<
 
 clean:

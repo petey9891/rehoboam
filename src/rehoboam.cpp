@@ -15,17 +15,11 @@
 #include "IndexBuffer.h"
 #include "Shader.h"
 #include "Renderer.h"
+#include "Window.h"
 
 #define DEBUG true
 
 #include "Debug.h"
-
-//Resolution, three panels with 64x64 each.
-#define W 192
-#define H 64
-
-//Animation speed
-// #define ANIMSTEP 0.5
 
 #define CORES 8
 
@@ -35,6 +29,7 @@ using rgb_matrix::Canvas;
 using namespace rgb_matrix;
 using namespace std;
 
+// Animation speed
 float animstep = 0.01f;
 float temperature = 30.0f;
 float thread[CORES];
@@ -120,144 +115,9 @@ static const GLfloat vcoords[] = {
     1.0f,
 };
 
-// GLFWwindow* InitWindow() {
-// 	// Initialise GLFW
-// 	if (!glfwInit()) {
-//         int errorCode;
-//         const char* description;
-//         while ((errorCode = glfwGetError(&description)) != GLFW_NO_ERROR) {
-//             printf("Error code: %d\n", errorCode);
-//             printf("Message: %s\n", description);
-//         }
-// 		fprintf( stderr, "Failed to initialize GLFW\n" );
-// 		getchar();
-// 		return nullptr;
-// 	}
-
-
-// 	glfwWindowHint(GLFW_SAMPLES, 4);
-// 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-// 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-// 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
-// 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-//     glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-
-//     // Open a window and create its OpenGL context
-//     GLFWwindow* window = glfwCreateWindow(1024, 768, "OpenGLSandbox", NULL, NULL);
-// 	if(window == nullptr) {
-// 		fprintf( stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n" );
-// 		getchar();
-// 		glfwTerminate();
-// 		return nullptr;
-// 	}
-// 	glfwMakeContextCurrent(window);
-
-//     glfwSwapInterval(1); // Syncs with refresh rate
-
-//     // Initialize GLEW
-// 	glewExperimental = true; // Needed for core profile
-// 	if (glewInit() != GLEW_OK) {
-// 		fprintf(stderr, "Failed to initialize GLEW\n");
-// 		getchar();
-// 		glfwTerminate();
-// 		return nullptr;
-// 	}
-
-    // printf("Using OpenGL Version: %s\n", glGetString(GL_VERSION) );
-
-// 	// Ensure we can capture the escape key being pressed below
-// 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-
-//     return window;
-// }
-
-static const EGLint configAttribs[] = {
-    EGL_SURFACE_TYPE, EGL_PBUFFER_BIT, EGL_BLUE_SIZE, 8, EGL_GREEN_SIZE, 8,
-    EGL_RED_SIZE, 8, EGL_DEPTH_SIZE, 8,
-
-    EGL_SAMPLE_BUFFERS, 1,
-    EGL_SAMPLES, 4,
-
-    EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT, EGL_NONE};
-
-// Width and height of the desired framebuffer
-static const EGLint pbufferAttribs[] = {
-    EGL_WIDTH,
-    W,
-    EGL_HEIGHT,
-    H,
-    EGL_NONE,
-};
-
-static const EGLint contextAttribs[] = {EGL_CONTEXT_CLIENT_VERSION, 2,
-                                        EGL_NONE};
-
 int main(int argc, char* argv[]) {
-	EGLDisplay display;
-	int major;
-	int minor;
-	int desiredWidth;
-	int desiredHeight;
-
-	// Setup EGL
-	if ((display = eglGetDisplay(EGL_DEFAULT_DISPLAY)) == EGL_NO_DISPLAY) {
-		fprintf(stderr, "Failed to get EGL display! Error: %d\n", eglGetError());
-		return EXIT_FAILURE;
-	}
-
-	if (eglInitialize(display, &major, &minor) == EGL_FALSE) {
-		fprintf(stderr, "Failed to get EGL version! Error: %d\n", eglGetError());
-		eglTerminate(display);
-		return EXIT_FAILURE;
-	}
-
-	printf("Initialized EGL version: %d.%d\n", major, minor);
-
-	// EGL Config
-	EGLint numConfigs;
-	EGLConfig config;
-	if (!eglChooseConfig(display, configAttribs, &config, 1, &numConfigs)) {
-		fprintf(stderr, "Failed to get EGL Config! Error: %d\n", eglGetError());
-		eglTerminate(display);
-		return EXIT_FAILURE;
-	}
-
-	// EGL Surface
-	EGLSurface surface = eglCreatePbufferSurface(display, config, pbufferAttribs);
-	if (surface == EGL_NO_SURFACE) {
-		fprintf(stderr, "Failed to create EGL surface! Error: %d\n", eglGetError());
-		eglTerminate(display);
-		return EXIT_FAILURE;
-	}
-
-	// Bind OpenGL API
-	eglBindAPI(EGL_OPENGL_API);
-
-	// EGL Context
-	EGLContext context = eglCreateContext(display, config, EGL_NO_CONTEXT, contextAttribs);
-	if (context == EGL_NO_CONTEXT) {
-		fprintf(stderr, "Failed to create EGL context! Error: %d\n", eglGetError());
-		eglDestroySurface(display, surface);
-		eglTerminate(display);
-		return EXIT_FAILURE;
-	}
-
-	eglMakeCurrent(display, surface, surface, context);
-
-	desiredWidth = pbufferAttribs[1];
-	desiredHeight = pbufferAttribs[3];
-
-	glViewport(0, 0, desiredWidth, desiredHeight);
-
-	GLint viewport[4];
-	glGetIntegerv(GL_VIEWPORT, viewport);
-	printf("GL Viewport size: %dx%d\n", viewport[2], viewport[3]);
-
-
-	if (desiredWidth != viewport[2] || desiredHeight != viewport[3]) {
-		fprintf(stderr, "Error! the glViewport/glgetIntergerv are not working! EGL might be faulty!\n");
-		return EXIT_FAILURE;
-	}
+    CubeWindow window;
+    EGLWindow win = window.createEGLWindow();
 
 	// Clear the whole screen (front buffer)
 	glClearColor(0.0f, 0.0f, 0.8f, 1.0f);
@@ -345,23 +205,20 @@ int main(int argc, char* argv[]) {
 
         Renderer renderer;
 
-        GLCall(glUniform1f(loadingLoc, true));
-        GLCall(glUniform1f(fadeLoc, 1.0f));
-
+        // Set initial state
         float fadeLevel = 1.0f;
-
+        float pulse = 0.02f;
         float increment = 0.05f;
 
         bool loading = true;
         bool changingScene = false;
 
-        float pulse = 0.02f;
+        GLCall(glUniform1f(loadingLoc, loading));
+        GLCall(glUniform1f(fadeLoc, fadeLevel));
         while (true) {
             renderer.clear();
         
             t += loading ? 0.25f : 0.01f;
-            // t += 0.01f;
-            // t += 0.03f;
 
 		    GLCall(glUniform1f(timeLoc, t));
 		    GLCall(glUniform1f(ageLoc, float(t - updateTime)));
@@ -445,9 +302,9 @@ int main(int argc, char* argv[]) {
 	// Close OpenGL window and terminate GLFW
 	// glfwTerminate();
 
-    eglDestroyContext(display, context);
-	eglDestroySurface(display, surface);
-    eglTerminate(display);
+    eglDestroyContext(win.display, win.context);
+	eglDestroySurface(win.display, win.surface);
+    eglTerminate(win.display);
 
 	return 0;
 }
