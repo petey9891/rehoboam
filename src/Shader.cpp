@@ -43,6 +43,11 @@ void Shader::setUniform1fv(const std::string& name, float count, const float* va
     GLCall(glUniform1fv(this->getUniformLocation(name), count, value));
 }
 
+GLint Shader::getUniform(const std::string& name) {
+    // return this->getAttributeLocation(name);
+    return  glGetUniformLocation(this->m_RendererID, name.c_str());
+}
+
 GLint Shader::getAttribute(const std::string& name) {
     // return this->getAttributeLocation(name);
     return  glGetAttribLocation(this->m_RendererID, name.c_str());

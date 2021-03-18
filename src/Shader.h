@@ -32,6 +32,7 @@ class Shader {
         void setUniform4f(const std::string& name, float v1, float v2, float v3, float v4);
         void setUniform1fv(const std::string& name, float count, const float* value);
 
+        GLint getUniform(const std::string& name);
         GLint getAttribute(const std::string& name);
 
     private:

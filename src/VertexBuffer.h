@@ -1,5 +1,7 @@
 #pragma once
 
+#include "VertexBufferLayout.h"
+
 class VertexBuffer{
     private:
         unsigned int m_RendererID;
@@ -10,4 +12,5 @@ class VertexBuffer{
 
         void bind() const;
         void unbind() const;
+        void addLayout(const VertexBufferLayout& layout); 
 };
