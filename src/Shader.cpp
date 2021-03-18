@@ -17,6 +17,8 @@ Shader::Shader(const std::string& filepath): m_RendererID(0), m_FilePath(filepat
     this->m_RendererID = this->createShader(source.vertexSource, source.fragmentSource);
 
     GLCall(glUseProgram(this->m_RendererID));
+
+    printf(">>> initialized shader with id: %d\n", this->m_RendererID);
 }
 
 Shader::~Shader() {

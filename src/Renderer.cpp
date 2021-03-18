@@ -5,6 +5,11 @@ void Renderer::clear() const {
     GLCall(glClear(GL_COLOR_BUFFER_BIT));
 }
 
+void Renderer::drawArrays(const Shader& shader) const {
+    shader.bind();
+    GLCall(glDrawArrays(GL_TRIANGLE_STRIP, 0, 12));
+}
+
 void Renderer::drawArrays(const VertexArray& va, const Shader& shader) const {
     shader.bind();
     va.bind();

@@ -124,12 +124,15 @@ int main(int argc, char* argv[]) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
     {
+        // Create shader
         Shader shader("/home/pi/rehoboam/shaders/Rehoboam.shader");
         shader.bind();
 
+        // Generate buffers and populate with data
         VertexBuffer verticesBuffer(vertices, 36 * sizeof(float));
         VertexBuffer vcoordsBuffer(vcoords, 24 * sizeof(float));
 
+        // Add an enable vertex attribute array and pointers
         VertexBufferLayout verticesLayout;
         verticesLayout.addFloat(shader.getAttribute("pos"), 3);
         verticesBuffer.addLayout(verticesLayout);
@@ -192,8 +195,6 @@ int main(int argc, char* argv[]) {
             shader.setUniform1f("age", float(t - updateTime));
             shader.setUniform1f("temperature", temperature);
             shader.setUniform1fv("thread", CORES, thread);
-		    glDrawArrays(GL_TRIANGLE_STRIP, 0, 12);
-
 
             if (loading) {
                  if (t > 200) {
@@ -231,7 +232,6 @@ int main(int argc, char* argv[]) {
                 }                
             }
 
-
             if (!loading && !changingScene) {
                 // increment r
                 if (temperature < 0.0f || temperature > 100.0f)
@@ -239,14 +239,14 @@ int main(int argc, char* argv[]) {
                 temperature += increment;
             }
 
+
+            renderer.drawArrays(shader);
+
             glReadPixels(0, 0, W, H, GL_RGB, GL_UNSIGNED_BYTE, buffer);
 
             for (int x = 0; x < W; x++) {
                 for (int y = 0; y < H; y++) {
                     int index = 3*(x+y*W);
-                    
-                    // printf("rgb for pixel %d: rgb(%d, %d, %d)\n", x+y*W, buffer[index], buffer[index+1], buffer[index+2]);
-                    // canvas->SetPixel(x, y, 255, 0, 255);
                     canvas->SetPixel(x, y, buffer[index], buffer[index+1], buffer[index+2]);
                 }
             }
@@ -258,8 +258,6 @@ int main(int argc, char* argv[]) {
     }
 
 	// Close OpenGL window and terminate GLFW
-	// glfwTerminate();
-
     eglDestroyContext(win.display, win.context);
 	eglDestroySurface(win.display, win.surface);
     eglTerminate(win.display);
