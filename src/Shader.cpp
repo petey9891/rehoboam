@@ -44,13 +44,11 @@ void Shader::setUniform1fv(const std::string& name, float count, const float* va
 }
 
 GLint Shader::getUniform(const std::string& name) {
-    // return this->getAttributeLocation(name);
-    return  glGetUniformLocation(this->m_RendererID, name.c_str());
+    return this->getUniformLocation(name);
 }
 
 GLint Shader::getAttribute(const std::string& name) {
-    // return this->getAttributeLocation(name);
-    return  glGetAttribLocation(this->m_RendererID, name.c_str());
+    return this->getAttributeLocation(name);
 }
 
 int Shader::getUniformLocation(const std::string& name) {

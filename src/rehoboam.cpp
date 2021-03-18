@@ -130,15 +130,11 @@ int main(int argc, char* argv[]) {
         VertexBuffer verticesBuffer(vertices, 36 * sizeof(float));
         VertexBuffer vcoordsBuffer(vcoords, 24 * sizeof(float));
 
-
         VertexBufferLayout verticesLayout;
-        printf("adding 3 floats to vertices layout\n");
         verticesLayout.addFloat(shader.getAttribute("pos"), 3);
         verticesBuffer.addLayout(verticesLayout);
 
-        printf("\n");
         VertexBufferLayout vcoordLayout;
-        printf("adding 2 floats to vcoord layout\n");
         vcoordLayout.addFloat(shader.getAttribute("coord"), 2);
         vcoordsBuffer.addLayout(vcoordLayout);
 
