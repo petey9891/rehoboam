@@ -125,19 +125,6 @@ static const GLfloat virtualCoords[] = {
     /**********************/
 };
 
-// float positions[] = {
-//     -0.5f, -0.5f, // 0
-//      0.5f, -0.5f, // 1
-//      0.5f,  0.5f, // 2
-//     -0.5f,  0.5f  // 3
-// };
-
-float positions[6] = {
-    -0.5f, -0.5f,
-        0.0f,  0.5f,
-        0.5f, -0.5f
-};
-
 int main(int argc, char* argv[]) {
     CubeWindow window;
     EGLWindow win = window.createEGLWindow();
@@ -148,27 +135,21 @@ int main(int argc, char* argv[]) {
         
     {
         // Create shader
-        Shader shader("/home/pi/rehoboam/shaders/Basic.shader");
+        Shader shader("/home/pi/rehoboam/shaders/Rehoboam.shader");
         shader.bind();
 
+        // Generate buffers and populate with data
+        VertexBuffer verticesBuffer(vertices, 36 * sizeof(float));
+        VertexBuffer vcoordsBuffer(virtualCoords, 24 * sizeof(float));
 
-        VertexBuffer vb(positions, 3 * 2 * sizeof(float));
+        // Add an enable vertex attribute array and pointers
+        VertexBufferLayout verticesLayout;
+        verticesLayout.addFloat(shader.getAttribute("pos"), 3);
+        verticesBuffer.addLayout(verticesLayout);
 
-        VertexBufferLayout layout;
-        layout.addFloat(shader.getAttribute("position"), 2);
-        vb.addLayout(layout);
-        // // Generate buffers and populate with data
-        // VertexBuffer verticesBuffer(vertices, 36 * sizeof(float));
-        // VertexBuffer vcoordsBuffer(virtualCoords, 24 * sizeof(float));
-
-        // // Add an enable vertex attribute array and pointers
-        // VertexBufferLayout verticesLayout;
-        // verticesLayout.addFloat(shader.getAttribute("pos"), 3);
-        // verticesBuffer.addLayout(verticesLayout);
-
-        // VertexBufferLayout vcoordLayout;
-        // vcoordLayout.addFloat(shader.getAttribute("coord"), 2);
-        // vcoordsBuffer.addLayout(vcoordLayout);
+        VertexBufferLayout vcoordLayout;
+        vcoordLayout.addFloat(shader.getAttribute("coord"), 2);
+        vcoordsBuffer.addLayout(vcoordLayout);
 
         // LED Matrix Settings
         RGBMatrix::Options defaults;
@@ -180,8 +161,7 @@ int main(int argc, char* argv[]) {
         defaults.pwm_lsb_nanoseconds = 50;
         // defaults.panel_type = "FM6126A";
         defaults.rows = 64;
-        defaults.cols = 64;
-        // defaults.cols = 192;
+        defaults.cols = 192;
         defaults.chain_length = 1;
         defaults.parallel = 1;
         // defaults.brightness = 100; // 60 is a good brightness for downtime
@@ -213,80 +193,62 @@ int main(int argc, char* argv[]) {
         bool loading = true;
         bool changingScene = false;
 
-        float r = 0.0f;
-
-        // shader.setUniform1f("loading", loading);
-        // shader.setUniform1f("fade", fadeLevel);
+        shader.setUniform1f("loading", loading);
+        shader.setUniform1f("fade", fadeLevel);
         while (true) {
             renderer.clear();
         
+            t += loading ? 0.25f : 0.01f;
 
-            // shader.setUniform4f("u_Color")
-            // t += loading ? 0.25f : 0.01f;
+            shader.setUniform1f("time", t);
+            shader.setUniform1f("age", float(t - updateTime));
+            shader.setUniform1f("temperature", temperature);
+            shader.setUniform1fv("thread", CORES, thread);
 
+            if (loading) {
+                 if (t > 200) {
+                    // Fade loading screen
+                    shader.setUniform1f("fade", fadeLevel);
+                    fadeLevel -= 0.03f;
 
-            // shader.setUniform1f("time", t);
-            // shader.setUniform1f("age", float(t - updateTime));
-            // shader.setUniform1f("temperature", temperature);
-            // shader.setUniform1fv("thread", CORES, thread);
-
-            // if (loading) {
-            //      if (t > 200) {
-            //         // Fade loading screen
-            //         shader.setUniform1f("fade", fadeLevel);
-            //         fadeLevel -= 0.03f;
-
-            //         if (fadeLevel <= 0.0f) {
-            //             loading = false;
-            //             shader.setUniform1f("loading", false);
-            //             shader.setUniform1f("fade", 0.0f);
+                    if (fadeLevel <= 0.0f) {
+                        loading = false;
+                        shader.setUniform1f("loading", false);
+                        shader.setUniform1f("fade", 0.0f);
                         
-            //             // Need to fade into new scene
-            //             changingScene = true;
-            //         }
-            //     } else if (t > 158) {
-            //         shader.setUniform1f("fade", fadeLevel);
-            //         float nextFadeValue = fadeLevel + pulse;
-            //         if (nextFadeValue <= 0.00f || nextFadeValue > 1.00f) {
-            //             pulse *= -1.0f;
-            //             pulse += pulse > 0.0f ? 0.015f : -0.015f;
-            //             t += 0.15f;
-            //         }
-            //         fadeLevel += pulse;
-            //     }
-            // }
+                        // Need to fade into new scene
+                        changingScene = true;
+                    }
+                } else if (t > 158) {
+                    shader.setUniform1f("fade", fadeLevel);
+                    float nextFadeValue = fadeLevel + pulse;
+                    if (nextFadeValue <= 0.00f || nextFadeValue > 1.00f) {
+                        pulse *= -1.0f;
+                        pulse += pulse > 0.0f ? 0.015f : -0.015f;
+                        t += 0.15f;
+                    }
+                    fadeLevel += pulse;
+                }
+            }
 
-            // if (changingScene) {
-            //         shader.setUniform1f("fade", fadeLevel);
-            //     fadeLevel += 0.03f;
+            if (changingScene) {
+                    shader.setUniform1f("fade", fadeLevel);
+                fadeLevel += 0.03f;
 
-            //     if (fadeLevel >= 1.0f) {
-            //         shader.setUniform1f("fade", 1.0f);
-            //         changingScene = false;
-            //     }                
-            // }
+                if (fadeLevel >= 1.0f) {
+                    shader.setUniform1f("fade", 1.0f);
+                    changingScene = false;
+                }                
+            }
 
-            // if (!loading && !changingScene) {
-            //     // increment r
-            //     if (temperature < 0.0f || temperature > 100.0f)
-            //         increment *= -1.0;
-            //     temperature += increment;
-            // }
+            if (!loading && !changingScene) {
+                // increment r
+                if (temperature < 0.0f || temperature > 100.0f)
+                    increment *= -1.0;
+                temperature += increment;
+            }
 
-
-            shader.bind();
-            shader.setUniform4f("u_Color", r, 0.6f, 0.8f, 1.0f);
-
-
-		    glDrawArrays(GL_TRIANGLES, 0, 3); // 3 indices starting at 0 -> 1 triangle
-            // renderer.drawArrays(shader);
-
-            // increment r
-            if (r < 0.0f || r > 1.0f)
-                increment *= -1.0;
-            r += increment;
-
-
+            renderer.drawArrays(shader);
 
             glReadPixels(0, 0, W, H, GL_RGB, GL_UNSIGNED_BYTE, buffer);
 
