@@ -135,7 +135,7 @@ int main(int argc, char* argv[]) {
         
     {
         // Create shader
-        Shader shader("/home/pi/rehoboam/shaders/Rehoboam.shader");
+        Shader shader("/home/pi/rehoboam/shaders/rehoboam.shader");
         shader.bind();
 
         // Generate buffers and populate with data
