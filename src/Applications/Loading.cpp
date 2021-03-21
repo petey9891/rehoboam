@@ -27,7 +27,7 @@ Loading::~Loading() {
 
 void Loading::setStartingState() {
     // Set initial state
-    this-.shader.setUniform1f("fade", 1.0f);
+    this->shader.setUniform1f("fade", 1.0f);
 }
 
 void Loading::run() {
