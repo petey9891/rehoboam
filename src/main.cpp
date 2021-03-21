@@ -47,6 +47,7 @@ int main(int argc, char* argv[]) {
         program->run();
 
         if (loading.isDoneLoading && loading.shouldChangeScenes) {
+            rehoboamShader.bind();
             program = fallback;
             loading.setSceneChangeIsFinished();
         }
