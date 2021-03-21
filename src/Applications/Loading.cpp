@@ -19,7 +19,7 @@ Loading::Loading(Shader& shader, rgb_matrix::FrameCanvas *c)
     vcoordsBuffer.addLayout(vcoordLayout);
 
     // Set initial state
-    shader.setUniform1f("loadingFade", 1.0f);
+    this->shader.setUniform1f("loadingFade", 1.0f);
 
     printf(">>> <Loading> Initialized Loading application\n");
 }
@@ -29,6 +29,7 @@ Loading::~Loading() {
 }
 
 void Loading::run() {
+    printf("fadeLevel: %f\n", this->fadeLevel)
     this->renderer.clear();
 
     this->t += 0.25f;
