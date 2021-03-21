@@ -34,7 +34,7 @@ void Loading::run() {
     this->t += 0.25f;
 
     this->shader.setUniform1f("time", t);
-    if (t > 300) {
+    if (t > 30) { // 300
         this->shader.setUniform1f("loadingFade", this->fadeLevel);
         this->fadeLevel -= 0.03f;
 
@@ -43,7 +43,7 @@ void Loading::run() {
             this->isDoneLoading = true;
             this->shouldChangeScenes = true;
         }
-    } else if (t > 242) {
+    } else if (t > 24) { // 242
         this->shader.setUniform1f("loadingFade", this->fadeLevel);
         float nextFadeValue = this->fadeLevel + this->pulse;
         if (nextFadeValue <= 0.00f || nextFadeValue > 1.00f) {
