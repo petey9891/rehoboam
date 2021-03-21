@@ -1,6 +1,6 @@
 #pragma once
 
-#include <rpi-led-matrixled-matrix.h>
+#include <rpi-led-matrix/led-matrix.h>
 
 class ColorPulse {
 private:
