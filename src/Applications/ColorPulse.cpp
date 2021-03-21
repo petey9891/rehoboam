@@ -4,7 +4,6 @@ ColorPulse::ColorPulse(rgb_matrix::FrameCanvas *c): Runnable(c) {
     printf(">>> <ColorPulse> Initializing ColorPulse application\n");
     printf(">>> <ColorPulse> Initialized ColorPulse application\n");
 }
-// https://github.com/hzeller/rpi-rgb-led-matrix/blob/master/examples-api-use/demo-main.cc
 
 void ColorPulse::run() {
     usleep(5 * 1000);
