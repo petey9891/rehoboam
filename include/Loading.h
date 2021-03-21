@@ -29,6 +29,7 @@ public:
     ~Loading();
 
     void run() override;
+    void setStartingState();
     void setSceneChangeIsFinished();
 
 public: 

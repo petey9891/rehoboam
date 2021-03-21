@@ -43,6 +43,8 @@ int main(int argc, char* argv[]) {
     Runnable* fallback = &rehoboam;
 
     printf(">>> <Main> Running program\n");
+
+    loading.setStartingState();
     while (true) {
         program->run();
 
