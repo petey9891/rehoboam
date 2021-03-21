@@ -44,7 +44,7 @@ int main(int argc, char* argv[]) {
 
     printf(">>> <Main> Running program\n");
 
-    program->setStartingState();
+    program->setInitialState();
     while (true) {
         program->run();
 
