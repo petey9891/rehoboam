@@ -1,14 +1,14 @@
 #pragma once
 
-#include <rpi-led-matrix/led-matrix.h>
+#include <Runnable.h>
+#include <stdint.h>
 
-class ColorPulse {
+class ColorPulse: public Runnable {
 private:
-    FrameCanvas* canvas;
-
+    uint32_t continuum = 0;
 public:
-    ColorPulse(FrameCanvas *c);
-    ~ColorPulse();
+    ColorPulse(rgb_matrix::FrameCanvas *c);
+    ~ColorPulse() = default;
 
-    void run();
+    void run() override;
 };
