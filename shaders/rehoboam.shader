@@ -123,8 +123,5 @@ void main() {
         coreIndex += 1.0;
     }
 
-    // Fades in
-    outcolor *= vec3(fade);
-
     gl_FragColor = vec4(mix(outcolor, outcolor, smoothstep(5.0, 10.0, age)), 1.0);
 }
