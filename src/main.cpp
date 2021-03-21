@@ -45,8 +45,16 @@ int main(int argc, char* argv[]) {
     printf(">>> <Main> Running program\n");
 
     // program->setInitialState();
+    bool first = false;
     while (true) {
-        program->run();
+
+        if (!first) {
+            program->run();
+            canvas = matrix->SwapOnVSync(canvas);
+
+            first = true;
+        }
+        
 
         // if (loading.isDoneLoading && loading.shouldChangeScenes) {
         //     rehoboamShader.bind();
@@ -55,7 +63,6 @@ int main(int argc, char* argv[]) {
         //     loading.setSceneChangeIsFinished();
         // }
 
-        canvas = matrix->SwapOnVSync(canvas);
     }
 
     canvas->Clear();
