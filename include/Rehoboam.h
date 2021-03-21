@@ -15,7 +15,9 @@ private:
     float updateTime = -10.0f;
     float increment = 0.05f;
     float temperature = 30.0f;
+    float fadeLevel = 0.0f;
     int cores = 8;
+    
 
     Renderer renderer;
     Shader shader;
@@ -30,4 +32,5 @@ public:
     ~Rehoboam();
 
     void run() override;
+    void setInitialState() override;
 };

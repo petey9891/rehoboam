@@ -25,8 +25,7 @@ Loading::~Loading() {
     free(this->buffer);
 }
 
-void Loading::setStartingState() {
-    // Set initial state
+void Loading::setInitialState() {
     this->shader.setUniform1f("fade", 1.0f);
 }
 

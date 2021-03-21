@@ -44,13 +44,14 @@ int main(int argc, char* argv[]) {
 
     printf(">>> <Main> Running program\n");
 
-    loading.setStartingState();
+    program->setStartingState();
     while (true) {
         program->run();
 
         if (loading.isDoneLoading && loading.shouldChangeScenes) {
             rehoboamShader.bind();
             program = fallback;
+            program->setInitialState();
             loading.setSceneChangeIsFinished();
         }
 

@@ -34,6 +34,7 @@ vec3 rColorHot = vec3(1.0, 1.0, 1.0);
 
 uniform float time;
 uniform float age;
+uniform float fade;
 
 varying vec2 backgroundCoord;
 
@@ -122,6 +123,8 @@ void main() {
         threadf += clamp(1.0-abs(phi-coreIndex), 0.0, 1.0)*thread[i];
         coreIndex += 1.0;
     }
+
+    outcolor *= vec3(fade);
 
     gl_FragColor = vec4(mix(outcolor, outcolor, smoothstep(5.0, 10.0, age)), 1.0);
 }

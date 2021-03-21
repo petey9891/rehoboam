@@ -11,5 +11,6 @@ public:
     ~Runnable() = default;
 
     virtual void run() {};
+    virtual void setInitialState() {};
     virtual void bind() {};
 };
