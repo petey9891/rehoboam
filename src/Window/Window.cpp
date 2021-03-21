@@ -12,9 +12,9 @@ static const EGLint eglConfigAttribs[] = {
 // Width and height of the desired framebuffer
 static const EGLint eglPbufferAttribs[] = {
 	EGL_WIDTH,
-	W,
+	PANEL_WIDTH,
 	EGL_HEIGHT,
-	H,
+	PANEL_HEIGHT,
 	EGL_NONE,
 };
 
