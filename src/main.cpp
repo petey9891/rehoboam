@@ -2,7 +2,7 @@
 
 #include <Window.h>
 #include <RGBMatrixConfig.h>
-// #include <Shader.h>
+#include <Shader.h>
 
 #include <Runnable.h>
 #include <ColorPulse.h>
