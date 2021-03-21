@@ -1,4 +1,4 @@
-#include <cstdint>
+#include <stdint>
 #include <ColorPulse.h>
 
 ColorPulse::ColorPulse(rgb_matrix::FrameCanvas *c): Runnable(c) {

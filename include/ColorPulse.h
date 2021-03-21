@@ -4,11 +4,10 @@
 
 class ColorPulse {
 private:
-    RGBMatrix* const matrix;
-    FrameCanvas* canvas
-
+    FrameCanvas* canvas;
+    
 public:
-    ColorPulse(RGBMatrix *m);
+    ColorPulse(FrameCanvas *c);
     ~ColorPulse();
 
     void run();
