@@ -12,8 +12,8 @@ Shader::Shader(const std::string& filepath): m_RendererID(0), m_FilePath(filepat
     // printf("filepath: %s\n", filepath.c_str());
     ShaderProgramSource source = this->parseShader(filepath);
 
-    printf("\nVertex Shader:\n%s\n", source.vertexSource.c_str());
-    printf("\nFragment Shader:\n%s\n\n", source.fragmentSource.c_str());
+    // printf("\nVertex Shader:\n%s\n", source.vertexSource.c_str());
+    // printf("\nFragment Shader:\n%s\n\n", source.fragmentSource.c_str());
 
     this->m_RendererID = this->createShader(source.vertexSource, source.fragmentSource);
 

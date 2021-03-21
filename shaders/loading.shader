@@ -45,10 +45,11 @@ void main() {
 
     // Create circle for gradient
     color = circle(uv, radius, 0.01);
+    color += color;
 
     // Add rotation
-    vec2 v = rotate2d(time) * uv;
-    color *= vec3(0.0, 0.0, 0.475-(v.x));
+    vec2 v = rotate2d(time) * uv; // matrix multiplication to map rotated coordinates with original coordinates
+    color *= vec3(v.x, v.y, 0.475-(v.x));
 
     color *= vec3(loadingFade);
     
