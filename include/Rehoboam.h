@@ -30,5 +30,4 @@ public:
     ~Rehoboam();
 
     void run() override;
-    void bind();
 };
