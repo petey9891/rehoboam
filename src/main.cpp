@@ -44,7 +44,8 @@ int main(int argc, char* argv[]) {
 
     printf(">>> <Main> Running program\n");
 
-    program->setInitialState();
+    // program->setInitialState();
+    loading.setInitialState();
     while (true) {
         // program->run();
         loading.run();
