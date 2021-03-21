@@ -40,7 +40,7 @@ int main(int argc, char* argv[]) {
     rehoboamShader.bind();
 
     Runnable* program = &loading;
-    Runnable* fallback = &rehoboam
+    Runnable* fallback = &rehoboam;
 
     printf(">>> <Main> Running program\n");
     while (true) {
