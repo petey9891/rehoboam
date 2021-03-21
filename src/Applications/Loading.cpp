@@ -31,7 +31,7 @@ Loading::~Loading() {
 void Loading::run() {
     float location = shader.getUniform("fade");
     float value;
-    glGetUniform(0, location, 4, &value)
+    glGetUniform(0, location, 4, &value);
     printf("actual fade value: %f\n", value);
 
     this->renderer.clear();
