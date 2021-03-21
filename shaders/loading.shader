@@ -14,7 +14,7 @@ void main() {
 #shader fragment
 #version 100
 uniform float time;
-uniform float loadingFade;
+uniform float fade;
 
 varying vec2 backgroundCoord;
 

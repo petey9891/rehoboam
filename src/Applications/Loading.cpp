@@ -19,7 +19,7 @@ Loading::Loading(Shader& shader, rgb_matrix::FrameCanvas *c)
     vcoordsBuffer.addLayout(vcoordLayout);
 
     // Set initial state
-    this->shader.setUniform1f("loadingFade", 1.0f);
+    this->shader.setUniform1f("fade", 1.0f);
 
     printf(">>> <Loading> Initialized Loading application\n");
 }
@@ -29,22 +29,27 @@ Loading::~Loading() {
 }
 
 void Loading::run() {
+    float location = shader.getUniform("fade");
+    float value;
+    glGetUniform(0, location, 4, &value)
+    printf("actual fade value: %f\n", value);
+
     this->renderer.clear();
 
     this->t += 0.25f;
     printf("fadeLevel %f\tt %f\n", this->fadeLevel, this->t);
     this->shader.setUniform1f("time", this->t);
     if (t > 300.0f) {
-        this->shader.setUniform1f("loadingFade", this->fadeLevel);
+        this->shader.setUniform1f("fade", this->fadeLevel);
         this->fadeLevel -= 0.03f;
 
         if (this->fadeLevel <= 0.0f) {
-            this->shader.setUniform1f("loadingFade", 0.0f);
+            this->shader.setUniform1f("fade", 0.0f);
             this->isDoneLoading = true;
             this->shouldChangeScenes = true;
         }
     } else if (t > 242.0f) {
-        this->shader.setUniform1f("loadingFade", this->fadeLevel);
+        this->shader.setUniform1f("fade", this->fadeLevel);
         float nextFadeValue = this->fadeLevel + this->pulse;
         if (nextFadeValue <= 0.00f || nextFadeValue > 1.00f) {
             this->pulse *= -1.0f;
