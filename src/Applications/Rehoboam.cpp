@@ -41,7 +41,7 @@ void Rehoboam::run() {
 
     this->renderer.drawArrays(this->shader);
 
-    if (this->t < 5) {
+    if (this->t < 5.0f && this->fadeLevel <= 1.0f) {
         this->fadeLevel += 0.2f;
         this->shader.setUniform1f("fade", this->fadeLevel);
     }
