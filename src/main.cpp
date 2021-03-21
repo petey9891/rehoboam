@@ -29,32 +29,31 @@ int main(int argc, char* argv[]) {
 
     // Create shaders
     Shader loadingShader("/home/pi/rehoboam/shaders/loading.shader");
-    Shader rehoboamShader("/home/pi/rehoboam/shaders/rehoboam.shader");
+    // Shader rehoboamShader("/home/pi/rehoboam/shaders/rehoboam.shader");
     
     // Create applications
     Loading loading(loadingShader, canvas);
-    Rehoboam rehoboam(rehoboamShader, canvas);
+    // Rehoboam rehoboam(rehoboamShader, canvas);
     ColorPulse pulse(canvas);
 
     // Bind the loading shader for the loading sequence
     loadingShader.bind();
 
     Runnable* program = &loading;
-    Runnable* fallback = &rehoboam;
+    // Runnable* fallback = &rehoboam;
 
     printf(">>> <Main> Running program\n");
 
     program->setInitialState();
-    bool first = false;
     while (true) {
         program->run();
 
-        if (loading.isDoneLoading && loading.shouldChangeScenes) {
-            rehoboamShader.bind();
-            program = fallback;
-            program->setInitialState();
-            loading.setSceneChangeIsFinished();
-        }
+        // if (loading.isDoneLoading && loading.shouldChangeScenes) {
+        //     rehoboamShader.bind();
+        //     program = fallback;
+        //     program->setInitialState();
+        //     loading.setSceneChangeIsFinished();
+        // }
 
         canvas = matrix->SwapOnVSync(canvas);
     }
