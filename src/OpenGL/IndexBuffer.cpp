@@ -1,5 +1,5 @@
-#include "IndexBuffer.h"
-#include "Debug.h"
+#include <IndexBuffer.h>
+#include <Debug.h>
 
 IndexBuffer::IndexBuffer(const unsigned int* indices, unsigned int count): m_Count(count) {
     ASSERT(sizeof(unsigned int) == sizeof(GLuint));

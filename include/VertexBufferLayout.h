@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "Debug.h"
+#include <Debug.h>
 
 struct VertexBufferElement {
     unsigned int id;

@@ -1,11 +1,6 @@
 #pragma once
 
-// Include EGL
-#include <EGL/egl.h>
-#include <GLES3/gl3.h>
-
-// #include <GL/glew.h>
-
+#include <Config.h>
 #include <iostream>
 #include <stdint.h>
 #include <assert.h>

@@ -1,11 +1,9 @@
 #pragma once
 
 // Include EGL
-#include <EGL/egl.h>
-#include <GLES3/gl3.h>
-
-#include "VertexBuffer.h"
-#include "VertexBufferLayout.h"
+#include <Config.h>
+#include <VertexBuffer.h>
+#include <VertexBufferLayout.h>
 
 class VertexArray {
     private:

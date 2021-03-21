@@ -1,4 +1,4 @@
-#include "Window.h"
+#include <Window.h>
 
 static const EGLint eglConfigAttribs[] = {
 	EGL_SURFACE_TYPE, EGL_PBUFFER_BIT, EGL_BLUE_SIZE, 8, EGL_GREEN_SIZE, 8,
