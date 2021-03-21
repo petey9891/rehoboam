@@ -4,7 +4,7 @@
 Rehoboam::Rehoboam(Shader& shader, rgb_matrix::FrameCanvas *c)
     : Runnable(c), renderer(), shader(shader), verticesBuffer(vertices, 36 * sizeof(float)), vcoordsBuffer(virtualCoords, 24 * sizeof(float)) 
 {
-    printf(">>> <Loading> Initializing Rehoboam application\n");
+    printf(">>> <Rehoboam> Initializing Rehoboam application\n");
 
     buffer = (unsigned char*)malloc(PANEL_WIDTH * PANEL_HEIGHT * 3);
 
@@ -18,7 +18,7 @@ Rehoboam::Rehoboam(Shader& shader, rgb_matrix::FrameCanvas *c)
     vcoordLayout.addFloat(shader.getAttribute("coord"), 2);
     vcoordsBuffer.addLayout(vcoordLayout);
 
-    printf(">>> <Loading> Initialized Rehoboam application\n");
+    printf(">>> <Rehoboam> Initialized Rehoboam application\n");
 }
 
 Rehoboam::~Rehoboam() {
