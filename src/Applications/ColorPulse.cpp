@@ -6,6 +6,7 @@ ColorPulse::ColorPulse(rgb_matrix::FrameCanvas *c): Runnable(c) {
 }
 
 void ColorPulse::run() {
+    printf("Running\n");
     // usleep(5 * 1000);
     // this->continuum += 1;
     // this->continuum %= 3 * 255;
