@@ -33,7 +33,7 @@ void Rehoboam::run() {
     this->shader.setUniform1f("time", this->t);
     this->shader.setUniform1f("age", float(this->t - this->updateTime));
     this->shader.setUniform1f("temperature", this->temperature);
-    this->shader.setUniform1f("thread", this->cores, this->thread);
+    this->shader.setUniform1fv("thread", this->cores, this->thread);
 
     this->renderer.drawArrays(this->shader);
 
