@@ -12,7 +12,7 @@ CURRENT_DIRECTORY=$(shell pwd)
 
 RGB_INCDIR=$(CURRENT_DIRECTORY)/include/rpi-led-matrix
 
-CPPFLAGS :=-Iinclude -I/opt/vc/include -MMD -MP
+CPPFLAGS :=-I${RGB_INCDIR} -Iinclude -I/opt/vc/include -MMD -MP
 CXXFLAGS :=-O2 -W -Wall -Wextra -Wno-unused-parameter -D_FILE_OFFSET_BITS=64
 LDFLAGS :=-Llib -L/opt/vc/lib
 LDLIBS :=-lrgbmatrix -lm -lpthread -lrt -lbrcmEGL -lbrcmGLESv2 -lGLESv2
