@@ -22,7 +22,7 @@ struct RGBMatrixConfig {
         defaults.chain_length = 1;
         defaults.parallel = 1;
         // defaults.brightness = 100; // 60 is a good brightness for downtime
-        defaults.brightness = 30;
+        defaults.brightness = 5;
 
         runtime.drop_privileges = 0;
         runtime.gpio_slowdown = 1;
