@@ -68,6 +68,7 @@ void Loading::run() {
             canvas->SetPixel(x, y, buffer[index], buffer[index+1], buffer[index+2]);
         }
     }
+    printf("completed a draw\n");
 }
 
 void Loading::setSceneChangeIsFinished() {

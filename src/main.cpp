@@ -34,19 +34,20 @@ int main(int argc, char* argv[]) {
     // Create applications
     Loading loading(loadingShader, canvas);
     // Rehoboam rehoboam(rehoboamShader, canvas);
-    ColorPulse pulse(canvas);
+    // ColorPulse pulse(canvas);
 
     // Bind the loading shader for the loading sequence
     loadingShader.bind();
 
-    Runnable* program = &loading;
+    // Runnable* program = &loading;
     // Runnable* fallback = &rehoboam;
 
     printf(">>> <Main> Running program\n");
 
     program->setInitialState();
     while (true) {
-        program->run();
+        // program->run();
+        loading.run();
 
         // if (loading.isDoneLoading && loading.shouldChangeScenes) {
         //     rehoboamShader.bind();
