@@ -1,8 +1,46 @@
-#include <RGBMatrixConfig.h
 #include <iostream>
 
+#include <Window.h>
+#include <RGBMatrixConfig.h>
+// #include <Shader.h>
+
+#include <Runnable.h>
+#include <ColorPulse.h>
+
 int main(int argc, char* argv[]) {
-    printf("hello world\n");
+    CubeWindow window;
+
+    window.createEGLWindow();
+
+    RGBMatrixConfig config;
+    RGBMatrix* matrix = rgb_matrix::CreateMatrixFromFlags(&argc, &argv, &config.defaults, &config.runtime);
+    FrameCanvas* canvas = matrix->CreateFrameCanvas();
+
+    if (matrix == nullptr) {
+        fprintf(stderr, "Error! Unable to create matrix!\n");
+        return EXIT_FAILURE;
+    }
+
+    // Clear the whole screen (front buffer)
+	glClearColor(0.0f, 0.0f, 0.4f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    // Create shaders
+    ColorPulse pulse(canvas);
+
+    Runnable* program = &pulse;
+
+    printf(">>> <Main> Running program\n");
+    while (true) {
+        program->run();
+
+        canvas = matrix->SwapOnVsync(canvas);
+    }
+
+    canvas->Clear();
+
+    window.destroy();
+
     return 0;
 }
 
@@ -274,9 +312,9 @@ int main(int argc, char* argv[]) {
 //     }
 
 // 	// Close OpenGL window and terminate GLFW
-//     eglDestroyContext(win.display, win.context);
-// 	eglDestroySurface(win.display, win.surface);
-//     eglTerminate(win.display);
+    // eglDestroyContext(win.display, win.context);
+	// eglDestroySurface(win.display, win.surface);
+    // eglTerminate(win.display);
 
 // 	return 0;
 // }

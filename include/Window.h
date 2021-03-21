@@ -8,9 +8,13 @@ struct EGLWindow {
 };
 
 class CubeWindow {
-    public:
-        CubeWindow() = default;
-        ~CubeWindow() = default;
+private:
+    EGLWindow currentWindow;
 
-        EGLWindow createEGLWindow();
+public:
+    CubeWindow() = default;
+    ~CubeWindow() = default;
+
+    void createEGLWindow();
+    void destroy();
 };

@@ -21,7 +21,7 @@ static const EGLint eglPbufferAttribs[] = {
 static const EGLint eglContextAttribs[] = {EGL_CONTEXT_CLIENT_VERSION, 2,
 										EGL_NONE};
 
-EGLWindow CubeWindow::createEGLWindow() {
+void CubeWindow::createEGLWindow() {
     EGLDisplay display;
 	int major;
 	int minor;
@@ -87,5 +87,11 @@ EGLWindow CubeWindow::createEGLWindow() {
 		return {};
 	}
 
-    return { display, surface, context };
+	this->currentWindow = { display, surface, context };
+}
+
+void CubeWindow::destroy() {
+	eglDestroyContext(this->currentWindow.display, this->currentWindow.context);
+	eglDestroySurface(this->currentWindow.display, this->currentWindow.surface);
+    eglTerminate(this->currentWindow.display);
 }

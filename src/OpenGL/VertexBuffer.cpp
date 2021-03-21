@@ -6,7 +6,7 @@ VertexBuffer::VertexBuffer(const void* data, unsigned int size) {
     GLCall(glBindBuffer(GL_ARRAY_BUFFER, this->m_RendererID));
     GLCall(glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW));
 
-    printf(">>> initialized vertex buffer with id: %d\n", this->m_RendererID);
+    printf(">>> <VertexBuffer> Initialized vertex buffer with id: %d\n", this->m_RendererID);
 }
 
 VertexBuffer::~VertexBuffer() {
