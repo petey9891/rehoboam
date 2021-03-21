@@ -29,13 +29,12 @@ Loading::~Loading() {
 }
 
 void Loading::run() {
-    printf("fadeLevel: %f\n", this->fadeLevel);
     this->renderer.clear();
 
     this->t += 0.25f;
-
-    this->shader.setUniform1f("time", t);
-    if (t > 300) {
+    printf("fadeLevel %f\tt %f\n", this->fadeLevel, this->t);
+    this->shader.setUniform1f("time", this->t);
+    if (t > 300.0f) {
         this->shader.setUniform1f("loadingFade", this->fadeLevel);
         this->fadeLevel -= 0.03f;
 
@@ -44,7 +43,7 @@ void Loading::run() {
             this->isDoneLoading = true;
             this->shouldChangeScenes = true;
         }
-    } else if (t > 242) {
+    } else if (t > 242.0f) {
         this->shader.setUniform1f("loadingFade", this->fadeLevel);
         float nextFadeValue = this->fadeLevel + this->pulse;
         if (nextFadeValue <= 0.00f || nextFadeValue > 1.00f) {
