@@ -38,6 +38,7 @@ void Loading::run() {
     printf("actual fade %f\tfadeLevel %f\tt %f\n", value, this->fadeLevel, this->t);
     this->t += 0.25f;
     this->shader.setUniform1f("time", this->t);
+    printf("completed a draw\n");
     if (t > 300.0f) {
         if (this->fadeLevel <= 0.0f) {
             this->shader.setUniform1f("fade", 0.0f);
@@ -57,11 +58,13 @@ void Loading::run() {
         }
         this->fadeLevel += this->pulse;
     }
-
+    printf("about to draw\n");
     this->renderer.drawArrays(this->shader);
+    printf("finished drawing\n");
 
-    glReadPixels(0, 0, PANEL_WIDTH, PANEL_HEIGHT, GL_RGB, GL_UNSIGNED_BYTE, buffer);
+    GLCall(glReadPixels(0, 0, PANEL_WIDTH, PANEL_HEIGHT, GL_RGB, GL_UNSIGNED_BYTE, buffer));
 
+    printf("about to set pixels\n");
     for (int x = 0; x < PANEL_WIDTH; x++) {
         for (int y = 0; y < PANEL_HEIGHT; y++) {
             int index = 3*(x+y*PANEL_WIDTH);
