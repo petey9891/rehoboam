@@ -12,8 +12,8 @@ Shader::Shader(const std::string& filepath): m_RendererID(0), m_FilePath(filepat
     // printf("filepath: %s\n", filepath.c_str());
     ShaderProgramSource source = this->parseShader(filepath);
 
-    // printf("\nVertex Shader:\n%s\n", source.vertexSource.c_str());
-    // printf("\nFragment Shader:\n%s\n\n", source.fragmentSource.c_str());
+    printf("\nVertex Shader:\n%s\n", source.vertexSource.c_str());
+    printf("\nFragment Shader:\n%s\n\n", source.fragmentSource.c_str());
 
     this->m_RendererID = this->createShader(source.vertexSource, source.fragmentSource);
 
@@ -122,7 +122,6 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
     int result;
     GLCall(glGetShaderiv(id, GL_COMPILE_STATUS, &result));
 
-    printf("%s shader compile status: %d\n", shaderType.c_str(), result);
     if (result == GL_FALSE) {
         int length;
         GLCall(glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length));
@@ -159,8 +158,9 @@ unsigned int Shader::createShader(const std::string& vertexShader, const std::st
         GLCall(glGetProgramInfoLog(program, 1024, &log_length, message));
         std::cout << "****** Failed to link program" << std::endl;
         std::cout << message << std::endl;
+    } else {
+        printf(">>>>>> <Shader> Successfully linked program\n");
     }
-    printf(">>>>>> <Shader> Successfully linked program\n");
 
     GLCall(glValidateProgram(program));
 
