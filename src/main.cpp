@@ -7,6 +7,7 @@
 #include <Runnable.h>
 #include <ColorPulse.h>
 #include <Loading.h>
+#include <Rehoboam.h>
 
 int main(int argc, char* argv[]) {
     CubeWindow window;
@@ -27,16 +28,18 @@ int main(int argc, char* argv[]) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Create shaders
-    Shader loadingShader("/home/pi/rehoboam/shaders/loading.shader");
+    // Shader loadingShader("/home/pi/rehoboam/shaders/loading.shader");
+    Shader rehoboamShader("/home/pi/rehoboam/shaders/rehoboam.shader");
     
     // Create applications
-    Loading loading(loadingShader, canvas);
+    // Loading loading(loadingShader, canvas);
+    Rehoboam rehoboam(rehoboamShader, canvas);
     ColorPulse pulse(canvas);
 
     // Bind the loading shader for the loading sequence
-    loadingShader.bind();
+    rehoboamShader.bind();
 
-    Runnable* program = &loading;
+    Runnable* program = &rehoboam;
 
     printf(">>> <Main> Running program\n");
     while (true) {

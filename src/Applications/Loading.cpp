@@ -29,7 +29,7 @@ Loading::~Loading() {
 }
 
 void Loading::run() {
-    renderer.clear();
+    this->renderer.clear();
 
     this->t += 0.25f;
 
@@ -54,7 +54,7 @@ void Loading::run() {
         this->fadeLevel += this->pulse;
     }
 
-    renderer.drawArrays(this->shader);
+    this->renderer.drawArrays(this->shader);
 
     glReadPixels(0, 0, PANEL_WIDTH, PANEL_HEIGHT, GL_RGB, GL_UNSIGNED_BYTE, buffer);
 
