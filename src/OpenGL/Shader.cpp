@@ -90,6 +90,10 @@ struct ShaderProgramSource Shader::parseShader(const std::string& filepath) {
     std::stringstream ss[2];
     ShaderType type = NONE;
 
+    if (stream.fail()) {
+        printf("****** Unable to find shader at %s\n", filepath.c_str());
+    }
+
     while (getline(stream, line)) {
         if (line.find("#shader") != std::string::npos) {
             if (line.find("vertex") != std::string::npos)
