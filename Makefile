@@ -11,12 +11,11 @@ COMPILED_OBJECTS := $(wildcard $(OBJ_DIR)/*.o)
 CURRENT_DIRECTORY=$(shell pwd)
 
 RGB_INCDIR=$(CURRENT_DIRECTORY)/include/rpi-led-matrix
-RGB_LIBRARY_NAME=rgbmatrix
 
-CPPFLAGS :=-Iinclude -I$(RGB_INCDIR) -I/opt/vc/include -MMD -MP
+CPPFLAGS :=-Iinclude -I/opt/vc/include -MMD -MP
 CXXFLAGS :=-O2 -W -Wall -Wextra -Wno-unused-parameter -D_FILE_OFFSET_BITS=64
 LDFLAGS :=-Llib -L/opt/vc/lib
-LDLIBS :=-l$(RGB_LIBRARY_NAME) -lm -lpthread -lrt -lbrcmEGL -lbrcmGLESv2 -lGLESv2
+LDLIBS :=-lrgbmatrix -lm -lpthread -lrt -lbrcmEGL -lbrcmGLESv2 -lGLESv2
 
 .PHONY: all clean
 
