@@ -31,13 +31,13 @@ void CubeWindow::createEGLWindow() {
     // Setup EGL
 	if ((display = eglGetDisplay(EGL_DEFAULT_DISPLAY)) == EGL_NO_DISPLAY) {
 		fprintf(stderr, "Failed to get EGL display! Error: %d\n", eglGetError());
-		return {};
+		return;
 	}
 
 	if (eglInitialize(display, &major, &minor) == EGL_FALSE) {
 		fprintf(stderr, "Failed to get EGL version! Error: %d\n", eglGetError());
 		eglTerminate(display);
-		return {};
+		return;
 	}
 
     printf("Initialized EGL version: %d.%d\n", major, minor);
@@ -48,7 +48,7 @@ void CubeWindow::createEGLWindow() {
 	if (!eglChooseConfig(display, eglConfigAttribs, &config, 1, &numConfigs)) {
 		fprintf(stderr, "Failed to get EGL Config! Error: %d\n", eglGetError());
 		eglTerminate(display);
-		return {};
+		return;
 	}
 
 	// EGL Surface
@@ -56,7 +56,7 @@ void CubeWindow::createEGLWindow() {
 	if (surface == EGL_NO_SURFACE) {
 		fprintf(stderr, "Failed to create EGL surface! Error: %d\n", eglGetError());
 		eglTerminate(display);
-		return {};
+		return;
 	}
 
 	// Bind OpenGL API
@@ -68,7 +68,7 @@ void CubeWindow::createEGLWindow() {
 		fprintf(stderr, "Failed to create EGL context! Error: %d\n", eglGetError());
 		eglDestroySurface(display, surface);
 		eglTerminate(display);
-		return {};
+		return;
 	}
 
 	eglMakeCurrent(display, surface, surface, context);
@@ -84,7 +84,7 @@ void CubeWindow::createEGLWindow() {
 
     if (desiredWidth != viewport[2] || desiredHeight != viewport[3]) {
 		fprintf(stderr, "Error! the glViewport/glgetIntergerv are not working! EGL might be faulty!\n");
-		return {};
+		return;
 	}
 
 	this->currentWindow = { display, surface, context };
