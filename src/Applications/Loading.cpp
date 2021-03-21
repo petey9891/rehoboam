@@ -30,12 +30,9 @@ void Loading::setInitialState() {
 }
 
 void Loading::run() {
-    float value;
-    glGetUniformfv(1, shader.getUniform("fade"), &value);
     this->renderer.clear();
 
     this->t += 0.25f;
-    printf("actual fade value: %f\tfadeLevel %f\tt %f\n", value, this->fadeLevel, this->t);
     this->shader.setUniform1f("time", this->t);
     if (t > 300.0f) {
         if (this->fadeLevel <= 0.0f) {
