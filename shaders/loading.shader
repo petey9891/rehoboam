@@ -51,7 +51,7 @@ void main() {
     vec2 v = rotate2d(time) * uv; // matrix multiplication to map rotated coordinates with original coordinates
     color *= vec3(v.x, v.y, 0.475-(v.x));
 
-    color *= vec3(loadingFade);
+    color *= vec3(fade);
     
 	gl_FragColor = vec4(color, 1.0);
 }
