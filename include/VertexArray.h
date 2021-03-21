@@ -1,6 +1,5 @@
 #pragma once
 
-// Include EGL
 #include <Config.h>
 #include <VertexBuffer.h>
 #include <VertexBufferLayout.h>
