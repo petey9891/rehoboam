@@ -6,6 +6,7 @@
 
 #include <Runnable.h>
 #include <ColorPulse.h>
+#include <Loading.h>
 
 int main(int argc, char* argv[]) {
     CubeWindow window;
@@ -27,6 +28,9 @@ int main(int argc, char* argv[]) {
 
     // Create shaders
     Shader loadingShader("/home/pi/rehoboam/shaders/loading.shader");
+    
+    // Create applications
+    Loading loading(loadingShader, canvas);
     ColorPulse pulse(canvas);
 
     // Bind the loading shader for the loading sequence
