@@ -29,7 +29,7 @@ Loading::~Loading() {
 }
 
 void Loading::run() {
-    printf("fadeLevel: %f\n", this->fadeLevel)
+    printf("fadeLevel: %f\n", this->fadeLevel);
     this->renderer.clear();
 
     this->t += 0.25f;
