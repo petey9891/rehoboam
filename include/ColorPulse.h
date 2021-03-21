@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Runnable.h>
+#include <unistd.h>
 #include <stdint.h>
 
 class ColorPulse: public Runnable {

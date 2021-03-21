@@ -20,7 +20,7 @@ LDLIBS :=-lrgbmatrix -lm -lpthread -lrt -lbrcmEGL -lbrcmGLESv2 -lGLESv2
 .PHONY: all clean
 
 all:
-	# +$(MAKE) -C src/Applications
+	+$(MAKE) -C src/Applications
 	+$(MAKE) -C src/OpenGL
 	+$(MAKE) -C src/Window
 	+$(MAKE) $(EXE)

@@ -28,12 +28,11 @@ int main(int argc, char* argv[]) {
     // Create shaders
     ColorPulse pulse(canvas);
 
-    // Runnable* program = &pulse;
+    Runnable* program = &pulse;
 
     printf(">>> <Main> Running program\n");
     while (true) {
-        // program->run();
-        pulse.run();
+        program->run();
 
         canvas = matrix->SwapOnVSync(canvas);
     }
