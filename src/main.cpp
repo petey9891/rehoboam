@@ -37,7 +37,7 @@ int main(int argc, char* argv[]) {
     ColorPulse pulse(canvas);
 
     // Bind the loading shader for the loading sequence
-    rehoboamShader.bind();
+    loadingShader.bind();
 
     Runnable* program = &loading;
     Runnable* fallback = &rehoboam;
