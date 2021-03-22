@@ -62,8 +62,8 @@ void Loading::run() {
     this->renderer.drawArrays(this->shader);
     printf("finished drawing\n");
 
-    // GLCall(glReadPixels(0, 0, PANEL_WIDTH, PANEL_HEIGHT, GL_RGB, GL_UNSIGNED_BYTE, this->buffer));
-    GLCall(glReadPixels(0, 0, PANEL_WIDTH, PANEL_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, this->buffer));
+    GLCall(glReadPixels(0, 0, PANEL_WIDTH, PANEL_HEIGHT, GL_RGB, GL_UNSIGNED_BYTE, this->buffer));
+    // GLCall(glReadPixels(0, 0, PANEL_WIDTH, PANEL_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, this->buffer));
 
 
     printf("about to set pixels\n");
