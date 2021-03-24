@@ -1,6 +1,6 @@
 #include <ColorPulse.h>
 
-ColorPulse::ColorPulse(rgb_matrix::FrameCanvas *c): Runnable(c) {
+ColorPulse::ColorPulse(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, c) {
     printf(">>> <ColorPulse> Initializing ColorPulse application\n");
     printf(">>> <ColorPulse> Initialized ColorPulse application\n");
 }
@@ -25,5 +25,6 @@ void ColorPulse::run() {
         g = 255 - c;
         b = c;
     }
-    this->canvas->Fill(r, g, b);
+    this->canvas->Fill(r*0.3, g*0.3, b*0.3);
+    this->canvas = this->matrix->SwapOnVSync(this->canvas);
 };

@@ -1,8 +1,8 @@
 #include <Rehoboam.h>
 #include "RehoboamCoords.h"
 
-Rehoboam::Rehoboam(Shader& shader, rgb_matrix::FrameCanvas *c)
-    : Runnable(c), renderer(), shader(shader), verticesBuffer(vertices, 36 * sizeof(float)), vcoordsBuffer(virtualCoords, 24 * sizeof(float)) 
+Rehoboam::Rehoboam(Shader& shader, rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas *c)
+    : Runnable(m, c), renderer(), shader(shader), verticesBuffer(vertices, 36 * sizeof(float)), vcoordsBuffer(virtualCoords, 24 * sizeof(float)) 
 {
     printf(">>> <Rehoboam> Initializing Rehoboam application\n");
 
@@ -55,7 +55,8 @@ void Rehoboam::run() {
     for (int x = 0; x < PANEL_WIDTH; x++) {
         for (int y = 0; y < PANEL_HEIGHT; y++) {
             int index = 3*(x+y*PANEL_WIDTH);
-            canvas->SetPixel(x, y, buffer[index], buffer[index+1], buffer[index+2]);
+            this->canvas->SetPixel(x, y, buffer[index], buffer[index+1], buffer[index+2]);
         }
     }
+    this->canvas = this->matrix->SwapOnVSync(this->canvas);
 }

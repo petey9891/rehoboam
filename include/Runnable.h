@@ -3,11 +3,12 @@
 #include <rpi-led-matrix/led-matrix.h>
 
 class Runnable {
-protected:
+public:
+    rgb_matrix::RGBMatrix* matrix;
     rgb_matrix::FrameCanvas* canvas;
 
 public:
-    Runnable(rgb_matrix::FrameCanvas* c): canvas(c) {}
+    Runnable(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): matrix(m), canvas(c) {}
     ~Runnable() = default;
 
     virtual void run() {};

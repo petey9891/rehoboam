@@ -13,7 +13,6 @@ void inline GLClearError() {
 }
 
 bool inline GLCheckError() {
-    printf("Checking for errors...\n");
     while (GLenum error = glGetError()) { 
         printf("[OpenGL Error] ");
         switch(error) {
@@ -38,7 +37,6 @@ bool inline GLCheckError() {
           printf("\n");
           return false;
     }
-    printf("no errors found\n");
     return true;
 }
 

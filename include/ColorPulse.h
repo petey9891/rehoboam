@@ -8,8 +8,8 @@ class ColorPulse: public Runnable {
 private:
     uint32_t continuum = 0;
 public:
-    ColorPulse(rgb_matrix::FrameCanvas *c);
-    ~ColorPulse() = default;
+    ColorPulse(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c);
+    virtual ~ColorPulse() = default;
 
     void run() override;
 };

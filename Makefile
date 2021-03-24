@@ -13,7 +13,7 @@ CURRENT_DIRECTORY=$(shell pwd)
 RGB_INCDIR=$(CURRENT_DIRECTORY)/include/rpi-led-matrix
 
 CPPFLAGS :=-Iinclude -I/opt/vc/include -MMD -MP
-CXXFLAGS :=-O2 -W -Wall -Wextra -Wno-unused-parameter -D_FILE_OFFSET_BITS=64
+CXXFLAGS :=-O3 -W -Wall -Wextra -Wno-unused-parameter -D_FILE_OFFSET_BITS=64
 LDFLAGS :=-Llib -L/opt/vc/lib
 LDLIBS :=-lrgbmatrix -lm -lpthread -lrt -lbrcmEGL -lbrcmGLESv2 -lGLESv2
 
@@ -41,4 +41,4 @@ clean:
 	@$(RM) -rv $(BIN_DIR) $(OBJ_DIR) # The @ disables the echoing of the command
 
 
--include $(OBJ:.o=.d)
+-include $(OBJECTS:.o=.d)

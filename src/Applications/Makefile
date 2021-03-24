@@ -6,7 +6,7 @@ SOURCES := $(wildcard *.cpp)
 OBJECTS := $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(SOURCES))
 
 CPPFLAGS :=-I../../include -I/opt/vc/include -MMD -MP
-CXXFLAGS :=-O2 -W -Wall -Wextra -Wno-unused-parameter -D_FILE_OFFSET_BITS=64
+CXXFLAGS :=-O3 -W -Wall -Wextra -Wno-unused-parameter -D_FILE_OFFSET_BITS=64
 
 .PHONY: applications
 
@@ -21,4 +21,4 @@ $(OBJ_DIR):
 clean:
 	@$(RM) -rv $(BIN_DIR) $(OBJ_DIR) # The @ disables the echoing of the command
 
--include $(OBJ:.o=.d)
+-include $(OBJECTS:.o=.d)
