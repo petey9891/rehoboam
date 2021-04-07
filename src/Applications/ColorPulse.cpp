@@ -25,6 +25,6 @@ void ColorPulse::run() {
         g = 255 - c;
         b = c;
     }
-    this->canvas->Fill(r*0.3, g*0.3, b*0.3);
+    this->canvas->Fill(r*0.3f, g*0.3f, b*0.3f);
     this->canvas = this->matrix->SwapOnVSync(this->canvas);
 };

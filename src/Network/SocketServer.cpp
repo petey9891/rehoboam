@@ -2,6 +2,14 @@
 
 SocketServer::SocketServer(uint16_t port): RehoboamServer(port) {}
 
+Command SocketServer::getNextCommand() {
+    return this->commands.pop_front();
+}
+
+bool SocketServer::hasCommands() {
+    return !this->commands.empty();
+}
+
 bool SocketServer::OnClientConnect(std::shared_ptr<connection<MessageType> > client) {
     return true;
 }
@@ -13,11 +21,13 @@ void SocketServer::OnMessageRecieved(std::shared_ptr<connection<MessageType> > c
             client->Send(msg);
             break;
         case CubeDisplayOnOff:
-            if (!power) {
-                power = true;
+            if (!this->power) {
+                this->power = true;
+                this->commands.push_front(DisplayOn);
                 printf("The power is on\n");
             } else {
-                power = false;
+                this->power = false;
+                this->commands.push_front(DisplayOff);
                 printf("The power is off\n");
             }
             this->Acknowledge(client);

@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include <SocketServer.h>
+#include <Command.h>
 #include <Window.h>
 #include <RGBMatrixConfig.h>
 #include <Shader.h>
@@ -50,8 +51,28 @@ int main(int argc, char* argv[]) {
     printf(">>> <Main> Running program\n");
 
     program->setInitialState();
+
+    bool power = true;
+    Command cmd;
+
     while (true) {
-        program->run();
+        if (server.hasCommands()) {
+            Command nextCmd = server.getNextCommand();
+            cmd = nextCmd;
+
+            if (cmd == DisplayOn) {
+                power = true;
+            } else if (cmd == DisplayOff) {
+                power = false;
+            }
+        }
+        
+        if (power) {
+            program->run();
+        } else {
+            canvas->Fill(0, 0, 0);
+            matrix->SwapOnVSync(canvas);
+        }
 
         // if (loading.isDoneLoading && loading.shouldChangeScenes) {
         //     rehoboamShader.bind();
