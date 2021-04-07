@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include <SocketServer.h>
 #include <Window.h>
 #include <RGBMatrixConfig.h>
 #include <Shader.h>
@@ -22,6 +23,10 @@ int main(int argc, char* argv[]) {
         fprintf(stderr, "Error! Unable to create matrix!\n");
         return EXIT_FAILURE;
     }
+
+    SocketServer server(60000);
+    server.Start();
+    server.HandleRequests();
 
     // Clear the whole screen (front buffer)
 	glClearColor(0.0f, 0.0f, 0.4f, 1.0f);
@@ -61,6 +66,7 @@ int main(int argc, char* argv[]) {
     delete pulse;
     delete loading;
 
+    server.Stop();
     window.destroy();
 
     return 0;

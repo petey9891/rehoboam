@@ -13,7 +13,7 @@ CURRENT_DIRECTORY=$(shell pwd)
 RGB_INCDIR=$(CURRENT_DIRECTORY)/include/rpi-led-matrix
 
 CPPFLAGS :=-Iinclude -I/opt/vc/include -MMD -MP
-CXXFLAGS :=-O3 -W -Wall -Wextra -Wno-unused-parameter -D_FILE_OFFSET_BITS=64
+CXXFLAGS :=-std=c++17 -O3 -W -Wall -Wextra -Wno-unused-parameter -D_FILE_OFFSET_BITS=64
 LDFLAGS :=-Llib -L/opt/vc/lib
 LDLIBS :=-lrgbmatrix -lm -lpthread -lrt -lbrcmEGL -lbrcmGLESv2 -lGLESv2
 
@@ -23,7 +23,8 @@ all:
 	+$(MAKE) -C src/Applications
 	+$(MAKE) -C src/OpenGL
 	+$(MAKE) -C src/Window
-	+$(MAKE) $(EXE)
+	+$(MAKE) -C src/Network
+	+make $(EXE)
 
 $(EXE): $(COMPILED_OBJECTS) $(OBJECTS) | $(BIN_DIR)
 	$(CXX) $(LDFLAGS) $^ $(LDLIBS) -o $@
