@@ -1,6 +1,14 @@
 #pragma once
+#include <stdint.h>
+#include <vector>
 
-enum Command {
+enum CommandType: uint8_t {
     DisplayOn,
-    DisplayOff
+    DisplayOff,
+    Brightness
+};
+
+struct Command {
+    CommandType type;
+    std::vector<uint8_t> data;
 };

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <rpi-led-matrix/led-matrix.h>
+#include <Command.h>
 
 class Runnable {
 public:
@@ -12,6 +13,7 @@ public:
     ~Runnable() = default;
 
     virtual void run() {};
+    virtual void setCommand(Command cmd) {};
     virtual void setInitialState() {};
     virtual void bind() {};
 };

@@ -13,7 +13,7 @@ template<typename T>
 class RehoboamServer {
 protected:
     // Thread safe queue for incoming messages
-    tsqueue<OwnedMessage<T> > qMessagesIn;
+    tsqueue<OwnedMessage<T>> qMessagesIn;
 
     // Container of active validated connections
     std::deque<std::shared_ptr<connection<T>>> deqConnections;    
@@ -118,15 +118,15 @@ public:
 
 protected:
     // Server class should override these functions
-    virtual bool OnClientConnect(std::shared_ptr<connection<T> > client) {
+    virtual bool OnClientConnect(std::shared_ptr<connection<T>> client) {
         return false;
     }
 
-    virtual void OnClientDisconnect(std::shared_ptr<connection<T> > client) {
+    virtual void OnClientDisconnect(std::shared_ptr<connection<T>> client) {
 
     }
 
-    virtual void OnMessageRecieved(std::shared_ptr<connection<T> > client, Message<T>& msg) {
+    virtual void OnMessageRecieved(std::shared_ptr<connection<T>> client, Message<T>& msg) {
 
     }
 

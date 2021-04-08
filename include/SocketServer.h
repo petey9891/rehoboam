@@ -14,11 +14,11 @@ public:
     bool hasCommands();
 
 protected:
-    bool OnClientConnect(std::shared_ptr<connection<MessageType> > client) override;
-    void OnMessageRecieved(std::shared_ptr<connection<MessageType> > client, Message<MessageType>& msg) override;
+    bool OnClientConnect(std::shared_ptr<connection<MessageType>> client) override;
+    void OnMessageRecieved(std::shared_ptr<connection<MessageType>> client, Message<MessageType>& msg) override;
 
 private:
-    void Acknowledge(std::shared_ptr<connection<MessageType> > client);
+    void Acknowledge(std::shared_ptr<connection<MessageType>> client);
 
 private: 
     bool power = true;

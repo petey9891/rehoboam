@@ -10,11 +10,11 @@ bool SocketServer::hasCommands() {
     return !this->commands.empty();
 }
 
-bool SocketServer::OnClientConnect(std::shared_ptr<connection<MessageType> > client) {
+bool SocketServer::OnClientConnect(std::shared_ptr<connection<MessageType>> client) {
     return true;
 }
 
-void SocketServer::OnMessageRecieved(std::shared_ptr<connection<MessageType> > client, Message<MessageType>& msg) {
+void SocketServer::OnMessageRecieved(std::shared_ptr<connection<MessageType>> client, Message<MessageType>& msg) {
     switch (msg.header.id) {
         case ServerPing:
             // Simply bounce back the message
@@ -23,19 +23,18 @@ void SocketServer::OnMessageRecieved(std::shared_ptr<connection<MessageType> > c
         case CubeDisplayOnOff:
             if (!this->power) {
                 this->power = true;
-                this->commands.push_front(DisplayOn);
-                printf("The power is on\n");
+                this->commands.push_front({ DisplayOn });
             } else {
                 this->power = false;
-                this->commands.push_front(DisplayOff);
-                printf("The power is off\n");
+                this->commands.push_front({ DisplayOff });
             }
             this->Acknowledge(client);
             break;
         case CubeBrightness:
             uint8_t value;
             msg >> value;
-            printf("Brightness: %d\n", value);
+
+            this->commands.push_front({ Brightness, { 100 }});
             this->Acknowledge(client);
             break;
         case CubePulse:
@@ -51,7 +50,7 @@ void SocketServer::OnMessageRecieved(std::shared_ptr<connection<MessageType> > c
     }
 }
 
-void SocketServer::Acknowledge(std::shared_ptr<connection<MessageType> > client) {
+void SocketServer::Acknowledge(std::shared_ptr<connection<MessageType>> client) {
     Message<MessageType> res;
     res.header.id = Success;
 

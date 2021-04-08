@@ -60,10 +60,12 @@ int main(int argc, char* argv[]) {
         //     Command nextCmd = server.getNextCommand();
         //     cmd = nextCmd;
 
-        //     if (cmd == DisplayOn) {
+        //     if (cmd.type == DisplayOn) {
         //         power = true;
-        //     } else if (cmd == DisplayOff) {
+        //     } else if (cmd.type == DisplayOff) {
         //         power = false;
+        //     } else {
+        //         program->setCommand(cmd);
         //     }
         // }
         

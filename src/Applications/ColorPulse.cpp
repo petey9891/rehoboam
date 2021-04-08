@@ -5,6 +5,14 @@ ColorPulse::ColorPulse(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Ru
     printf(">>> <ColorPulse> Initialized ColorPulse application\n");
 }
 
+void ColorPulse::setCommand(Command cmd) {
+    if (cmd.type == Brightness) {
+        if (cmd.data.size() > 0) {
+            this->expectedBrightness = cmd.data[0] / 100.0f;
+        }
+    }
+}
+
 void ColorPulse::run() {
     usleep(5 * 1000);
     this->continuum += 1;
@@ -25,6 +33,17 @@ void ColorPulse::run() {
         g = 255 - c;
         b = c;
     }
-    this->canvas->Fill(r*0.3f, g*0.3f, b*0.3f);
+
+    if (this->expectedBrightness < this->userBrightness || this->expectedBrightness > this->userBrightness) {
+        this->COLOR_STEP *= -1.0f;
+
+    if (this->expectedBrightness != this->userBrightness)
+        this->userBrightness += this->COLOR_STEP;
+
+    this->canvas->Fill(
+        r * this->DEVICE_BRIGHTNESS * this->userBrightness,
+        g * this->DEVICE_BRIGHTNESS * this->userBrightness,
+        b * this->DEVICE_BRIGHTNESS * this->userBrightness
+    );
     this->canvas = this->matrix->SwapOnVSync(this->canvas);
 };
