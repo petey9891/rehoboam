@@ -34,7 +34,7 @@ void SocketServer::OnMessageRecieved(std::shared_ptr<connection<MessageType>> cl
             uint8_t value;
             msg >> value;
 
-            this->commands.push_front({ Brightness, { 100 }});
+            this->commands.push_front({ Brightness, { value }});
             this->Acknowledge(client);
             break;
         case CubePulse:

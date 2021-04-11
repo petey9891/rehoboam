@@ -8,7 +8,25 @@ ColorPulse::ColorPulse(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Ru
 void ColorPulse::setCommand(Command cmd) {
     if (cmd.type == Brightness) {
         if (cmd.data.size() > 0) {
-            this->expectedBrightness = cmd.data[0] / 100.0f;
+            const uint8_t data = cmd.data[0];
+            if (data >= 1 && data <= 100) {
+                // Get the brightness from the data
+                this->expectedBrightness = data / 100.0f;
+
+                // Set the current state, whether it is going up or down
+                // change the polarity of the color step depending on change of direction
+                if (this->expectedBrightness < this->userBrightness) {
+                    this->currentState = DECREASING;
+                    if (this->COLOR_STEP > 0.0f) {
+                        this->COLOR_STEP *= -1.0f;
+                    }
+                } else if (this->expectedBrightness > this->userBrightness) {
+                    this->currentState = INCREASING;
+                    if (this->COLOR_STEP < 0.0f) {
+                        this->COLOR_STEP *= -1.0f;
+                    }
+                }
+            }
         }
     }
 }
@@ -34,11 +52,23 @@ void ColorPulse::run() {
         b = c;
     }
 
-    if (this->expectedBrightness < this->userBrightness || this->expectedBrightness > this->userBrightness) {
-        this->COLOR_STEP *= -1.0f;
-
-    if (this->expectedBrightness != this->userBrightness)
-        this->userBrightness += this->COLOR_STEP;
+    if (this->currentState == DECREASING) {
+        // If it is decreasing, update the brightness to go down
+        if (this->userBrightness >= this->expectedBrightness) {
+            this->userBrightness += this->COLOR_STEP;
+        } else {
+            // If it is done, reset the state
+            this->currentState = NONE;
+        }
+    } else if (this->currentState == INCREASING) {
+        // If it is increasing, update the brightness to go up
+        if (this->userBrightness < this->expectedBrightness) {
+            this->userBrightness += this->COLOR_STEP;
+        } else {
+            // If it is done, reset the state
+            this->currentState = NONE;        
+        }
+    }
 
     this->canvas->Fill(
         r * this->DEVICE_BRIGHTNESS * this->userBrightness,

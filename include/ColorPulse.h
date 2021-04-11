@@ -15,11 +15,18 @@ public:
 
 private:
     const float DEVICE_BRIGHTNESS = 0.3f;
-    float COLOR_STEP = 0.1f;
+    float COLOR_STEP = 0.01f;
 
     float userBrightness = 1.0f;
-    float expectedBrightness;
-    
+    float expectedBrightness = 1.01f;
     
     uint32_t continuum = 0;
+
+    enum State: uint8_t {
+        INCREASING,
+        DECREASING,
+        NONE
+    };
+
+    State currentState;
 };
