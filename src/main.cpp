@@ -13,13 +13,11 @@
 
 int main(int argc, char* argv[]) {
     CubeWindow window;
-
     window.createEGLWindow();
 
     RGBMatrixConfig config;
     RGBMatrix* matrix = rgb_matrix::CreateMatrixFromFlags(&argc, &argv, &config.defaults, &config.runtime);
     FrameCanvas* canvas = matrix->CreateFrameCanvas();
-
     if (matrix == nullptr) {
         fprintf(stderr, "Error! Unable to create matrix!\n");
         return EXIT_FAILURE;
@@ -30,7 +28,7 @@ int main(int argc, char* argv[]) {
     server.HandleRequests();
 
     // Clear the whole screen (front buffer)
-	glClearColor(0.0f, 0.0f, 0.4f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Create shaders
@@ -46,7 +44,7 @@ int main(int argc, char* argv[]) {
     loadingShader.bind();
 
     Runnable* program = loading;
-    Runnable* fallback = pulse;
+    Runnable* fallback = rehoboam;
 
     printf(">>> <Main> Running program\n");
 
@@ -60,12 +58,24 @@ int main(int argc, char* argv[]) {
             Command nextCmd = server.getNextCommand();
             cmd = nextCmd;
 
-            if (cmd.type == DisplayOn) {
-                power = true;
-            } else if (cmd.type == DisplayOff) {
-                power = false;
-            } else {
-                program->setCommand(cmd);
+            switch (cmd.type) {
+                case DisplayOn:
+                    power = true;
+                    break;
+                case DisplayOff:
+                    power = false;
+                    break;
+                case Brightness:
+                    program->setCommand(cmd);
+                    break;
+                case ColorPulse:
+                    program = pulse;
+                    break;
+                case Rehoboam:
+                    rehoboamShader.bind();
+                    program = rehoboam;
+                    program->setInitialState();
+                    break;
             }
         }
 
@@ -77,9 +87,9 @@ int main(int argc, char* argv[]) {
         }
 
         if (loading->isDoneLoading && loading->shouldChangeScenes) {
-            // rehoboamShader.bind();
+            rehoboamShader.bind();
             program = fallback;
-            // program->setInitialState();
+            program->setInitialState();
             loading->setSceneChangeIsFinished();
         }
     }

@@ -5,7 +5,9 @@
 enum CommandType: uint8_t {
     DisplayOn,
     DisplayOff,
-    Brightness
+    Brightness,
+    ColorPulse,
+    Rehoboam
 };
 
 struct Command {

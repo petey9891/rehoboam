@@ -27,10 +27,10 @@ void Server::OnMessageRecieved(std::shared_ptr<connection<MessageType>> client, 
         case CubeDisplayOnOff:
             if (!this->power) {
                 this->power = true;
-                this->commands.push_front({ DisplayOn });
+                this->commands.push_front({ DisplayOn, nullptr });
             } else {
                 this->power = false;
-                this->commands.push_front({ DisplayOff });
+                this->commands.push_front({ DisplayOff, nullptr });
             }
             this->Acknowledge(client);
             break;
@@ -42,11 +42,12 @@ void Server::OnMessageRecieved(std::shared_ptr<connection<MessageType>> client, 
             this->Acknowledge(client);
             break;
         case CubePulse:
-            printf("The cube is pulsing\n");
+            this->commands.push_front({ ColorPulse, nullptr });
+
             this->Acknowledge(client);
             break;
         case CubeRehoboam:
-            printf("The cube is rehoboaming\n");
+            this->commands.push_front({ Rehoboam, nullptr });
             this->Acknowledge(client);
             break;
         case Success:
