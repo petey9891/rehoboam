@@ -28,8 +28,8 @@ int main(int argc, char* argv[]) {
     server.HandleRequests();
 
     // Clear the whole screen (front buffer)
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Create shaders
     Shader loadingShader("/home/pi/rehoboam/shaders/loading.shader");
@@ -100,7 +100,7 @@ int main(int argc, char* argv[]) {
     delete loading;
     delete rehoboam;
 
-    // server.Stop();
+    server.Stop();
     window.destroy();
 
     return 0;
