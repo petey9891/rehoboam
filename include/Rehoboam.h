@@ -28,7 +28,7 @@ private:
     unsigned char* buffer;
 
 public:
-    Rehoboam(Shader& shader, rgb_matrix::FrameCanvas *c);
+    Rehoboam(Shader& shader, rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas *c);
     ~Rehoboam();
 
     void run() override;

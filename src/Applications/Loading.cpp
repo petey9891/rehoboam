@@ -1,8 +1,8 @@
 #include <Loading.h>
 #include "RehoboamCoords.h"
 
-Loading::Loading(Shader& shader, rgb_matrix::FrameCanvas *c)
-    : Runnable(c), renderer(), shader(shader), verticesBuffer(vertices, 36 * sizeof(float)), vcoordsBuffer(virtualCoords, 24 * sizeof(float)) 
+Loading::Loading(Shader& shader, rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas *c)
+    : Runnable(m, c), renderer(), shader(shader), verticesBuffer(vertices, 36 * sizeof(float)), vcoordsBuffer(virtualCoords, 24 * sizeof(float)) 
 {
     printf(">>> <Loading> Initializing Loading application\n");
 
@@ -27,6 +27,7 @@ Loading::~Loading() {
 
 void Loading::setInitialState() {
     this->shader.setUniform1f("fade", 1.0f);
+    printf(">>> <Loading> Set initial state\n");
 }
 
 void Loading::run() {
@@ -35,7 +36,6 @@ void Loading::run() {
     float value;
     glGetUniformfv(1, this->shader.getUniform("fade"), &value);
 
-    printf("actual fade %f\tfadeLevel %f\tt %f\n", value, this->fadeLevel, this->t);
     this->t += 0.25f;
     this->shader.setUniform1f("time", this->t);
     if (t > 300.0f) {
@@ -57,17 +57,20 @@ void Loading::run() {
         }
         this->fadeLevel += this->pulse;
     }
-
+    
     this->renderer.drawArrays(this->shader);
 
-    glReadPixels(0, 0, PANEL_WIDTH, PANEL_HEIGHT, GL_RGB, GL_UNSIGNED_BYTE, buffer);
+    GLCall(glFlush());
+    GLCall(glFinish());
+    GLCall(glReadPixels(0, 0, PANEL_WIDTH, PANEL_HEIGHT, GL_RGB, GL_UNSIGNED_BYTE, this->buffer));
 
     for (int x = 0; x < PANEL_WIDTH; x++) {
         for (int y = 0; y < PANEL_HEIGHT; y++) {
             int index = 3*(x+y*PANEL_WIDTH);
-            canvas->SetPixel(x, y, buffer[index], buffer[index+1], buffer[index+2]);
+            this->canvas->SetPixel(x, y, buffer[index], buffer[index+1], buffer[index+2]);
         }
     }
+    this->canvas = this->matrix->SwapOnVSync(this->canvas);
 }
 
 void Loading::setSceneChangeIsFinished() {

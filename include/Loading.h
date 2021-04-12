@@ -25,8 +25,8 @@ private:
     unsigned char* buffer;
 
 public:
-    Loading(Shader& shader, rgb_matrix::FrameCanvas *c);
-    ~Loading();
+    Loading(Shader& shader, rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas *c);
+    virtual ~Loading();
 
     void run() override;
     void setInitialState() override;
