@@ -1,13 +1,13 @@
 #pragma once
 
 #include <rehoboam-server/common.h>
-#include <rehoboam-server/server.h>
+#include <rehoboam-server/SocketServer.h>
 #include <rehoboam-server/connection.h>
 #include <Command.h>
 
-class SocketServer: public RehoboamServer<MessageType> {
+class Server: public SocketServer<MessageType> {
 public:
-    SocketServer(uint16_t port);
+    Server(uint16_t port);
 
 public:
     Command getNextCommand();

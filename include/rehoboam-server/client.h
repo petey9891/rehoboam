@@ -8,7 +8,7 @@
 using asio::ip::tcp;
 
 template<typename T>
-class RehoboamClient {
+class SocketClient {
 protected:
     asio::io_context io_context;
     std::thread thread_context;
@@ -17,10 +17,11 @@ protected:
 
 private:
     tsqueue<OwnedMessage<T>> qMessagesIn;
+    std::string caPath;
 
 public:
-    RehoboamClient() {};
-    virtual ~RehoboamClient() {
+    SocketClient(std::string caPath): caPath(caPath) {};
+    virtual ~SocketClient() {
         this->Disconnect();
     }
 
@@ -32,13 +33,17 @@ public:
 			tcp::resolver resolver(this->io_context);
 			tcp::resolver::results_type endpoints = resolver.resolve(host, std::to_string(port));
 
-            this->m_connection = std::make_unique<connection<T>>(connection<T>::owner::client, this->io_context, asio::ip::tcp::socket(this->io_context), this->qMessagesIn);           
+            asio::ssl::context ssl_context(asio::ssl::context::sslv23);
+            ssl_context.load_verify_file(this->caPath);
+            ssl_context.set_verify_mode(asio::ssl::verify_peer | asio::ssl::verify_fail_if_no_peer_cert);
+
+            this->m_connection = std::make_unique<connection<T>>(connection<T>::owner::client, this->io_context, ssl_context, this->qMessagesIn);           
 
             this->m_connection->ConnectToServer(endpoints);
 
             this->thread_context = std::thread([this]() { this->io_context.run(); });
         } catch (std::exception& e) {
-            fprintf(stderr, "Client exception: %s", e.what());
+            fprintf(stderr, "Client exception: %s\n", e.what());
             return false;
         }
 

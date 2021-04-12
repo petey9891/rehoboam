@@ -11,6 +11,8 @@
 #include <asio.hpp>
 #include <asio/ts/buffer.hpp>
 #include <asio/ts/internet.hpp>
+#include <asio/ssl.hpp>
+
 #include <stdint.h>
 #include <memory>
 #include <vector>
@@ -19,6 +21,7 @@ enum MessageType: uint32_t {
     Success,
 
     ServerPing,
+    ServerShutdown,
 
     CubeDisplayOnOff,
     CubeBrightness,

@@ -1,24 +1,28 @@
-#include <SocketServer.h>
+#include <Server.h>
 
-SocketServer::SocketServer(uint16_t port): RehoboamServer(port) {}
+Server::Server(uint16_t port): SocketServer(port, "/home/pi/rehoboam/certs/server.pem", "/home/pi/rehoboam/certs/server-key.pem") {}
 
-Command SocketServer::getNextCommand() {
+Command Server::getNextCommand() {
     return this->commands.pop_front();
 }
 
-bool SocketServer::hasCommands() {
+bool Server::hasCommands() {
     return !this->commands.empty();
 }
 
-bool SocketServer::OnClientConnect(std::shared_ptr<connection<MessageType>> client) {
+bool Server::OnClientConnect(std::shared_ptr<connection<MessageType>> client) {
     return true;
 }
 
-void SocketServer::OnMessageRecieved(std::shared_ptr<connection<MessageType>> client, Message<MessageType>& msg) {
+void Server::OnMessageRecieved(std::shared_ptr<connection<MessageType>> client, Message<MessageType>& msg) {
     switch (msg.header.id) {
         case ServerPing:
             // Simply bounce back the message
             client->Send(msg);
+            break;
+        case ServerShutdown:           
+            this->Acknowledge(client);
+            system("sudo shutdown -P now");
             break;
         case CubeDisplayOnOff:
             if (!this->power) {
@@ -50,7 +54,7 @@ void SocketServer::OnMessageRecieved(std::shared_ptr<connection<MessageType>> cl
     }
 }
 
-void SocketServer::Acknowledge(std::shared_ptr<connection<MessageType>> client) {
+void Server::Acknowledge(std::shared_ptr<connection<MessageType>> client) {
     Message<MessageType> res;
     res.header.id = Success;
 

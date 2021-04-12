@@ -13,9 +13,9 @@ CURRENT_DIRECTORY=$(shell pwd)
 RGB_INCDIR=$(CURRENT_DIRECTORY)/include/rpi-led-matrix
 
 CPPFLAGS :=-Iinclude -I/opt/vc/include -MMD -MP
-CXXFLAGS :=-std=c++17 -O3 -W -Wall -Wextra -Wno-unused-parameter -D_FILE_OFFSET_BITS=64
+CXXFLAGS :=-std=c++17 -O3 -W -Wall -Wextra -Wno-unused-parameter -Wno-deprecated-declarations -D_FILE_OFFSET_BITS=64
 LDFLAGS :=-Llib -L/opt/vc/lib
-LDLIBS :=-lrgbmatrix -lm -lpthread -lrt -lbrcmEGL -lbrcmGLESv2 -lGLESv2
+LDLIBS :=-lssl -ldl -lcrypto -lrgbmatrix -lm -lpthread -lrt -lbrcmEGL -lbrcmGLESv2 -lGLESv2
 
 .PHONY: all clean
 

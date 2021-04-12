@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include <SocketServer.h>
+#include <Server.h>
 #include <Command.h>
 #include <Window.h>
 #include <RGBMatrixConfig.h>
@@ -25,9 +25,9 @@ int main(int argc, char* argv[]) {
         return EXIT_FAILURE;
     }
 
-    // SocketServer server(60000);
-    // server.Start();
-    // server.HandleRequests();
+    Server server(60000);
+    server.Start();
+    server.HandleRequests();
 
     // Clear the whole screen (front buffer)
 	glClearColor(0.0f, 0.0f, 0.4f, 1.0f);
@@ -46,28 +46,28 @@ int main(int argc, char* argv[]) {
     loadingShader.bind();
 
     Runnable* program = loading;
-    Runnable* fallback = rehoboam;
+    Runnable* fallback = pulse;
 
     printf(">>> <Main> Running program\n");
 
     program->setInitialState();
 
     bool power = true;
-    // Command cmd;
+    Command cmd;
 
     while (true) {
-        // if (server.hasCommands()) {
-        //     Command nextCmd = server.getNextCommand();
-        //     cmd = nextCmd;
+        if (server.hasCommands()) {
+            Command nextCmd = server.getNextCommand();
+            cmd = nextCmd;
 
-        //     if (cmd.type == DisplayOn) {
-        //         power = true;
-        //     } else if (cmd.type == DisplayOff) {
-        //         power = false;
-        //     } else {
-        //         program->setCommand(cmd);
-        //     }
-        // }
+            if (cmd.type == DisplayOn) {
+                power = true;
+            } else if (cmd.type == DisplayOff) {
+                power = false;
+            } else {
+                program->setCommand(cmd);
+            }
+        }
 
         if (power) {
             program->run();
@@ -77,9 +77,9 @@ int main(int argc, char* argv[]) {
         }
 
         if (loading->isDoneLoading && loading->shouldChangeScenes) {
-            rehoboamShader.bind();
+            // rehoboamShader.bind();
             program = fallback;
-            program->setInitialState();
+            // program->setInitialState();
             loading->setSceneChangeIsFinished();
         }
     }
