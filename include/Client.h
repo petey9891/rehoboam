@@ -7,7 +7,7 @@
 
 class Client: public SocketClient<MessageType> {
 public:
-    Client(std::string cert, std::string key, std::string ca);
+    Client();
 
 public:
     Command getNextCommand();
