@@ -1,8 +1,9 @@
 #include <Client.h>
+#include <string>
 
-std::string cert = "/home/pi/rehoboam/certs/server.pem"
-std::string key = "/home/pi/rehoboam/certs/server.key"
-std::string ca = "/home/pi/rehoboam/certs/ca.pem"
+std::string cert = "/home/pi/rehoboam/certs/server.pem";
+std::string key = "/home/pi/rehoboam/certs/server.key";
+std::string ca = "/home/pi/rehoboam/certs/ca.pem";
 
 Client::Client(): SocketClient(cert, key, ca) {}
 
