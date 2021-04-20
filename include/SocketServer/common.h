@@ -45,6 +45,11 @@ struct Message {
         return this->body.size();
     }
 
+    void clear() {
+        this->header = {};
+        this->body.clear();
+    }
+
     // Pushes data into the message buffer
     template <typename DataType>
     friend Message<T>& operator << (Message<T>& msg, const DataType& data) {
@@ -88,9 +93,9 @@ struct Message {
 };
 
 
-// Forward declare the connection
+// Forward declare the SocketConnection
 template <typename T>
-class connection;
+class SocketConnection;
 
 /**
  * Owned Messages are identical to regular messages, however, they are associated with a conneciton. 
@@ -99,7 +104,7 @@ class connection;
 template <typename T>
 struct OwnedMessage
 {
-    std::shared_ptr<connection<T>> remote = nullptr;
+    std::shared_ptr<SocketConnection<T>> remote = nullptr;
     Message<T> message;
 };
 

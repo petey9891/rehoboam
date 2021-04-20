@@ -1,0 +1,24 @@
+#pragma once
+
+#include <SocketServer/common.h>
+#include <SocketServer/SocketClient.h>
+#include <SocketServer/SocketConnection.h>
+#include <Command.h>
+
+class Client: public SocketClient<MessageType> {
+public:
+    Client(std::string cert, std::string key, std::string ca);
+
+public:
+    Command getNextCommand();
+    bool hasCommands();
+
+protected:
+    void OnMessageRecieved(Message<MessageType>& msg) override;
+
+private: 
+    bool power = true;
+
+    // Thread safe queue for commands
+    tsqueue<Command> commands;
+};

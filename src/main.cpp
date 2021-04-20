@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include <Server.h>
+#include <Client.h>
 #include <Command.h>
 #include <Window.h>
 #include <RGBMatrixConfig.h>
@@ -23,9 +23,9 @@ int main(int argc, char* argv[]) {
         return EXIT_FAILURE;
     }
 
-    Server server(60000);
-    server.Start();
-    server.HandleRequests();
+    Client client;
+    client.Connect("www.rehoboamcube.com", 60000);
+    client.HandleMessages();
 
     // Clear the whole screen (front buffer)
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -54,8 +54,8 @@ int main(int argc, char* argv[]) {
     Command cmd;
 
     while (true) {
-        if (server.hasCommands()) {
-            Command nextCmd = server.getNextCommand();
+        if (client.hasCommands()) {
+            Command nextCmd = client.getNextCommand();
             cmd = nextCmd;
 
             switch (cmd.type) {
@@ -68,13 +68,13 @@ int main(int argc, char* argv[]) {
                 case Brightness:
                     program->setCommand(cmd);
                     break;
-                case ColorPulse:
+                case ColorPulseMode:
                     program = pulse;
                     break;
-                case Rehoboam:
+                case RehoboamMode:
                     rehoboamShader.bind();
                     program = rehoboam;
-                    program->setInitialState();
+                    // program->setInitialState();
                     break;
             }
         }
@@ -100,7 +100,7 @@ int main(int argc, char* argv[]) {
     delete loading;
     delete rehoboam;
 
-    server.Stop();
+    client.Disconnect();
     window.destroy();
 
     return 0;

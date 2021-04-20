@@ -1,6 +1,6 @@
 #pragma once
 
-#include <rehoboam-server/common.h>
+#include <SocketServer/common.h>
 
 using asio::ip::tcp;
 
@@ -11,9 +11,9 @@ class SocketServer;
 typedef asio::ssl::stream<asio::ip::tcp::socket> ssl_socket;
 
 template <typename T>
-class connection: public std::enable_shared_from_this<connection<T>> {
+class SocketConnection: public std::enable_shared_from_this<SocketConnection<T>> {
 public:
-    // A connection is either owned by a server or a client and it behaves differently depending on who
+    // A SocketConnection is either owned by a server or a client and it behaves differently depending on who
     enum class owner {
         server,
         client
@@ -23,7 +23,7 @@ protected:
     // This context is shared with the whole asio instance
     asio::io_context& asioContext;
 
-    // Each connection has a unique socket to a remote 
+    // Each SocketConnection has a unique socket to a remote 
     ssl_socket _socket;
 
     // All messages to be sent to the remove side
@@ -38,13 +38,13 @@ protected:
     owner ownerType;
 
 public:
-    connection(owner parent, asio::io_context& asioContext, asio::ssl::context& ssl_context, tsqueue<OwnedMessage<T>>& qIn)
+    SocketConnection(owner parent, asio::io_context& asioContext, asio::ssl::context& ssl_context, tsqueue<OwnedMessage<T>>& qIn)
         : asioContext(asioContext), _socket(asioContext, ssl_context), qMessagesIn(qIn)
     {
         this->ownerType = parent;
     }
 
-    virtual ~connection() {}
+    virtual ~SocketConnection() {}
 
 public:
     ssl_socket::lowest_layer_type& socket() {
@@ -82,7 +82,7 @@ public:
                             }
                         );
                     }  else {
-                        printf("[CLIENT] Connection Error: %s\n", err.message().c_str());
+                        printf("[CLIENT] SocketConnection Error: %s\n", err.message().c_str());
                     }
                 }
             );
@@ -134,7 +134,7 @@ private:
                         }
                     }
                 } else {
-                    printf("Write header fail\n");
+                    printf("Write header fail %s\n", err.message().c_str());
                     this->socket().close();
                 }
             }
@@ -206,6 +206,7 @@ private:
             this->qMessagesIn.push_back({ nullptr, this->msgTmpIn });
         }
 
+        this->msgTmpIn.clear();
         this->ReadHeader();
     }
 };
