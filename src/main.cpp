@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
     }
 
     Client client;
-    client.Connect("www.rehoboamcube.com", 60000);
+    client.Connect();
     client.HandleMessages();
 
     // Clear the whole screen (front buffer)

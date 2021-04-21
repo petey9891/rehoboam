@@ -5,7 +5,7 @@ BIN_DIR := ../../bin
 SOURCES := $(wildcard *.cpp)
 OBJECTS := $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(SOURCES))
 
-CPPFLAGS :=-I../../include -I/opt/vc/include -MMD -MP
+CPPFLAGS :=-I../../include -I../../../libraries/SocketServer/include -I/opt/vc/include -MMD -MP
 CXXFLAGS :=-std=c++17 -O3 -W -Wall -Wextra -Wno-unused-parameter -Wno-deprecated-declarations -Wno-psabi -D_FILE_OFFSET_BITS=64
 
 .PHONY: server
