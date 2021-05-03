@@ -23,9 +23,9 @@ int main(int argc, char* argv[]) {
         return EXIT_FAILURE;
     }
 
-    Client client;
-    client.Connect();
-    client.HandleMessages();
+    // Client client;
+    // client.Connect();
+    // client.HandleMessages();
 
     // Clear the whole screen (front buffer)
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -55,30 +55,30 @@ int main(int argc, char* argv[]) {
     Command cmd;
 
     while (true) {
-        if (client.hasCommands()) {
-            Command nextCmd = client.getNextCommand();
-            cmd = nextCmd;
+        // if (client.hasCommands()) {
+        //     Command nextCmd = client.getNextCommand();
+        //     cmd = nextCmd;
 
-            switch (cmd.type) {
-                case DisplayOn:
-                    power = true;
-                    break;
-                case DisplayOff:
-                    power = false;
-                    break;
-                case Brightness:
-                    program->setCommand(cmd);
-                    break;
-                case ColorPulseMode:
-                    program = pulse;
-                    break;
-                case RehoboamMode:
-                    rehoboamShader.bind();
-                    program = rehoboam;
-                    program->setInitialState();
-                    break;
-            }
-        }
+        //     switch (cmd.type) {
+        //         case DisplayOn:
+        //             power = true;
+        //             break;
+        //         case DisplayOff:
+        //             power = false;
+        //             break;
+        //         case Brightness:
+        //             program->setCommand(cmd);
+        //             break;
+        //         case ColorPulseMode:
+        //             program = pulse;
+        //             break;
+        //         case RehoboamMode:
+        //             rehoboamShader.bind();
+        //             program = rehoboam;
+        //             program->setInitialState();
+        //             break;
+        //     }
+        // }
 
         if (power) {
             program->run();
@@ -101,7 +101,7 @@ int main(int argc, char* argv[]) {
     delete loading;
     delete rehoboam;
 
-    client.Disconnect();
+    // client.Disconnect();
     window.destroy();
 
     return 0;
