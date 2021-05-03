@@ -44,8 +44,8 @@ int main(int argc, char* argv[]) {
     loadingShader.bind();
 
     Runnable* program = loading;
-    // Runnable* fallback = pulse;
-    Runnable* fallback = rehoboam;
+    Runnable* fallback = pulse;
+    // Runnable* fallback = rehoboam;
 
     printf(">>> <Main> Running program\n");
 
@@ -88,9 +88,9 @@ int main(int argc, char* argv[]) {
         }
 
         if (loading->isDoneLoading && loading->shouldChangeScenes) {
-            rehoboamShader.bind();
+            // rehoboamShader.bind();
             program = fallback;
-            program->setInitialState();
+            // program->setInitialState();
             loading->setSceneChangeIsFinished();
         }
     }
