@@ -89,7 +89,7 @@ int main(int argc, char* argv[]) {
 
         if (loading->isDoneLoading && loading->shouldChangeScenes) {
             rehoboamShader.bind();
-            // program = fallback;
+            program = fallback;
             program->setInitialState();
             loading->setSceneChangeIsFinished();
         }
