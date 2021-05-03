@@ -54,46 +54,46 @@ int main(int argc, char* argv[]) {
     bool power = true;
     Command cmd;
 
-    while (true) {
-        // if (client.hasCommands()) {
-        //     Command nextCmd = client.getNextCommand();
-        //     cmd = nextCmd;
+    // while (true) {
+    //     // if (client.hasCommands()) {
+    //     //     Command nextCmd = client.getNextCommand();
+    //     //     cmd = nextCmd;
 
-        //     switch (cmd.type) {
-        //         case DisplayOn:
-        //             power = true;
-        //             break;
-        //         case DisplayOff:
-        //             power = false;
-        //             break;
-        //         case Brightness:
-        //             program->setCommand(cmd);
-        //             break;
-        //         case ColorPulseMode:
-        //             program = pulse;
-        //             break;
-        //         case RehoboamMode:
-        //             rehoboamShader.bind();
-        //             program = rehoboam;
-        //             program->setInitialState();
-        //             break;
-        //     }
-        // }
+    //     //     switch (cmd.type) {
+    //     //         case DisplayOn:
+    //     //             power = true;
+    //     //             break;
+    //     //         case DisplayOff:
+    //     //             power = false;
+    //     //             break;
+    //     //         case Brightness:
+    //     //             program->setCommand(cmd);
+    //     //             break;
+    //     //         case ColorPulseMode:
+    //     //             program = pulse;
+    //     //             break;
+    //     //         case RehoboamMode:
+    //     //             rehoboamShader.bind();
+    //     //             program = rehoboam;
+    //     //             program->setInitialState();
+    //     //             break;
+    //     //     }
+    //     // }
 
-        if (power) {
-            program->run();
-        } else {
-            canvas->Fill(0, 0, 0);
-            matrix->SwapOnVSync(canvas);
-        }
+    //     if (power) {
+    //         program->run();
+    //     } else {
+    //         canvas->Fill(0, 0, 0);
+    //         matrix->SwapOnVSync(canvas);
+    //     }
 
-        if (loading->isDoneLoading && loading->shouldChangeScenes) {
-            // rehoboamShader.bind();
-            program = fallback;
-            // program->setInitialState();
-            loading->setSceneChangeIsFinished();
-        }
-    }
+    //     if (loading->isDoneLoading && loading->shouldChangeScenes) {
+    //         // rehoboamShader.bind();
+    //         program = fallback;
+    //         // program->setInitialState();
+    //         loading->setSceneChangeIsFinished();
+    //     }
+    // }
 
     program->canvas->Clear();
 
