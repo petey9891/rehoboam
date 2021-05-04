@@ -38,9 +38,12 @@ void ColorPulse::run() {
 
     int r = 0, g = 0, b = 0;
 
+    // with no modification:   196.0Hz max: 9609usec
+    // changing base integer to 178: 198.6Hz max: 6412usec
+
     // this->continuum %= 3 * 178;
 
-    // performance: 198.6Hz max: 6412usec
+    
     // if (this->continuum <= 178) {
     //     int c = this->continuum;
     //     b = 178 - c;
@@ -54,8 +57,6 @@ void ColorPulse::run() {
     //     g = 178 - c;
     //     b = c;
     // }
-
-
 
     if (this->continuum <= 255) {
         int c = this->continuum;
@@ -89,10 +90,11 @@ void ColorPulse::run() {
     //     }
     // }
 
+
     this->canvas->Fill(
-        r,
-        g,
-        b
+        r * this->DEVICE_BRIGHTNESS,
+        g * this->DEVICE_BRIGHTNESS,
+        b * this->DEVICE_BRIGHTNESS
     );
 
     // this->canvas->Fill(
