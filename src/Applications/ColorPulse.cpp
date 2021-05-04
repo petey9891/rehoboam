@@ -47,7 +47,7 @@ void ColorPulse::run() {
         r = 178 - c;
         g = c;
     } else {
-        int c = this->continuum - 512;
+        int c = this->continuum - 356;
         g = 178 - c;
         b = c;
     }
