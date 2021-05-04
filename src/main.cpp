@@ -43,7 +43,8 @@ int main(int argc, char* argv[]) {
     // Bind the loading shader for the loading sequence
     loadingShader.bind();
 
-    Runnable* program = loading;
+    // Runnable* program = loading;
+    Runnable* program = pulse;
     Runnable* fallback = pulse;
     // Runnable* fallback = rehoboam;
 
@@ -80,12 +81,12 @@ int main(int argc, char* argv[]) {
         //     }
         // }
 
-        // if (power) {
-        //     program->run();
-        // } else {
-        //     canvas->Fill(0, 0, 0);
-        //     matrix->SwapOnVSync(canvas);
-        // }
+        if (power) {
+            program->run();
+        } else {
+            canvas->Fill(0, 0, 0);
+            matrix->SwapOnVSync(canvas);
+        }
 
         // if (loading->isDoneLoading && loading->shouldChangeScenes) {
         //     // rehoboamShader.bind();
