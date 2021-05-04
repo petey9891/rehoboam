@@ -35,10 +35,10 @@ void ColorPulse::run() {
     usleep(5 * 1000);
     this->continuum += 1;
     this->continuum %= 3 * 255;
-    // this->continuum %= 3 * 178;
 
     int r = 0, g = 0, b = 0;
 
+    // this->continuum %= 3 * 178;
 
     // performance: 198.6Hz max: 6412usec
     // if (this->continuum <= 178) {
@@ -54,6 +54,8 @@ void ColorPulse::run() {
     //     g = 178 - c;
     //     b = c;
     // }
+
+
 
     if (this->continuum <= 255) {
         int c = this->continuum;
@@ -88,9 +90,9 @@ void ColorPulse::run() {
     // }
 
     this->canvas->Fill(
-        r-76,
-        g-76,
-        b-76
+        r,
+        g,
+        b
     );
 
     // this->canvas->Fill(
