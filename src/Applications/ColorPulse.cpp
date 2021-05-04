@@ -34,10 +34,28 @@ void ColorPulse::setCommand(Command cmd) {
 void ColorPulse::run() {
     usleep(5 * 1000);
     this->continuum += 1;
-
     this->continuum %= 3 * 255;
 
     int r = 0, g = 0, b = 0;
+
+    // this->continuum %= 3 * 178;
+
+    // performance: 198.6Hz max: 6412usec
+    // if (this->continuum <= 178) {
+    //     int c = this->continuum;
+    //     b = 178 - c;
+    //     r = c;
+    // } else if (this->continuum > 178 && this->continuum <= 356) {
+    //     int c = this->continuum - 179;
+    //     r = 178 - c;
+    //     g = c;
+    // } else {
+    //     int c = this->continuum - 356;
+    //     g = 178 - c;
+    //     b = c;
+    // }
+
+
 
     if (this->continuum <= 255) {
         int c = this->continuum;
@@ -53,90 +71,29 @@ void ColorPulse::run() {
         b = c;
     }
 
-    if (this->currentState == DECREASING) {
-        // If it is decreasing, update the brightness to go down
-        if (this->userBrightness >= this->expectedBrightness) {
-            this->userBrightness += this->COLOR_STEP;
-        } else {
-            // If it is done, reset the state
-            this->currentState = NONE;
-        }
-    } else if (this->currentState == INCREASING) {
-        // If it is increasing, update the brightness to go up
-        if (this->userBrightness < this->expectedBrightness) {
-            this->userBrightness += this->COLOR_STEP;
-        } else {
-            // If it is done, reset the state
-            this->currentState = NONE;        
-        }
-    }
-
-    this->canvas->Fill(
-        r * this->DEVICE_BRIGHTNESS * this->userBrightness,
-        g * this->DEVICE_BRIGHTNESS * this->userBrightness,
-        b * this->DEVICE_BRIGHTNESS * this->userBrightness
-    );
-
-    // this->continuum %= 3 * 255;
-
-    // int r = 0, g = 0, b = 0;
-
-    // // this->continuum %= 3 * 178;
-
-    // // performance: 198.6Hz max: 6412usec
-    // // if (this->continuum <= 178) {
-    // //     int c = this->continuum;
-    // //     b = 178 - c;
-    // //     r = c;
-    // // } else if (this->continuum > 178 && this->continuum <= 356) {
-    // //     int c = this->continuum - 179;
-    // //     r = 178 - c;
-    // //     g = c;
-    // // } else {
-    // //     int c = this->continuum - 356;
-    // //     g = 178 - c;
-    // //     b = c;
-    // // }
-
-
-
-    // if (this->continuum <= 255) {
-    //     int c = this->continuum;
-    //     b = 255 - c;
-    //     r = c;
-    // } else if (this->continuum > 255 && this->continuum <= 511) {
-    //     int c = this->continuum - 256;
-    //     r = 255 - c;
-    //     g = c;
-    // } else {
-    //     int c = this->continuum - 512;
-    //     g = 255 - c;
-    //     b = c;
+    // if (this->currentState == DECREASING) {
+    //     // If it is decreasing, update the brightness to go down
+    //     if (this->userBrightness >= this->expectedBrightness) {
+    //         this->userBrightness += this->COLOR_STEP;
+    //     } else {
+    //         // If it is done, reset the state
+    //         this->currentState = NONE;
+    //     }
+    // } else if (this->currentState == INCREASING) {
+    //     // If it is increasing, update the brightness to go up
+    //     if (this->userBrightness < this->expectedBrightness) {
+    //         this->userBrightness += this->COLOR_STEP;
+    //     } else {
+    //         // If it is done, reset the state
+    //         this->currentState = NONE;        
+    //     }
     // }
 
-    // // if (this->currentState == DECREASING) {
-    // //     // If it is decreasing, update the brightness to go down
-    // //     if (this->userBrightness >= this->expectedBrightness) {
-    // //         this->userBrightness += this->COLOR_STEP;
-    // //     } else {
-    // //         // If it is done, reset the state
-    // //         this->currentState = NONE;
-    // //     }
-    // // } else if (this->currentState == INCREASING) {
-    // //     // If it is increasing, update the brightness to go up
-    // //     if (this->userBrightness < this->expectedBrightness) {
-    // //         this->userBrightness += this->COLOR_STEP;
-    // //     } else {
-    // //         // If it is done, reset the state
-    // //         this->currentState = NONE;        
-    // //     }
-    // // }
-
-    // this->canvas->Fill(
-    //     r,
-    //     g,
-    //     b
-    // );
+    this->canvas->Fill(
+        r,
+        g,
+        b
+    );
 
     // this->canvas->Fill(
     //     r * this->DEVICE_BRIGHTNESS * this->userBrightness,
