@@ -76,7 +76,7 @@ int main(int argc, char* argv[]) {
                 case RehoboamMode:
                     rehoboamShader.bind();
                     program = rehoboam;
-                    program->setInitialState();
+                    // program->setInitialState();
                     break;
             }
         }

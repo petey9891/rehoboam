@@ -72,10 +72,10 @@ void ColorPulse::run() {
 
     this->canvas->Fill(r, g, b);
 
-    // this->canvas->Fill(
-    //     r * this->DEVICE_BRIGHTNESS * this->userBrightness,
-    //     g * this->DEVICE_BRIGHTNESS * this->userBrightness,
-    //     b * this->DEVICE_BRIGHTNESS * this->userBrightness
-    // );
+    this->canvas->Fill(
+        r * this->DEVICE_BRIGHTNESS * this->userBrightness,
+        g * this->DEVICE_BRIGHTNESS * this->userBrightness,
+        b * this->DEVICE_BRIGHTNESS * this->userBrightness
+    );
     this->canvas = this->matrix->SwapOnVSync(this->canvas);
 };
