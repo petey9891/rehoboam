@@ -34,21 +34,21 @@ void ColorPulse::setCommand(Command cmd) {
 void ColorPulse::run() {
     usleep(5 * 1000);
     this->continuum += 1;
-    this->continuum %= 3 * 255;
+    this->continuum %= 3 * 204;
 
     int r = 0, g = 0, b = 0;
 
-    if (this->continuum <= 255) {
+    if (this->continuum <= 204) {
         int c = this->continuum;
-        b = 255 - c;
+        b = 204 - c;
         r = c;
-    } else if (this->continuum > 255 && this->continuum <= 511) {
+    } else if (this->continuum > 204 && this->continuum <= 511) {
         int c = this->continuum - 256;
-        r = 255 - c;
+        r = 204 - c;
         g = c;
     } else {
         int c = this->continuum - 512;
-        g = 255 - c;
+        g = 204 - c;
         b = c;
     }
 
@@ -71,9 +71,15 @@ void ColorPulse::run() {
     }
 
     this->canvas->Fill(
-        r * this->DEVICE_BRIGHTNESS * this->userBrightness,
-        g * this->DEVICE_BRIGHTNESS * this->userBrightness,
-        b * this->DEVICE_BRIGHTNESS * this->userBrightness
+        r,
+        g,
+        b
     );
+
+    // this->canvas->Fill(
+    //     r * this->DEVICE_BRIGHTNESS * this->userBrightness,
+    //     g * this->DEVICE_BRIGHTNESS * this->userBrightness,
+    //     b * this->DEVICE_BRIGHTNESS * this->userBrightness
+    // );
     this->canvas = this->matrix->SwapOnVSync(this->canvas);
 };

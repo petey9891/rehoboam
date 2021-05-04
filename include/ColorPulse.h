@@ -14,7 +14,7 @@ public:
     void setCommand(Command cmd) override;
 
 private:
-    const float DEVICE_BRIGHTNESS = 0.3f;
+    const float DEVICE_BRIGHTNESS = 0.2f;
     float COLOR_STEP = 0.01f;
 
     float userBrightness = 1.0f;
