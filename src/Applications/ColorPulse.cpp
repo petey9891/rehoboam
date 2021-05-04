@@ -52,28 +52,30 @@ void ColorPulse::run() {
         b = c;
     }
 
-    if (this->currentState == DECREASING) {
-        // If it is decreasing, update the brightness to go down
-        if (this->userBrightness >= this->expectedBrightness) {
-            this->userBrightness += this->COLOR_STEP;
-        } else {
-            // If it is done, reset the state
-            this->currentState = NONE;
-        }
-    } else if (this->currentState == INCREASING) {
-        // If it is increasing, update the brightness to go up
-        if (this->userBrightness < this->expectedBrightness) {
-            this->userBrightness += this->COLOR_STEP;
-        } else {
-            // If it is done, reset the state
-            this->currentState = NONE;        
-        }
-    }
+    // if (this->currentState == DECREASING) {
+    //     // If it is decreasing, update the brightness to go down
+    //     if (this->userBrightness >= this->expectedBrightness) {
+    //         this->userBrightness += this->COLOR_STEP;
+    //     } else {
+    //         // If it is done, reset the state
+    //         this->currentState = NONE;
+    //     }
+    // } else if (this->currentState == INCREASING) {
+    //     // If it is increasing, update the brightness to go up
+    //     if (this->userBrightness < this->expectedBrightness) {
+    //         this->userBrightness += this->COLOR_STEP;
+    //     } else {
+    //         // If it is done, reset the state
+    //         this->currentState = NONE;        
+    //     }
+    // }
 
-    this->canvas->Fill(
-        r * this->DEVICE_BRIGHTNESS * this->userBrightness,
-        g * this->DEVICE_BRIGHTNESS * this->userBrightness,
-        b * this->DEVICE_BRIGHTNESS * this->userBrightness
-    );
+    this->canvas->Fill(r, g, b);
+
+    // this->canvas->Fill(
+    //     r * this->DEVICE_BRIGHTNESS * this->userBrightness,
+    //     g * this->DEVICE_BRIGHTNESS * this->userBrightness,
+    //     b * this->DEVICE_BRIGHTNESS * this->userBrightness
+    // );
     this->canvas = this->matrix->SwapOnVSync(this->canvas);
 };
