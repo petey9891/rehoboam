@@ -15,7 +15,7 @@ struct RGBMatrixConfig {
         defaults.hardware_mapping = "adafruit-hat-pwm";
         defaults.led_rgb_sequence = "BGR";
         // defaults.pwm_lsb_nanoseconds = 50;
-        defaults.pwm_lsb_nanoseconds = 180;
+        defaults.pwm_lsb_nanoseconds = 125;
         // defaults.panel_type = "FM6126A";
         defaults.rows = 64;
         defaults.cols = 192;
