@@ -24,7 +24,6 @@ struct RGBMatrixConfig {
         // defaults.brightness = 20;
 
         defaults.show_refresh_rate = true;
-        
 
         runtime.drop_privileges = 0;
     }
