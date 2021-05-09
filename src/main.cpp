@@ -33,19 +33,19 @@ int main(int argc, char* argv[]) {
 
     // Create shaders
     Shader loadingShader("/home/pi/rehoboam/shaders/loading.shader");
-    Shader rehoboamShader("/home/pi/rehoboam/shaders/rehoboam.shader");
+    // Shader rehoboamShader("/home/pi/rehoboam/shaders/rehoboam.shader");
     
     // Create applications
     Loading* loading = new Loading(loadingShader, matrix, canvas);
-    Rehoboam* rehoboam = new Rehoboam(rehoboamShader, matrix, canvas);
+    // Rehoboam* rehoboam = new Rehoboam(rehoboamShader, matrix, canvas);
     ColorPulse* pulse = new ColorPulse(matrix, canvas);
 
     // Bind the loading shader for the loading sequence
     loadingShader.bind();
 
     Runnable* program = loading;
-    // Runnable* fallback = pulse;
-    Runnable* fallback = rehoboam;
+    Runnable* fallback = pulse;
+    // Runnable* fallback = rehoboam;
 
     printf(">>> <Main> Running program\n");
 
@@ -73,9 +73,9 @@ int main(int argc, char* argv[]) {
                     program = pulse;
                     break;
                 case RehoboamMode:
-                    rehoboamShader.bind();
-                    program = rehoboam;
-                    program->setInitialState();
+                    // rehoboamShader.bind();
+                    // program = rehoboam;
+                    // program->setInitialState();
                     break;
             }
         }
@@ -88,7 +88,7 @@ int main(int argc, char* argv[]) {
         }
 
         if (loading->isDoneLoading && loading->shouldChangeScenes) {
-            rehoboamShader.bind();
+            // rehoboamShader.bind();
             program = fallback;
             program->setInitialState();
             loading->setSceneChangeIsFinished();
@@ -99,7 +99,7 @@ int main(int argc, char* argv[]) {
 
     delete pulse;
     delete loading;
-    delete rehoboam;
+    // delete rehoboam;
 
     client.Disconnect();
     window.destroy();
