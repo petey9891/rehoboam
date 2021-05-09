@@ -32,19 +32,20 @@ int main(int argc, char* argv[]) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Create shaders
-    Shader loadingShader("/home/pi/rehoboam/shaders/loading.shader");
+    // Shader loadingShader("/home/pi/rehoboam/shaders/loading.shader");
     // Shader rehoboamShader("/home/pi/rehoboam/shaders/rehoboam.shader");
     
     // Create applications
-    Loading* loading = new Loading(loadingShader, matrix, canvas);
+    // Loading* loading = new Loading(loadingShader, matrix, canvas);
     // Rehoboam* rehoboam = new Rehoboam(rehoboamShader, matrix, canvas);
     ColorPulse* pulse = new ColorPulse(matrix, canvas);
 
     // Bind the loading shader for the loading sequence
-    loadingShader.bind();
+    // loadingShader.bind();
 
-    Runnable* program = loading;
-    Runnable* fallback = pulse;
+    // Runnable* program = loading;
+    Runnable* program = pulse;
+    // Runnable* fallback = pulse;
     // Runnable* fallback = rehoboam;
 
     printf(">>> <Main> Running program\n");
@@ -87,18 +88,18 @@ int main(int argc, char* argv[]) {
             matrix->SwapOnVSync(canvas);
         }
 
-        if (loading->isDoneLoading && loading->shouldChangeScenes) {
-            // rehoboamShader.bind();
-            program = fallback;
-            program->setInitialState();
-            loading->setSceneChangeIsFinished();
-        }
+        // if (loading->isDoneLoading && loading->shouldChangeScenes) {
+        //     // rehoboamShader.bind();
+        //     program = fallback;
+        //     program->setInitialState();
+        //     loading->setSceneChangeIsFinished();
+        // }
     }
 
     program->canvas->Clear();
 
     delete pulse;
-    delete loading;
+    // delete loading;
     // delete rehoboam;
 
     client.Disconnect();
