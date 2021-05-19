@@ -115,7 +115,16 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
     printf(">>>>>> <Shader> Compiling %s shader\n", shaderType.c_str());
     GLCall(unsigned int id = glCreateShader(type));
     const char* src = source.c_str();
-    GLCall(glShaderSource(id, 1, &src, nullptr));
+
+    std::string path = "/home/pi/rehoboam/shaders/rehoboam/" + shaderType + ".shader";
+    std::ifstream iStream(path);
+    std::stringstream buffer;
+    buffer << iStream.rdbuf();
+    std::string dataSrc = buffer.str();
+
+    const char* sources[] = { dataSrc.c_str() };
+
+    GLCall(glShaderSource(id, 1, sources, 0));
     GLCall(glCompileShader(id));
 
     // Error handling
