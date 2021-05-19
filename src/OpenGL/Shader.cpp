@@ -115,6 +115,7 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
     printf(">>>>>> <Shader> Compiling %s shader\n", shaderType.c_str());
     GLCall(unsigned int id = glCreateShader(type));
     const char* src = source.c_str();
+    printf("%s\n", src);
     GLCall(glShaderSource(id, 1, &src, nullptr));
     GLCall(glCompileShader(id));
 

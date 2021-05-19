@@ -31,6 +31,8 @@ int main(int argc, char* argv[]) {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    GLCall(glFlush());
+    GLCall(glFinish());
     // Create shaders
     // Shader loadingShader("/home/pi/rehoboam/shaders/loading.shader");
     Shader rehoboamShader("/home/pi/rehoboam/shaders/rehoboam.shader");
