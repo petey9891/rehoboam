@@ -123,7 +123,8 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
     std::string dataSrc = buffer.str();
 
     const char* sources[] = { dataSrc.c_str() };
-
+    printf("%d\n", source.size());
+    printf("%d\n", strlen(sources));
     GLCall(glShaderSource(id, 1, sources, 0));
     GLCall(glCompileShader(id));
 
