@@ -114,8 +114,8 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
     std::string shaderType = type == GL_VERTEX_SHADER ? "vertex" : "fragment";
     printf(">>>>>> <Shader> Compiling %s shader\n", shaderType.c_str());
     GLCall(unsigned int id = glCreateShader(type));
-    // const char* src = source.c_str();
-    GLCall(glShaderSource(id, 1, source.c_str(), nullptr));
+    const char* src = source.c_str();
+    GLCall(glShaderSource(id, 1, &src, nullptr));
     GLCall(glCompileShader(id));
 
     // Error handling
