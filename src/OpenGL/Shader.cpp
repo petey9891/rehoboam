@@ -194,9 +194,9 @@ vec2 coords = backgroundCoord.xy*0.5;
     bColor = smoothstep(T2, T1, temperature)*bColor + smoothstep(T1, T2, temperature)*smoothstep(T3, T2, temperature)*bColorWarm + smoothstep(T2, T3, temperature)*bColorHot;
 
     rColor = smoothstep(50.0, 0.0, threadf)*rColor + smoothstep(0.0, 50.0, threadf)*smoothstep(100.0, 50.0, threadf)*rColorWarm + smoothstep(50.0, 100.0, threadf)*rColorHot;
-    // rColor *= circle(coords, radius, 0.01);
+    rColor *= circle(coords, radius, 0.01);
 
-    vec3 outcolor = bColor * c * c * c * c; // + rColor;
+    vec3 outcolor = bColor * c * c * c * c + rColor;
 
     float coreIndex = 0.0;
     for (int i = 0; i < CORES; i++) {
