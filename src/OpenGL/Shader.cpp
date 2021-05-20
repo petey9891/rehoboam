@@ -148,34 +148,6 @@ varying vec2 backgroundCoord;
 float phi;
 float threadf = 0.0;
 
-mat2 rotate2d(float angle) {
-    return mat2(cos(angle), -sin(angle),
-                sin(angle),  cos(angle));
-}
-
-float variance(float normalizedCoord, float strength, float speed) {
-	return sin(normalizedCoord * strength + time * speed) / 100.0;
-
-}
-
-float circle(vec2 uv, float rad, float width) {
-    float strength = 5.0;
-    float speed = 2.0;
-
-    float frame = length(uv);
-    vec2 normalizedCoords = normalize(uv);
-
-    frame += variance(normalizedCoords.y, strength, speed) - variance(normalizedCoords.x, strength, speed);
-
-    float frameWidth = width + width*threadf*0.1;
-
-    return smoothstep(rad-frameWidth, rad, frame) - smoothstep(rad, rad+frameWidth, frame);
-}
-
-vec3 circleVec3(vec2 uv, float rad, float width) {
-    return vec3(circle(uv, rad, width));
-}
-
 void main() {
     vec2 coords = backgroundCoord.xy*0.5;
     float radius = 0.25;
@@ -199,7 +171,6 @@ void main() {
     bColor = smoothstep(T2, T1, temperature)*bColor + smoothstep(T1, T2, temperature)*smoothstep(T3, T2, temperature)*bColorWarm + smoothstep(T2, T3, temperature)*bColorHot;
 
     rColor = smoothstep(50.0, 0.0, threadf)*rColor + smoothstep(0.0, 50.0, threadf)*smoothstep(100.0, 50.0, threadf)*rColorWarm + smoothstep(50.0, 100.0, threadf)*rColorHot;
-    rColor *= circle(coords, radius, 0.01);
 
     vec3 outcolor = bColor * c * c * c * c + rColor;
 
@@ -228,6 +199,9 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
     // std::string dataSrc = buffer.str();
 
     // const char* sources[] = { dataSrc.c_str() };
+
+    // Current max length 2710
+
     printf("%d\n", source.size());
     printf("%d\n", strlen(src));
 
