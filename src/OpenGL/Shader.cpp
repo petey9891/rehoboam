@@ -148,6 +148,15 @@ varying vec2 backgroundCoord;
 float phi;
 float threadf = 0.0;
 
+mat2 rotate2d(float angle) {
+    return mat2(cos(angle), -sin(angle),
+                sin(angle),  cos(angle));
+}
+
+float variance(float normalizedCoord, float strength, float speed) {
+	return sin(normalizedCoord * strength + time * speed) / 100.0;
+}
+
 void main() {
     vec2 coords = backgroundCoord.xy*0.5;
     float radius = 0.25;
@@ -201,6 +210,7 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
     // const char* sources[] = { dataSrc.c_str() };
 
     // Current max length 2710
+    // Current working length 1892
 
     printf("%d\n", source.size());
     printf("%d\n", strlen(src));
