@@ -188,6 +188,8 @@ void main() {
         // hello this is a test beep
         // ahahahahahahahahahahahahah
         // wtf is wrong
+        // wtf is wrong 2
+
     }
 
     gl_FragColor = vec4(0.0, 0.0, 0.8, 1.0);
@@ -209,7 +211,7 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
     // const char* sources[] = { dataSrc.c_str() };
 
     // Current max length 2055
-    // Current working length 2007 -- no variance or any circle code
+    // Current working length 2029 -- no variance or any circle code
 
     printf("%d\n", source.size());
     printf("%d\n", strlen(src));
