@@ -22,7 +22,7 @@ struct RGBMatrixConfig {
         defaults.brightness = 80; // 60 is a good brightness for downtime
         // defaults.brightness = 20;
 
-        defaults.show_refresh_rate = true;
+        // defaults.show_refresh_rate = true;
 
 
         runtime.drop_privileges = 0;
