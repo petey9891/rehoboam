@@ -208,14 +208,14 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
 
     // const char* sources[] = { dataSrc.c_str() };
 
-    // Current max length 2033
-    // Current working length 2031 -- no variance or any circle code
+    // Current max length 2032
+    // Current working length 2032 -- no variance or any circle code
 
     printf("%d\n", source.size());
     printf("%d\n", strlen(src));
 
     GLint length[] = { strlen(src) };
-    GLCall(glShaderSource(id, 1, &src, length));
+    GLCall(glShaderSource(id, 1, &src, 0));
     GLCall(glCompileShader(id));
 
     // Error handling
