@@ -29,7 +29,7 @@ private:
 
 public:
     Rehoboam(Shader& shader, rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas *c);
-    ~Rehoboam();
+    virtual ~Rehoboam();
 
     void run() override;
     void setInitialState() override;

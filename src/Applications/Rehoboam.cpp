@@ -50,6 +50,8 @@ void Rehoboam::run() {
         this->increment *= -1.0f;
     this->temperature += increment;
 
+    GLCall(glFlush());
+    GLCall(glFinish());
     glReadPixels(0, 0, PANEL_WIDTH, PANEL_HEIGHT, GL_RGB, GL_UNSIGNED_BYTE, buffer);
 
     for (int x = 0; x < PANEL_WIDTH; x++) {
