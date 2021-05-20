@@ -221,7 +221,7 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
         printf("%d\n", strlen(circle));
 
         // GLint length[] = { strlen(source.c_str()), strlen(circle) };
-        GLCall(glShaderSource(id, 1, sources, nullptr));
+        GLCall(glShaderSource(id, 2, sources, nullptr));
         GLCall(glCompileShader(id));
     } else {
         const char* sources[] = { source.c_str() };
