@@ -81,13 +81,13 @@ int Shader::getAttributeLocation(const std::string& name) {
     return location;
 }
 
-std::string Shader::parseShader(const std::filesystem::path path) {
+const char* Shader::parseShader(const std::filesystem::path path) {
     std::ifstream ifs(path);
     if(!ifs)
         throw(std::runtime_error("File not opened."));
     std::ostringstream stream;
     stream<<ifs.rdbuf();
-    return stream.str();
+    return stream.str().c_str();
 }
 
 unsigned int Shader::compileShader(unsigned int type, const std::vector<fs::path> sourceFiles) {
