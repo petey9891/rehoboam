@@ -139,6 +139,10 @@ vec3 rColor = vec3(0.7, 1.0, 0.9);
 vec3 rColorWarm = vec3(1.0, 1.0, 0.6);
 vec3 rColorHot = vec3(1.0, 1.0, 1.0);
 
+uniform float time;
+uniform float age;
+uniform float fade;
+
 varying vec2 backgroundCoord;
 
 float phi;
@@ -181,8 +185,7 @@ void main() {
 
     float coreIndex = 0.0;
     for (int i = 0; i < CORES; i++) {
-        threadf += clamp(1.0-abs(phi-coreIndex), 0.0, 1.0)*thread[i];
-        coreIndex += 1.0;
+
     }
 
     gl_FragColor = vec4(0.0, 0.0, 0.8, 1.0);
