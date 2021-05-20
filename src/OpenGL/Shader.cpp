@@ -139,10 +139,6 @@ vec3 rColor = vec3(0.7, 1.0, 0.9);
 vec3 rColorWarm = vec3(1.0, 1.0, 0.6);
 vec3 rColorHot = vec3(1.0, 1.0, 1.0);
 
-uniform float time;
-uniform float age;
-uniform float fade;
-
 varying vec2 backgroundCoord;
 
 float phi;
@@ -189,8 +185,6 @@ void main() {
         coreIndex += 1.0;
     }
 
-    outcolor *= vec3(fade);
-
     gl_FragColor = vec4(0.0, 0.0, 0.8, 1.0);
 }
 )GLSL";
@@ -209,7 +203,7 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
 
     // const char* sources[] = { dataSrc.c_str() };
 
-    // Current max length 2093
+    // Current max length 2055
     // Current working length 2007 -- no variance or any circle code
 
     printf("%d\n", source.size());
