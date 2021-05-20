@@ -108,17 +108,14 @@ unsigned int Shader::compileShader(unsigned int type, const std::vector<fs::path
         sources.push_back(src);
     }
 
-       std::vector<const char*>  vc;
-       std::transform(sources.begin(), sources.end(), std::back_inserter(vc), convert);
-       
-
-
+    // Need to convert the vector of strings into a vector of const char *
+    std::vector<const char*> sourceData;
+    std::transform(sources.begin(), sources.end(), std::back_inserter(sourceData), convert);
+    
     printf(">>>>>> <Shader> Generating %s source files\n", shaderType.c_str());
     GLCall(unsigned int id = glCreateShader(type));
-
-    // const char* data[] = { sources[0].c_str() };
     
-    GLCall(glShaderSource(id, sourceFiles.size(), vc.data(), nullptr));
+    GLCall(glShaderSource(id, sourceFiles.size(), sourceData.data(), nullptr));
 
     printf(">>>>>> <Shader> Compiling %s shader\n", shaderType.c_str());
     GLCall(glCompileShader(id));
