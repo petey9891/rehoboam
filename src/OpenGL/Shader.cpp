@@ -97,6 +97,7 @@ unsigned int Shader::compileShader(unsigned int type, const std::vector<fs::path
     for (fs::path path : sourceFiles) {
         printf(">>>>>> <Shader> Parsing %s\n", path.c_str());
         const char* src = this->parseShader(path);
+        printf("%s\n", src);
         printf("size: %d\n", strlen(src));
         assert(strlen(src) <= this->MAX_SIZE);
         sources.push_back(src);
