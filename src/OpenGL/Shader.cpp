@@ -123,7 +123,6 @@ void main() {
 )GLSL";
 
 const char* const circle = 1 + R"GLSL(
-#version 100
 float circle(vec2 uv, float rad, float width) {
     float strength = 5.0;
     float speed = 2.0;
