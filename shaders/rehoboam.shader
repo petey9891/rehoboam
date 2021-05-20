@@ -95,7 +95,7 @@ void main() {
 
     // ring
     rColor = smoothstep(50.0, 0.0, threadf)*rColor + smoothstep(0.0, 50.0, threadf)*smoothstep(100.0, 50.0, threadf)*rColorWarm + smoothstep(50.0, 100.0, threadf)*rColorHot;
-    rColor *= circle(coords, radius, 0.01);
+    // rColor *= circle(coords, radius, 0.01);
 
     // color output
     // multiplying c increases wave intensity
