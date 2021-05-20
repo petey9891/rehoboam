@@ -80,169 +80,36 @@ int Shader::getAttributeLocation(const std::string& name) {
     return location;
 }
 
-struct ShaderProgramSource Shader::parseShaders(const std::string& path) {
-
-    for (const auto& entry : std::filesystem::directory_iterator(path + "/fragment")) {
-        std::cout << entry.path() << std::endl;
-    }
-
-        for (const auto& entry : std::filesystem::directory_iterator(path + "/vertex")) {
-        std::cout << entry.path() << std::endl;
-    }
-
-    // std::ifstream stream(filepath);
-    // std::string line;
-    // std::stringstream ss[2];
-    // ShaderType type = NONE;
-
-    // if (stream.fail()) {
-    //     printf("****** Unable to find shader at %s\n", filepath.c_str());
-    // }
-
-    // while (getline(stream, line)) {
-    //     if (line.find("#shader") != std::string::npos) {
-    //         if (line.find("vertex") != std::string::npos)
-    //             type = VERTEX;
-    //         else if (line.find("fragment") != std::string::npos)
-    //             type = FRAGMENT;
-    //     }
-    //     else {
-    //         ss[(int)type] << line << '\n';
-    //     }
-    // }
-
-    // struct ShaderProgramSource sps = { ss[0].str(), ss[1].str() };
-    return { };
+const char* Shader::parseShader(const std::string& path) {
+    std::ifstream ifs(path);
+    if(!ifs)
+        throw(std::runtime_error("File:"+path+" not opened."));
+    std::ostringstream stream;
+    stream<<ifs.rdbuf();
+    return stream.str().c_str();
 }
 
-const char* const vert = 1 + R"GLSL(
-attribute vec3 pos;
-attribute vec2 coord;
-
-varying vec2 backgroundCoord;
-
-void main() {
-    backgroundCoord = coord;
-    gl_Position = vec4(pos, 1.0);
-}
-)GLSL";
-
-const char* const circle = 1 + R"GLSL(
-float variance(float normalizedCoord, float strength, float speed) {
-	return sin(normalizedCoord * strength + time * speed) / 100.0;
-}
-
-float circle(vec2 uv, float rad, float width) {
-    float strength = 5.0;
-    float speed = 2.0;
-
-    float frame = length(uv);
-    vec2 normalizedCoords = normalize(uv);
-    // adds variance to each half of the circle by providing normalized x and y coords
-    frame += variance(normalizedCoords.y, strength, speed) - variance(normalizedCoords.x, strength, speed);
-
-    // Multiply by threadf to enlarge one portion of the circle
-    float frameWidth = width + width*threadf*0.1;
-
-    return smoothstep(rad-frameWidth, rad, frame) - smoothstep(rad, rad+frameWidth, frame);
-}
-)GLSL";
- 
-const char* const frag = 1 + R"GLSL(
-#version 100
-const int CORES = 8;
-const float T1 = 40.0;
-const float T2 = 60.0;
-const float T3 = 80.0;
-uniform float temperature;
-uniform float thread[CORES];
-
-// background colors
-vec3 bColor = vec3(0.1, 0.6, 0.4);
-vec3 bColorWarm = vec3(0.5, 0.5, 0.1);
-vec3 bColorHot = vec3(0.6, 0.2, 0.1);
-
-// ring colors
-vec3 rColor = vec3(0.7, 1.0, 0.9);
-vec3 rColorWarm = vec3(1.0, 1.0, 0.6);
-vec3 rColorHot = vec3(1.0, 1.0, 1.0);
-
-uniform float time;
-uniform float age;
-uniform float fade;
-
-varying vec2 backgroundCoord;
-
-float phi;
-float threadf = 0.0;
-
-float circle(vec2 uv, float rad, float width);
-
-void main() {
-    vec2 coords = backgroundCoord.xy*0.5;
-    float radius = 0.25;
-
-    float phi = (atan(coords.y, coords.x)+3.1415926538)/3.1415926538*float(CORES)*0.5;
-    vec2 background = backgroundCoord.xy * 0.5 * 10.0 - vec2(19.0);
-    vec2 i = background;
-    float c = 1.0;
-    float inten = 0.05;
-
-    for (int n = 0; n < 8; n++) {
-        float t = time * (0.7 - (0.2 / float(n+1)));
-        i = background + vec2(cos(t - i.x) + sin(t + i.y), sin(t - i.y) + cos(t + i.x));
-        c += 1.0 / length(vec2(background.x / (2.0 * sin(i.x + t) / inten), background.y / (cos(i.y + t) / inten)));
-    }
-
-    c /= 8.0;
-    c = 1.5 - sqrt(pow(c, 2.0));
-
-    bColor.g = clamp(coords.x, 0.0, 1.0);
-    bColor = smoothstep(T2, T1, temperature)*bColor + smoothstep(T1, T2, temperature)*smoothstep(T3, T2, temperature)*bColorWarm + smoothstep(T2, T3, temperature)*bColorHot;
-
-    rColor = smoothstep(50.0, 0.0, threadf)*rColor + smoothstep(0.0, 50.0, threadf)*smoothstep(100.0, 50.0, threadf)*rColorWarm + smoothstep(50.0, 100.0, threadf)*rColorHot;
-    rColor *= circle(coords, radius, 0.01);
-
-    vec3 outcolor = bColor * c * c * c * c + rColor;
-
-    float coreIndex = 0.0;
-    for (int i = 0; i < CORES; i++) {
-        threadf += clamp(1.0-abs(phi-coreIndex), 0.0, 1.0)*thread[i];
-        coreIndex += 1.0;
-    }
-
-    outcolor *= vec3(fade);
-
-    gl_FragColor = vec4(mix(outcolor, outcolor, smoothstep(5.0, 10.0, age)), 1.0);
-}
-)GLSL";
-
-unsigned int Shader::compileShader(unsigned int type, const std::string& source) {
+unsigned int Shader::compileShader(unsigned int type, const std::vector<string> sourceFiles) {
     std::string shaderType = type == GL_VERTEX_SHADER ? "vertex" : "fragment";
-    printf(">>>>>> <Shader> Compiling %s shader\n", shaderType.c_str());
-    GLCall(unsigned int id = glCreateShader(type));
-    const char* src = source.c_str();
 
-    // Max size of shader is 2032 length
-    if (type == GL_FRAGMENT_SHADER) {
-        const char* sources[] = { source.c_str(), circle };
-
-        printf("%d\n", source.size());
-        printf("%d\n", strlen(source.c_str()));
-        printf("%d\n", strlen(circle));
-
-        GLCall(glShaderSource(id, 2, sources, nullptr));
-        GLCall(glCompileShader(id));
-    } else {
-        const char* sources[] = { source.c_str() };
-
-        printf("%d\n", source.size());
-        printf("%d\n", strlen(source.c_str()));
-
-        GLCall(glShaderSource(id, 1, sources, nullptr));
-        GLCall(glCompileShader(id));
+    std::vector<const char*> sources;
+    for (string path : sourceFiles) {
+        printf(">>>>>> <Shader> Parsing %s\n", path);
+        const char* src = this->parseShader(path);
+        assert(strlen(src) <= this->MAX_SIZE);
+        sources.insert(src);
     }
-    
+
+    printf(">>>>>> <Shader> Generating %s source files\n", shaderType.c_str());
+    GLCall(unsigned int id = glCreateShader(type));
+
+    const char* cSources[] = &sources[0];
+
+    GLCall(glShaderSource(id, sourceFiles.size(), cSources, nullptr));
+
+    printf(">>>>>> <Shader> Compiling %s shader\n", shaderType.c_str());
+    GLCall(glCompileShader(id));
+        
     // Error handling
     int result;
     GLCall(glGetShaderiv(id, GL_COMPILE_STATUS, &result));
@@ -263,11 +130,33 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
     return id;
 }
 
-unsigned int Shader::createShader(const std::string& vertexShader, const std::string& fragmentShader) {
+std::vector<string> Shader::aggregateShaders(const ShaderType type) {
+    std::vector<string> files;
+
+    std::string path = this->m_FolderPath;
+    if (type == VERTEX) {
+        path += "/vertex"
+    } else {
+        path += "/fragment"
+    }
+
+    for (const auto& entry : std::filesystem::directory_iterator(path)) {
+        std::cout << entry.path() << std::endl;
+        files.insert(entry.path());
+    }
+
+    return files;
+}
+
+unsigned int Shader::createShaders() {
     // create a shader program
     unsigned int program = glCreateProgram();
-    unsigned int vs = this->compileShader(GL_VERTEX_SHADER, vert);
-    unsigned int fs = this->compileShader(GL_FRAGMENT_SHADER, frag);
+
+    std::vector<string> vertexFiles = this->aggregateShaders(VERTEX);
+    std::vector<string> fragmentFiles = this->aggregateShaders(FRAGMENT);
+
+    unsigned int vs = this->compileShader(GL_VERTEX_SHADER, vertexFiles);
+    unsigned int fs = this->compileShader(GL_FRAGMENT_SHADER, fragmentFiles);
 
     GLCall(glAttachShader(program, vs));
     GLCall(glAttachShader(program, fs));

@@ -2,12 +2,7 @@
 
 #include <string>
 #include <unordered_map>
-
-struct ShaderProgramSource
-{
-    const char* vertexSources[];
-    const char* fragmentSources[];
-};
+#include <vector>
 
 class Shader {
     public: 
@@ -19,6 +14,7 @@ class Shader {
         enum ShaderType {
             NONE = -1, VERTEX = 0, FRAGMENT = 1
         };
+        unsigned int MAX_SIZE = 2032;
 
     public:
         Shader(const std::string& filepath);
@@ -35,10 +31,14 @@ class Shader {
         GLint getAttribute(const std::string& name);
 
     private:
+        // Shader getters
         int getUniformLocation(const std::string& name);
         int getAttributeLocation(const std::string& name);
-        struct ShaderProgramSource parseShaders(const std::string& path);
-        unsigned int compileShader(unsigned int type, const std::string& source);
-        unsigned int createShader(const std::string& vertexShader, const std::string& fragmentShader);
+        
+        // Shader generation
+        const char* parseShader(const std::string& path);
+        std::vector<string> aggregateShaders(const ShaderType type);
+        unsigned int compileShader(unsigned int type, const std::vector<string> sourceFiles);
+        unsigned int createShaders();
 
 };
