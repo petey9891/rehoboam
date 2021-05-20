@@ -92,14 +92,19 @@ std::string Shader::parseShader(const std::filesystem::path path) {
 
 unsigned int Shader::compileShader(unsigned int type, const std::vector<fs::path> sourceFiles) {
     std::string shaderType = type == GL_VERTEX_SHADER ? "vertex" : "fragment";
-
+    const char* test;
     std::vector<const char*> sources;
     for (fs::path path : sourceFiles) {
         printf(">>>>>> <Shader> Parsing %s\n", path.c_str());
         std::string src = this->parseShader(path);
         assert(src.size() <= this->MAX_SIZE);
-        sources.push_back(src.data());
+        if (test == nullptr) {
+            test = src.c_str();
+        }
+        sources.push_back(src.c_str());
     }
+
+    printf("%s\n", test);
 
     printf(">>>>>> <Shader> Generating %s source files\n", shaderType.c_str());
     GLCall(unsigned int id = glCreateShader(type));
