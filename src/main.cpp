@@ -34,11 +34,11 @@ int main(int argc, char* argv[]) {
     // GLCall(glFlush());
     // GLCall(glFinish());
     // Create shaders
-    // Shader loadingShader("/home/pi/rehoboam/shaders/loading.shader");
+    Shader loadingShader("/home/pi/rehoboam/shaders/loading.shader");
     Shader rehoboamShader("/home/pi/rehoboam/shaders/rehoboam.shader");
     
     // Create applications
-    // Loading* loading = new Loading(loadingShader, matrix, canvas);
+    Loading* loading = new Loading(loadingShader, matrix, canvas);
     Rehoboam* rehoboam = new Rehoboam(rehoboamShader, matrix, canvas);
     ColorPulse* pulse = new ColorPulse(matrix, canvas);
 

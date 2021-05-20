@@ -218,6 +218,7 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
     GLCall(unsigned int id = glCreateShader(type));
     const char* src = source.c_str();
 
+    // Max size of shader is 2032 length
     if (type == GL_FRAGMENT_SHADER) {
         const char* sources[] = { source.c_str(), circle };
 
@@ -225,7 +226,6 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
         printf("%d\n", strlen(source.c_str()));
         printf("%d\n", strlen(circle));
 
-        // GLint length[] = { strlen(source.c_str()), strlen(circle) };
         GLCall(glShaderSource(id, 2, sources, nullptr));
         GLCall(glCompileShader(id));
     } else {
@@ -234,24 +234,10 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
         printf("%d\n", source.size());
         printf("%d\n", strlen(source.c_str()));
 
-        // GLint length[] = { strlen(source.c_str()) };
         GLCall(glShaderSource(id, 1, sources, nullptr));
         GLCall(glCompileShader(id));
     }
     
-
-    // Current max length 2032
-    // Current working length 2032 -- no variance or any circle code
-
-
-    // WORKING:
-    // printf("%d\n", source.size());
-    // printf("%d\n", strlen(src));
-
-    // GLint length[] = { strlen(src) };
-    // GLCall(glShaderSource(id, 1, &src, length));
-    // GLCall(glCompileShader(id));
-
     // Error handling
     int result;
     GLCall(glGetShaderiv(id, GL_COMPILE_STATUS, &result));
