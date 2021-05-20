@@ -98,19 +98,13 @@ unsigned int Shader::compileShader(unsigned int type, const std::vector<fs::path
         printf(">>>>>> <Shader> Parsing %s\n", path.c_str());
         std::string src = this->parseShader(path);
         assert(src.size() <= this->MAX_SIZE);
-        const char* tmp = src.c_str();        
-        test = tmp;
-        sources.push_back(tmp);
+        sources.push_back(const_cast<const char*>(src.c_str()));
     }
 
     printf("test code final: %s\n", test);
 
     printf(">>>>>> <Shader> Generating %s source files\n", shaderType.c_str());
     GLCall(unsigned int id = glCreateShader(type));
-
-    // for (auto entry : sources) {
-    //     printf("%s\n", entry);
-    // }
 
     // const char* data[] = { sources[0] };
     GLCall(glShaderSource(id, sourceFiles.size(), sources.data(), nullptr));
