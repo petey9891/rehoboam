@@ -98,7 +98,7 @@ unsigned int Shader::compileShader(unsigned int type, const std::vector<fs::path
         printf(">>>>>> <Shader> Parsing %s\n", path.c_str());
         std::string src = this->parseShader(path);
         assert(src.size() <= this->MAX_SIZE);
-        sources.insert(src.c_str());
+        sources.push_back(src.c_str());
     }
 
     printf(">>>>>> <Shader> Generating %s source files\n", shaderType.c_str());
@@ -141,7 +141,7 @@ std::vector<fs::path> Shader::aggregateShaders(const ShaderType type) {
 
     for (const auto& entry : fs::directory_iterator(path)) {
         std::cout << entry.path() << std::endl;
-        files.insert(entry.path());
+        files.push_back(entry.path());
     }
 
     return files;
