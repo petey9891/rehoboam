@@ -91,7 +91,7 @@ std::string Shader::parseShader(const std::filesystem::path path) {
     return stream.str();
 }
 
-const char* Shader::convert(const std::string& s)
+const char* convert(const std::string& s)
 {
    char* pc = new char[s.size()+1];
    strcpy(pc, s.c_str());
@@ -108,7 +108,7 @@ unsigned int Shader::compileShader(unsigned int type, const std::vector<fs::path
         sources.push_back(src);
     }
 
-       std::vector<char*>  vc;
+       std::vector<const char*>  vc;
        std::transform(sources.begin(), sources.end(), std::back_inserter(vc), convert);
        
 
