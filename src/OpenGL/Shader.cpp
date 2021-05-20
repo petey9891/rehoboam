@@ -10,9 +10,9 @@
 Shader::Shader(const std::string& folderPath): m_RendererID(0), m_FolderPath(folderPath) {
     printf(">>> <Shader> Initializing shader from file %s\n", this->m_FolderPath.c_str());
 
-    ShaderProgramSource source = this->parseShaders(this->m_FolderPath);
+    // ShaderProgramSource source = this->parseShaders(this->m_FolderPath);
 
-    // this->m_RendererID = this->createShader(source.vertexSource, source.fragmentSource);
+    this->m_RendererID = this->createShaders();
 
     GLCall(glUseProgram(this->m_RendererID));
 
@@ -97,7 +97,7 @@ unsigned int Shader::compileShader(unsigned int type, const std::vector<std::str
         printf(">>>>>> <Shader> Parsing %s\n", path);
         const char* src = this->parseShader(path);
         assert(strlen(src) <= this->MAX_SIZE);
-        sources.insert(&src);
+        sources.insert(src);
     }
 
     printf(">>>>>> <Shader> Generating %s source files\n", shaderType.c_str());
@@ -137,12 +137,12 @@ std::vector<std::string> Shader::aggregateShaders(const ShaderType type) {
     if (type == VERTEX) {
         path += "/vertex";
     } else {
-        path += "/fragment";
+        path += "/fragment"; 
     }
 
     for (const auto& entry : std::filesystem::directory_iterator(path)) {
         std::cout << entry.path() << std::endl;
-        files.insert(entry.path());
+        files.insert(entry.path().string());
     }
 
     return files;
