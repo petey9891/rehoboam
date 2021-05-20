@@ -111,7 +111,7 @@ struct ShaderProgramSource Shader::parseShader(const std::string& filepath) {
 }
 
 const char* const vert = 1 + R"GLSL(
-#version 330 core
+#version 100
 layout ( location = 0 ) in vec2 Position;
 layout ( location = 1 ) in vec3 Color;
 out VertexData
@@ -126,7 +126,7 @@ void main()
 )GLSL";
 
 const char* const frag = 1 + R"GLSL(
-#version 330 core
+#version 100
 in VertexData
 {
     vec3 Color;
