@@ -34,8 +34,8 @@ int main(int argc, char* argv[]) {
     // GLCall(glFlush());
     // GLCall(glFinish());
     // Create shaders
-    Shader loadingShader("/home/pi/rehoboam/shaders/loading.shader");
-    Shader rehoboamShader("/home/pi/rehoboam/shaders/rehoboam.shader");
+    // Shader loadingShader("/home/pi/rehoboam/shaders/loading.shader");
+    Shader rehoboamShader("/home/pi/rehoboam/shaders/rehoboam");
     
     // Create applications
     Loading* loading = new Loading(loadingShader, matrix, canvas);

@@ -5,15 +5,15 @@
 
 struct ShaderProgramSource
 {
-    std::string vertexSource;
-    std::string fragmentSource;
+    const char* vertexSources[];
+    const char* fragmentSources[];
 };
 
 class Shader {
     public: 
         unsigned int m_RendererID;
     private:
-        std::string m_FilePath;
+        std::string m_FolderPath;
         std::unordered_map<std::string, int> m_UniformLocationCache;
         std::unordered_map<std::string, int> m_AttributeLocationCache;
         enum ShaderType {
@@ -37,7 +37,7 @@ class Shader {
     private:
         int getUniformLocation(const std::string& name);
         int getAttributeLocation(const std::string& name);
-        struct ShaderProgramSource parseShader(const std::string& filepath);
+        struct ShaderProgramSource parseShaders(const std::string& path);
         unsigned int compileShader(unsigned int type, const std::string& source);
         unsigned int createShader(const std::string& vertexShader, const std::string& fragmentShader);
 

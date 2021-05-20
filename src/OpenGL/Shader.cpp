@@ -5,17 +5,14 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <filesystem>
 
-Shader::Shader(const std::string& filepath): m_RendererID(0), m_FilePath(filepath) {
-    printf(">>> <Shader> Initializing shader from file %s\n", this->m_FilePath.c_str());
+Shader::Shader(const std::string& folderPath): m_RendererID(0), m_FolderPath(folderPath) {
+    printf(">>> <Shader> Initializing shader from file %s\n", this->m_FolderPath.c_str());
 
-    // printf("filepath: %s\n", filepath.c_str());
-    ShaderProgramSource source = this->parseShader(filepath);
+    ShaderProgramSource source = this->parseShaders(this->m_FolderPath);
 
-    // printf("\nVertex Shader:\n%s\n", source.vertexSource.c_str());
-    // printf("\nFragment Shader:\n%s\n\n", source.fragmentSource.c_str());
-
-    this->m_RendererID = this->createShader(source.vertexSource, source.fragmentSource);
+    // this->m_RendererID = this->createShader(source.vertexSource, source.fragmentSource);
 
     GLCall(glUseProgram(this->m_RendererID));
 
@@ -83,31 +80,39 @@ int Shader::getAttributeLocation(const std::string& name) {
     return location;
 }
 
-struct ShaderProgramSource Shader::parseShader(const std::string& filepath) {
+struct ShaderProgramSource Shader::parseShaders(const std::string& path) {
 
-    std::ifstream stream(filepath);
-    std::string line;
-    std::stringstream ss[2];
-    ShaderType type = NONE;
-
-    if (stream.fail()) {
-        printf("****** Unable to find shader at %s\n", filepath.c_str());
+    for (const auto& entry : std::filesystem::directory_iterator(path + "/fragment")) {
+        std::cout << entry.path() << std::endl;
     }
 
-    while (getline(stream, line)) {
-        if (line.find("#shader") != std::string::npos) {
-            if (line.find("vertex") != std::string::npos)
-                type = VERTEX;
-            else if (line.find("fragment") != std::string::npos)
-                type = FRAGMENT;
-        }
-        else {
-            ss[(int)type] << line << '\n';
-        }
+        for (const auto& entry : std::filesystem::directory_iterator(path + "/vertex")) {
+        std::cout << entry.path() << std::endl;
     }
 
-    struct ShaderProgramSource sps = { ss[0].str(), ss[1].str() };
-    return sps;
+    // std::ifstream stream(filepath);
+    // std::string line;
+    // std::stringstream ss[2];
+    // ShaderType type = NONE;
+
+    // if (stream.fail()) {
+    //     printf("****** Unable to find shader at %s\n", filepath.c_str());
+    // }
+
+    // while (getline(stream, line)) {
+    //     if (line.find("#shader") != std::string::npos) {
+    //         if (line.find("vertex") != std::string::npos)
+    //             type = VERTEX;
+    //         else if (line.find("fragment") != std::string::npos)
+    //             type = FRAGMENT;
+    //     }
+    //     else {
+    //         ss[(int)type] << line << '\n';
+    //     }
+    // }
+
+    // struct ShaderProgramSource sps = { ss[0].str(), ss[1].str() };
+    return { };
 }
 
 const char* const vert = 1 + R"GLSL(
