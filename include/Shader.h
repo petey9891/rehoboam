@@ -39,7 +39,7 @@ class Shader {
         // Shader generation
         std::string parseShader(const std::filesystem::path path);
         std::vector<std::filesystem::path> aggregateShaders(const ShaderType type);
-        unsigned int compileShader(unsigned int type, const std::vector<std::string> sourceFiles);
+        unsigned int compileShader(unsigned int type, const std::vector<std::filesystem::path> sourceFiles);
         unsigned int createShaders();
 
 };
