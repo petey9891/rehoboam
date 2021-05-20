@@ -228,12 +228,21 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
     // Current max length 2032
     // Current working length 2032 -- no variance or any circle code
 
-    printf("%d\n", source.size());
-    printf("%d\n", strlen(sources));
 
-    GLint length[] = { strlen(sources) };
+    printf("%d\n", source.size());
+    printf("%d\n", strlen(source.c_str()));
+
+    GLint length[] = { strlen(source.c_str()) };
     GLCall(glShaderSource(id, 1, sources, length));
     GLCall(glCompileShader(id));
+
+    // WORKING:
+    // printf("%d\n", source.size());
+    // printf("%d\n", strlen(src));
+
+    // GLint length[] = { strlen(src) };
+    // GLCall(glShaderSource(id, 1, &src, length));
+    // GLCall(glCompileShader(id));
 
     // Error handling
     int result;
