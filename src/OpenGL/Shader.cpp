@@ -122,6 +122,23 @@ void main() {
 }
 )GLSL";
 
+const char* const circle = 1 + R"GLSL(
+float circle(vec2 uv, float rad, float width) {
+    float strength = 5.0;
+    float speed = 2.0;
+
+    float frame = length(uv);
+    vec2 normalizedCoords = normalize(uv);
+    // adds variance to each half of the circle by providing normalized x and y coords
+    frame += variance(normalizedCoords.y, strength, speed) - variance(normalizedCoords.x, strength, speed);
+
+    // Multiply by threadf to enlarge one portion of the circle
+    float frameWidth = width + width*threadf*0.1;
+
+    return smoothstep(rad-frameWidth, rad, frame) - smoothstep(rad, rad+frameWidth, frame);
+}
+)GLSL";
+ 
 const char* const frag = 1 + R"GLSL(
 #version 100
 const int CORES = 8;
@@ -206,16 +223,16 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
     // buffer << iStream.rdbuf();
     // std::string dataSrc = buffer.str();
 
-    // const char* sources[] = { dataSrc.c_str() };
+    const char* sources[] = { source.c_str() };
 
     // Current max length 2032
     // Current working length 2032 -- no variance or any circle code
 
     printf("%d\n", source.size());
-    printf("%d\n", strlen(src));
+    printf("%d\n", strlen(sources));
 
-    GLint length[] = { strlen(src) };
-    GLCall(glShaderSource(id, 1, &src, length));
+    GLint length[] = { strlen(sources) };
+    GLCall(glShaderSource(id, 1, sources, length));
     GLCall(glCompileShader(id));
 
     // Error handling
