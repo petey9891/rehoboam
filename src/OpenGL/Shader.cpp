@@ -84,20 +84,20 @@ int Shader::getAttributeLocation(const std::string& name) {
 std::string Shader::parseShader(const std::filesystem::path path) {
     std::ifstream ifs(path);
     if(!ifs)
-        throw(std::runtime_error("File:"+path+" not opened."));
+        throw(std::runtime_error("File not opened."));
     std::ostringstream stream;
     stream<<ifs.rdbuf();
     return stream.str();
 }
 
-unsigned int Shader::compileShader(unsigned int type, const std::vector<std::string> sourceFiles) {
+unsigned int Shader::compileShader(unsigned int type, const std::vector<fs::path> sourceFiles) {
     std::string shaderType = type == GL_VERTEX_SHADER ? "vertex" : "fragment";
 
     std::vector<const char*> sources;
-    for (std::string path : sourceFiles) {
+    for (fs::path path : sourceFiles) {
         printf(">>>>>> <Shader> Parsing %s\n", path.c_str());
         std::string src = this->parseShader(path);
-        assert(strlen(src) <= this->MAX_SIZE);
+        assert(src.size() <= this->MAX_SIZE);
         sources.insert(src.c_str());
     }
 
