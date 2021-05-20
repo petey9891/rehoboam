@@ -69,14 +69,6 @@ float circle(vec2 uv, float rad, float width) {
     return smoothstep(rad-frameWidth, rad, frame) - smoothstep(rad, rad+frameWidth, frame);
 }
 
-// Creates a circle vec3. Adds a variance animation to the circle.
-// uv - the coordinates of the circle
-// rad - the circle radius
-// width - the circle's stroke
-vec3 circleVec3(vec2 uv, float rad, float width) {
-    return vec3(circle(uv, rad, width));
-}
-
 void main() {
     vec2 coords = backgroundCoord.xy*0.5;
     float radius = 0.25;
@@ -103,7 +95,7 @@ void main() {
 
     // ring
     rColor = smoothstep(50.0, 0.0, threadf)*rColor + smoothstep(0.0, 50.0, threadf)*smoothstep(100.0, 50.0, threadf)*rColorWarm + smoothstep(50.0, 100.0, threadf)*rColorHot;
-    // rColor *= circle(coords, radius, 0.01);
+    rColor *= circle(coords, radius, 0.01);
 
     // color output
     // multiplying c increases wave intensity
