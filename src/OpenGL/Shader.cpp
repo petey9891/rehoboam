@@ -92,27 +92,25 @@ std::string Shader::parseShader(const std::filesystem::path path) {
 
 unsigned int Shader::compileShader(unsigned int type, const std::vector<fs::path> sourceFiles) {
     std::string shaderType = type == GL_VERTEX_SHADER ? "vertex" : "fragment";
-    std::string test;
     std::vector<std::string> sources;
     for (fs::path path : sourceFiles) {
         printf(">>>>>> <Shader> Parsing %s\n", path.c_str());
         std::string src = this->parseShader(path);
         assert(src.size() <= this->MAX_SIZE);
-        test = src;
         sources.push_back(src);
     }
 
-    printf("test code final: %s\n", test);
-
+    std::vector<const char*> data;
     for (std::string s : sources) {
-        std::cout << s << std::endl;
-    } 
+        data.push_back(s.c_str());
+    }
 
     printf(">>>>>> <Shader> Generating %s source files\n", shaderType.c_str());
     GLCall(unsigned int id = glCreateShader(type));
 
-    const char* data[] = { sources[0].c_str() };
-    GLCall(glShaderSource(id, sourceFiles.size(), data, nullptr));
+    // const char* data[] = { sources[0].c_str() };
+    
+    GLCall(glShaderSource(id, sourceFiles.size(), data.data(), nullptr));
 
     printf(">>>>>> <Shader> Compiling %s shader\n", shaderType.c_str());
     GLCall(glCompileShader(id));
