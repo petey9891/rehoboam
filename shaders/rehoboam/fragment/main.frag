@@ -6,12 +6,10 @@ const float T3 = 80.0;
 uniform float temperature;
 uniform float thread[CORES];
 
-// background colors
 vec3 bColor = vec3(0.1, 0.6, 0.4);
 vec3 bColorWarm = vec3(0.5, 0.5, 0.1);
 vec3 bColorHot = vec3(0.6, 0.2, 0.1);
 
-// ring colors
 vec3 rColor = vec3(0.7, 1.0, 0.9);
 vec3 rColorWarm = vec3(1.0, 1.0, 0.6);
 vec3 rColorHot = vec3(1.0, 1.0, 1.0);

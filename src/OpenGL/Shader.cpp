@@ -106,8 +106,6 @@ unsigned int Shader::compileShader(unsigned int type, const std::vector<fs::path
     printf(">>>>>> <Shader> Generating %s source files\n", shaderType.c_str());
     GLCall(unsigned int id = glCreateShader(type));
 
-
-    printf("%s\n", sources.data());
     printf("number of files: %d\n", sourceFiles.size());
     GLCall(glShaderSource(id, sourceFiles.size(), sources.data(), nullptr));
 
