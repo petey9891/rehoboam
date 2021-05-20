@@ -191,7 +191,7 @@ void main() {
 
     outcolor *= vec3(fade);
 
-    gl_FragColor = vec4(mix(outcolor, outcolor, smoothstep(5.0, 10.0, age)), 1.0);
+    gl_FragColor = vec4(0.0, 0.0, 0.8, 1.0);
 }
 )GLSL";
 
@@ -209,7 +209,7 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
 
     // const char* sources[] = { dataSrc.c_str() };
 
-    // Current max length 2102
+    // Current max length 2093
     // Current working length 2007 -- no variance or any circle code
 
     printf("%d\n", source.size());
