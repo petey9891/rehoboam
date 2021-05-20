@@ -111,30 +111,22 @@ struct ShaderProgramSource Shader::parseShader(const std::string& filepath) {
 }
 
 const char* const vert = 1 + R"GLSL(
-#version 100
-layout ( location = 0 ) in vec2 Position;
-layout ( location = 1 ) in vec3 Color;
-out VertexData
-{
-    vec3 Color;
-} vsOutput;
-void main()
-{
-    gl_Position = vec4( Position, 0.0, 1.0 );
-    vsOutput.Color = Color;
+attribute vec3 pos;
+attribute vec2 coord;
+
+varying vec2 backgroundCoord;
+
+void main() {
+    backgroundCoord = coord;
+    gl_Position = vec4(pos, 1.0);
 }
 )GLSL";
 
 const char* const frag = 1 + R"GLSL(
 #version 100
-in VertexData
-{
-    vec3 Color;
-} fsInput;
-out vec4 outColor;
-void main()
-{
-    outColor = vec4( fsInput.Color, 1.0 );
+
+void main() {
+    gl_FragColor = vec4(0.0, 0.0, 0.8, 0.0);
 }
 )GLSL";
 
