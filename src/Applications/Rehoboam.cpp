@@ -26,8 +26,8 @@ Rehoboam::~Rehoboam() {
 }
 
 void Rehoboam::setInitialState() {
-    // this->shader.setUniform1f("fade", 0.0f);
-    this->shader.setUniform1f("fade", 1.0f);
+    this->shader.setUniform1f("fade", 0.0f);
+    // this->shader.setUniform1f("fade", 1.0f);
 }
 
 void Rehoboam::run() {
@@ -42,10 +42,10 @@ void Rehoboam::run() {
 
     this->renderer.drawArrays(this->shader);
 
-    // if (this->t < 5.0f && this->fadeLevel <= 1.0f) {
-    //     this->fadeLevel += 0.2f;
-    //     this->shader.setUniform1f("fade", this->fadeLevel);
-    // }
+    if (this->t < 5.0f && this->fadeLevel <= 1.0f) {
+        this->fadeLevel += 0.2f;
+        this->shader.setUniform1f("fade", this->fadeLevel);
+    }
 
     if (this->temperature < 0.0f || this->temperature > 100.0f)
         this->increment *= -1.0f;
