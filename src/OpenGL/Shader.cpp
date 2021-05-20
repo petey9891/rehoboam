@@ -98,10 +98,9 @@ unsigned int Shader::compileShader(unsigned int type, const std::vector<fs::path
         printf(">>>>>> <Shader> Parsing %s\n", path.c_str());
         std::string src = this->parseShader(path);
         assert(src.size() <= this->MAX_SIZE);
-        if (test == nullptr) {
-            test = src.c_str();
-            printf("test code initial: %s\n", test);
-        }
+        test = src.c_str();
+        printf("test code initial: %s\n", test);
+        
         sources.push_back(src.c_str());
     }
 
