@@ -99,7 +99,7 @@ void main() {
 
     // color output
     // multiplying c increases wave intensity
-    vec3 outcolor = bColor * c * c * c * c + rColor;
+    vec3 outcolor = bColor * c * c * c * c; // + rColor;
 
     float coreIndex = 0.0;
     for (int i = 0; i < CORES; i++) {
