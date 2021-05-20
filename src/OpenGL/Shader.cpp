@@ -81,13 +81,13 @@ int Shader::getAttributeLocation(const std::string& name) {
     return location;
 }
 
-const char* Shader::parseShader(const std::filesystem::path path) {
+std::string Shader::parseShader(const std::filesystem::path path) {
     std::ifstream ifs(path);
     if(!ifs)
         throw(std::runtime_error("File not opened."));
     std::ostringstream stream;
     stream<<ifs.rdbuf();
-    return stream.str().c_str();
+    return stream.str();
 }
 
 unsigned int Shader::compileShader(unsigned int type, const std::vector<fs::path> sourceFiles) {
@@ -96,11 +96,11 @@ unsigned int Shader::compileShader(unsigned int type, const std::vector<fs::path
     std::vector<const char*> sources;
     for (fs::path path : sourceFiles) {
         printf(">>>>>> <Shader> Parsing %s\n", path.c_str());
-        const char* src = this->parseShader(path);
-        printf("%s\n", src);
-        printf("size: %d\n", strlen(src));
-        assert(strlen(src) <= this->MAX_SIZE);
-        sources.push_back(src);
+        std::string src = this->parseShader(path);
+        printf("%s\n", src.c_str());
+        printf("size: %d\n", src.size());
+        assert(src.size() <= this->MAX_SIZE);
+        sources.push_back(src.c_str());
     }
 
     printf(">>>>>> <Shader> Generating %s source files\n", shaderType.c_str());
