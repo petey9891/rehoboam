@@ -90,12 +90,6 @@ std::string Shader::parseShader(const std::filesystem::path path) {
     return stream.str();
 }
 
-char *convert(const std::string & s) {
-   char *pc = new char[s.size()+1];
-   std::strcpy(pc, s.c_str());
-   return pc; 
-}
-
 unsigned int Shader::compileShader(unsigned int type, const std::vector<fs::path> sourceFiles) {
     std::string shaderType = type == GL_VERTEX_SHADER ? "vertex" : "fragment";
 
