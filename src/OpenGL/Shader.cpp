@@ -123,6 +123,7 @@ void main() {
 )GLSL";
 
 const char* const circle = 1 + R"GLSL(
+#version 100
 float circle(vec2 uv, float rad, float width) {
     float strength = 5.0;
     float speed = 2.0;
@@ -212,17 +213,17 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
     GLCall(unsigned int id = glCreateShader(type));
     const char* src = source.c_str();
 
-    // if (type == GL_FRAGMENT_SHADER) {
-    //     const char* sources[] = { source.c_str(), circle };
+    if (type == GL_FRAGMENT_SHADER) {
+        const char* sources[] = { source.c_str(), circle };
 
-    //     printf("%d\n", source.size());
-    //     printf("%d\n", strlen(source.c_str()));
-    //     printf("%d\n", strlen(circle));
+        printf("%d\n", source.size());
+        printf("%d\n", strlen(source.c_str()));
+        printf("%d\n", strlen(circle));
 
-    //     GLint length[] = { strlen(source.c_str()), strlen(circle) };
-    //     GLCall(glShaderSource(id, 2, sources, length));
-    //     GLCall(glCompileShader(id));
-    // } else {
+        // GLint length[] = { strlen(source.c_str()), strlen(circle) };
+        GLCall(glShaderSource(id, 1, sources, nullptr));
+        GLCall(glCompileShader(id));
+    } else {
         const char* sources[] = { source.c_str() };
 
         printf("%d\n", source.size());
@@ -231,7 +232,7 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
         // GLint length[] = { strlen(source.c_str()) };
         GLCall(glShaderSource(id, 1, sources, nullptr));
         GLCall(glCompileShader(id));
-    // }
+    }
     
 
     // Current max length 2032
