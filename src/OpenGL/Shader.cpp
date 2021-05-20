@@ -105,7 +105,7 @@ unsigned int Shader::compileShader(unsigned int type, const std::vector<std::str
 
     // const char* cSources[] = &sources[0];
     
-    const char* cSources[] = { sources.data() };
+    const char* cSources[] = { &sources.data() };
 
     GLCall(glShaderSource(id, sourceFiles.size(), cSources, nullptr));
 
