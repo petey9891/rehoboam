@@ -89,11 +89,11 @@ const char* Shader::parseShader(const std::string& path) {
     return stream.str().c_str();
 }
 
-unsigned int Shader::compileShader(unsigned int type, const std::vector<string> sourceFiles) {
+unsigned int Shader::compileShader(unsigned int type, const std::vector<std::string> sourceFiles) {
     std::string shaderType = type == GL_VERTEX_SHADER ? "vertex" : "fragment";
 
     std::vector<const char*> sources;
-    for (string path : sourceFiles) {
+    for (std::string path : sourceFiles) {
         printf(">>>>>> <Shader> Parsing %s\n", path);
         const char* src = this->parseShader(path);
         assert(strlen(src) <= this->MAX_SIZE);
@@ -130,8 +130,8 @@ unsigned int Shader::compileShader(unsigned int type, const std::vector<string> 
     return id;
 }
 
-std::vector<string> Shader::aggregateShaders(const ShaderType type) {
-    std::vector<string> files;
+std::vector<std::string> Shader::aggregateShaders(const ShaderType type) {
+    std::vector<std::string> files;
 
     std::string path = this->m_FolderPath;
     if (type == VERTEX) {
@@ -152,8 +152,8 @@ unsigned int Shader::createShaders() {
     // create a shader program
     unsigned int program = glCreateProgram();
 
-    std::vector<string> vertexFiles = this->aggregateShaders(VERTEX);
-    std::vector<string> fragmentFiles = this->aggregateShaders(FRAGMENT);
+    std::vector<std::string> vertexFiles = this->aggregateShaders(VERTEX);
+    std::vector<std::string> fragmentFiles = this->aggregateShaders(FRAGMENT);
 
     unsigned int vs = this->compileShader(GL_VERTEX_SHADER, vertexFiles);
     unsigned int fs = this->compileShader(GL_FRAGMENT_SHADER, fragmentFiles);

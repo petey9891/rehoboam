@@ -37,8 +37,8 @@ class Shader {
         
         // Shader generation
         const char* parseShader(const std::string& path);
-        std::vector<string> aggregateShaders(const ShaderType type);
-        unsigned int compileShader(unsigned int type, const std::vector<string> sourceFiles);
+        std::vector<std::string> aggregateShaders(const ShaderType type);
+        unsigned int compileShader(unsigned int type, const std::vector<std::string> sourceFiles);
         unsigned int createShaders();
 
 };
