@@ -192,7 +192,7 @@ vec2 coords = backgroundCoord.xy*0.5;
     rColor = smoothstep(50.0, 0.0, threadf)*rColor + smoothstep(0.0, 50.0, threadf)*smoothstep(100.0, 50.0, threadf)*rColorWarm + smoothstep(50.0, 100.0, threadf)*rColorHot;
     // rColor *= circle(coords, radius, 0.01);
 
-    vec3 outcolor = bColor * c * c * c * c + rColor;
+    vec3 outcolor = bColor * c * c * c * c; // + rColor;
 
     float coreIndex = 0.0;
     for (int i = 0; i < CORES; i++) {
@@ -223,13 +223,13 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
     //     GLCall(glShaderSource(id, 2, sources, length));
     //     GLCall(glCompileShader(id));
     // } else {
-        // const char* sources[] = { source.c_str() };
+        const char* sources[] = { source.c_str() };
 
         printf("%d\n", source.size());
         printf("%d\n", strlen(source.c_str()));
 
         // GLint length[] = { strlen(source.c_str()) };
-        GLCall(glShaderSource(id, 1, &src, nullptr));
+        GLCall(glShaderSource(id, 1, sources, nullptr));
         GLCall(glCompileShader(id));
     // }
     
@@ -269,8 +269,8 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
 unsigned int Shader::createShader(const std::string& vertexShader, const std::string& fragmentShader) {
     // create a shader program
     unsigned int program = glCreateProgram();
-    unsigned int vs = this->compileShader(GL_VERTEX_SHADER, vertexShader);
-    unsigned int fs = this->compileShader(GL_FRAGMENT_SHADER, fragmentShader);
+    unsigned int vs = this->compileShader(GL_VERTEX_SHADER, vert);
+    unsigned int fs = this->compileShader(GL_FRAGMENT_SHADER, frag);
 
     GLCall(glAttachShader(program, vs));
     GLCall(glAttachShader(program, fs));
