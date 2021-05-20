@@ -1,4 +1,4 @@
-#include <Renderer.h>
+// #include <Renderer.h>
 #include <Shader.h>
 
 #include <iostream>
@@ -90,6 +90,12 @@ std::string Shader::parseShader(const std::filesystem::path path) {
     return stream.str();
 }
 
+char *convert(const std::string & s) {
+   char *pc = new char[s.size()+1];
+   std::strcpy(pc, s.c_str());
+   return pc; 
+}
+
 unsigned int Shader::compileShader(unsigned int type, const std::vector<fs::path> sourceFiles) {
     std::string shaderType = type == GL_VERTEX_SHADER ? "vertex" : "fragment";
 
@@ -98,7 +104,7 @@ unsigned int Shader::compileShader(unsigned int type, const std::vector<fs::path
         printf(">>>>>> <Shader> Parsing %s\n", path.c_str());
         std::string src = this->parseShader(path);
         assert(src.size() <= this->MAX_SIZE);
-        sources.push_back(src.c_str());
+        sources.push_back(src.data());
     }
 
     printf(">>>>>> <Shader> Generating %s source files\n", shaderType.c_str());
