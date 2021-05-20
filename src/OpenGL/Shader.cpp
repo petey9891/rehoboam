@@ -153,19 +153,8 @@ mat2 rotate2d(float angle) {
                 sin(angle),  cos(angle));
 }
 
-float circle(vec2 uv, float rad, float width) {
-    float strength = 5.0;
-    float speed = 2.0;
-
-    float frame = length(uv);
-    vec2 normalizedCoords = normalize(uv);
-    // adds variance to each half of the circle by providing normalized x and y coords
-    frame += variance(normalizedCoords.y, strength, speed) - variance(normalizedCoords.x, strength, speed);
-
-    // Multiply by threadf to enlarge one portion of the circle
-    float frameWidth = width + width*threadf*0.1;
-
-    return smoothstep(rad-frameWidth, rad, frame) - smoothstep(rad, rad+frameWidth, frame);
+vec3 circleVec3(vec2 uv, float rad, float width) {
+    return vec3(circle(uv, rad, width));
 }
 
 void main() {
