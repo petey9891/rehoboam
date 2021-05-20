@@ -229,9 +229,9 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
 
     // const char* sources[] = { dataSrc.c_str() };
     printf("%d\n", source.size());
-    printf("%d\n", strlen(src.c_str()));
+    printf("%d\n", strlen(src));
 
-    GLint length[] = { strlen(src.c_str()) };
+    GLint length[] = { strlen(src) };
     GLCall(glShaderSource(id, 1, &src, length));
     GLCall(glCompileShader(id));
 
