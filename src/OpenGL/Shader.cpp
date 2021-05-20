@@ -153,10 +153,6 @@ mat2 rotate2d(float angle) {
                 sin(angle),  cos(angle));
 }
 
-float variance(float normalizedCoord, float strength, float speed) {
-	return sin(normalizedCoord * strength + time * speed) / 100.0;
-}
-
 void main() {
     vec2 coords = backgroundCoord.xy*0.5;
     float radius = 0.25;
