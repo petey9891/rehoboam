@@ -38,7 +38,7 @@ int main(int argc, char* argv[]) {
     Shader rehoboamShader("/home/pi/rehoboam/shaders/rehoboam");
     
     // Create applications
-    Loading* loading = new Loading(loadingShader, matrix, canvas);
+    // Loading* loading = new Loading(loadingShader, matrix, canvas);
     Rehoboam* rehoboam = new Rehoboam(rehoboamShader, matrix, canvas);
     ColorPulse* pulse = new ColorPulse(matrix, canvas);
 
