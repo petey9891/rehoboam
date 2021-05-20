@@ -110,24 +110,52 @@ struct ShaderProgramSource Shader::parseShader(const std::string& filepath) {
     return sps;
 }
 
+const char* const vert = 1 + R"GLSL(
+#version 330 core
+layout ( location = 0 ) in vec2 Position;
+layout ( location = 1 ) in vec3 Color;
+out VertexData
+{
+    vec3 Color;
+} vsOutput;
+void main()
+{
+    gl_Position = vec4( Position, 0.0, 1.0 );
+    vsOutput.Color = Color;
+}
+)GLSL";
+
+const char* const frag = 1 + R"GLSL(
+#version 330 core
+in VertexData
+{
+    vec3 Color;
+} fsInput;
+out vec4 outColor;
+void main()
+{
+    outColor = vec4( fsInput.Color, 1.0 );
+}
+)GLSL";
+
 unsigned int Shader::compileShader(unsigned int type, const std::string& source) {
     std::string shaderType = type == GL_VERTEX_SHADER ? "vertex" : "fragment";
     printf(">>>>>> <Shader> Compiling %s shader\n", shaderType.c_str());
     GLCall(unsigned int id = glCreateShader(type));
     const char* src = source.c_str();
 
-    std::string path = "/home/pi/rehoboam/shaders/rehoboam/" + shaderType + ".shader";
-    std::ifstream iStream(path);
-    std::stringstream buffer;
-    buffer << iStream.rdbuf();
-    std::string dataSrc = buffer.str();
+    // std::string path = "/home/pi/rehoboam/shaders/rehoboam/" + shaderType + ".shader";
+    // std::ifstream iStream(path);
+    // std::stringstream buffer;
+    // buffer << iStream.rdbuf();
+    // std::string dataSrc = buffer.str();
 
-    const char* sources[] = { dataSrc.c_str() };
-    printf("%d\n", source.size());
-    printf("%d\n", strlen(dataSrc.c_str()));
+    // const char* sources[] = { dataSrc.c_str() };
+    // printf("%d\n", source.size());
+    // printf("%d\n", strlen(dataSrc.c_str()));
 
-    GLint length[] = { strlen(dataSrc.c_str()) };
-    GLCall(glShaderSource(id, 1, sources, length));
+    // GLint length[] = { strlen(dataSrc.c_str()) };
+    GLCall(glShaderSource(id, 1, &src, length));
     GLCall(glCompileShader(id));
 
     // Error handling
@@ -153,8 +181,8 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
 unsigned int Shader::createShader(const std::string& vertexShader, const std::string& fragmentShader) {
     // create a shader program
     unsigned int program = glCreateProgram();
-    unsigned int vs = this->compileShader(GL_VERTEX_SHADER, vertexShader);
-    unsigned int fs = this->compileShader(GL_FRAGMENT_SHADER, fragmentShader);
+    unsigned int vs = this->compileShader(GL_VERTEX_SHADER, vert);
+    unsigned int fs = this->compileShader(GL_FRAGMENT_SHADER, frag);
 
     GLCall(glAttachShader(program, vs));
     GLCall(glAttachShader(program, fs));
