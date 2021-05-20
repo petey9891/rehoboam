@@ -212,12 +212,6 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
     GLCall(unsigned int id = glCreateShader(type));
     const char* src = source.c_str();
 
-    // std::string path = "/home/pi/rehoboam/shaders/rehoboam/" + shaderType + ".shader";
-    // std::ifstream iStream(path);
-    // std::stringstream buffer;
-    // buffer << iStream.rdbuf();
-    // std::string dataSrc = buffer.str();
-
     // if (type == GL_FRAGMENT_SHADER) {
     //     const char* sources[] = { source.c_str(), circle };
 
@@ -229,14 +223,14 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
     //     GLCall(glShaderSource(id, 2, sources, length));
     //     GLCall(glCompileShader(id));
     // } else {
-        const char* sources[] = { source.c_str() };
+        // const char* sources[] = { source.c_str() };
 
-        printf("%d\n", source.size());
-        printf("%d\n", strlen(source.c_str()));
+        // printf("%d\n", source.size());
+        // printf("%d\n", strlen(source.c_str()));
 
-        GLint length[] = { strlen(source.c_str()) };
-        GLCall(glShaderSource(id, 1, sources, length));
-        GLCall(glCompileShader(id));
+        // GLint length[] = { strlen(source.c_str()) };
+    GLCall(glShaderSource(id, 1, &src, nullptr));
+        // GLCall(glCompileShader(id));
     // }
     
 
