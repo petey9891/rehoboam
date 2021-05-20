@@ -154,7 +154,7 @@ mat2 rotate2d(float angle) {
 }
 
 vec3 circleVec3(vec2 uv, float rad, float width) {
-    return vec3(circle(uv, rad, width));
+    return vec3(0.0, 0.0, 0.0);
 }
 
 void main() {
@@ -209,7 +209,7 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
 
     // const char* sources[] = { dataSrc.c_str() };
 
-    // Current max length 2710
+    // Current max length 2102
     // Current working length 2007 -- no variance or any circle code
 
     printf("%d\n", source.size());
