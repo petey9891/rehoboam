@@ -5,17 +5,16 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 
-Shader::Shader(const std::string& filepath): m_RendererID(0), m_FilePath(filepath) {
-    printf(">>> <Shader> Initializing shader from file %s\n", this->m_FilePath.c_str());
+namespace fs = std::filesystem;
 
-    // printf("filepath: %s\n", filepath.c_str());
-    ShaderProgramSource source = this->parseShader(filepath);
+Shader::Shader(const std::string& folderPath): m_RendererID(0), m_FolderPath(folderPath) {
+    printf(">>> <Shader> Initializing shader from file %s\n", this->m_FolderPath.c_str());
 
-    // printf("\nVertex Shader:\n%s\n", source.vertexSource.c_str());
-    // printf("\nFragment Shader:\n%s\n\n", source.fragmentSource.c_str());
+    // ShaderProgramSource source = this->parseShaders(this->m_FolderPath);
 
-    this->m_RendererID = this->createShader(source.vertexSource, source.fragmentSource);
+    this->m_RendererID = this->createShaders();
 
     GLCall(glUseProgram(this->m_RendererID));
 
@@ -83,41 +82,44 @@ int Shader::getAttributeLocation(const std::string& name) {
     return location;
 }
 
-struct ShaderProgramSource Shader::parseShader(const std::string& filepath) {
-
-    std::ifstream stream(filepath);
-    std::string line;
-    std::stringstream ss[2];
-    ShaderType type = NONE;
-
-    if (stream.fail()) {
-        printf("****** Unable to find shader at %s\n", filepath.c_str());
-    }
-
-    while (getline(stream, line)) {
-        if (line.find("#shader") != std::string::npos) {
-            if (line.find("vertex") != std::string::npos)
-                type = VERTEX;
-            else if (line.find("fragment") != std::string::npos)
-                type = FRAGMENT;
-        }
-        else {
-            ss[(int)type] << line << '\n';
-        }
-    }
-
-    struct ShaderProgramSource sps = { ss[0].str(), ss[1].str() };
-    return sps;
+std::string Shader::parseShader(const std::filesystem::path path) {
+    std::ifstream ifs(path);
+    if(!ifs)
+        throw(std::runtime_error("File not opened."));
+    std::ostringstream stream;
+    stream<<ifs.rdbuf();
+    return stream.str();
 }
 
-unsigned int Shader::compileShader(unsigned int type, const std::string& source) {
-    std::string shaderType = type == GL_VERTEX_SHADER ? "vertex" : "fragment";
-    printf(">>>>>> <Shader> Compiling %s shader\n", shaderType.c_str());
-    GLCall(unsigned int id = glCreateShader(type));
-    const char* src = source.c_str();
-    GLCall(glShaderSource(id, 1, &src, nullptr));
-    GLCall(glCompileShader(id));
+const char* convert(const std::string& s)
+{
+   char* pc = new char[s.size()+1];
+   strcpy(pc, s.c_str());
+   return pc; 
+}
 
+unsigned int Shader::compileShader(unsigned int type, const std::vector<fs::path> sourceFiles) {
+    std::string shaderType = type == GL_VERTEX_SHADER ? "vertex" : "fragment";
+    std::vector<std::string> sources;
+    for (fs::path path : sourceFiles) {
+        printf(">>>>>> <Shader> Parsing %s\n", path.c_str());
+        std::string src = this->parseShader(path);
+        assert(src.size() <= this->MAX_SIZE);
+        sources.push_back(src);
+    }
+
+    // Need to convert the vector of strings into a vector of const char *
+    std::vector<const char*> sourceData;
+    std::transform(sources.begin(), sources.end(), std::back_inserter(sourceData), convert);
+    
+    printf(">>>>>> <Shader> Generating %s source files\n", shaderType.c_str());
+    GLCall(unsigned int id = glCreateShader(type));
+    
+    GLCall(glShaderSource(id, sourceFiles.size(), sourceData.data(), nullptr));
+
+    printf(">>>>>> <Shader> Compiling %s shader\n", shaderType.c_str());
+    GLCall(glCompileShader(id));
+        
     // Error handling
     int result;
     GLCall(glGetShaderiv(id, GL_COMPILE_STATUS, &result));
@@ -138,11 +140,33 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
     return id;
 }
 
-unsigned int Shader::createShader(const std::string& vertexShader, const std::string& fragmentShader) {
+std::vector<fs::path> Shader::aggregateShaders(const ShaderType type) {
+    std::vector<fs::path> files;
+
+    std::string path = this->m_FolderPath;
+    if (type == VERTEX) {
+        path += "/vertex";
+    } else {
+        path += "/fragment"; 
+    }
+
+    for (const auto& entry : fs::directory_iterator(path)) {
+        std::cout << entry.path() << std::endl;
+        files.push_back(entry.path());
+    }
+
+    return files;
+}
+
+unsigned int Shader::createShaders() {
     // create a shader program
     unsigned int program = glCreateProgram();
-    unsigned int vs = this->compileShader(GL_VERTEX_SHADER, vertexShader);
-    unsigned int fs = this->compileShader(GL_FRAGMENT_SHADER, fragmentShader);
+
+    std::vector<fs::path> vertexFiles = this->aggregateShaders(VERTEX);
+    std::vector<fs::path> fragmentFiles = this->aggregateShaders(FRAGMENT);
+
+    unsigned int vs = this->compileShader(GL_VERTEX_SHADER, vertexFiles);
+    unsigned int fs = this->compileShader(GL_FRAGMENT_SHADER, fragmentFiles);
 
     GLCall(glAttachShader(program, vs));
     GLCall(glAttachShader(program, fs));

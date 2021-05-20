@@ -41,14 +41,6 @@ varying vec2 backgroundCoord;
 float phi;
 float threadf = 0.0;
 
-// Rotates the circle by an angle
-// angle - the angle to rotate the circle by
-// note: https://en.wikipedia.org/wiki/Rotation_matrix
-mat2 rotate2d(float angle) {
-    return mat2(cos(angle), -sin(angle),
-                sin(angle),  cos(angle));
-}
-
 // Adds the animation for the circle moving back and forth
 // v1 - the coordinates of circle
 // v2 - the boundtry in which the circle can move away from its coordinates?
@@ -56,7 +48,6 @@ mat2 rotate2d(float angle) {
 // speed - the speed of the animation
 float variance(float normalizedCoord, float strength, float speed) {
 	return sin(normalizedCoord * strength + time * speed) / 100.0;
-
 }
 
 // Creates circle float. Adds a variance animation to the circle.
@@ -76,14 +67,6 @@ float circle(vec2 uv, float rad, float width) {
     float frameWidth = width + width*threadf*0.1;
 
     return smoothstep(rad-frameWidth, rad, frame) - smoothstep(rad, rad+frameWidth, frame);
-}
-
-// Creates a circle vec3. Adds a variance animation to the circle.
-// uv - the coordinates of the circle
-// rad - the circle radius
-// width - the circle's stroke
-vec3 circleVec3(vec2 uv, float rad, float width) {
-    return vec3(circle(uv, rad, width));
 }
 
 void main() {
@@ -112,11 +95,11 @@ void main() {
 
     // ring
     rColor = smoothstep(50.0, 0.0, threadf)*rColor + smoothstep(0.0, 50.0, threadf)*smoothstep(100.0, 50.0, threadf)*rColorWarm + smoothstep(50.0, 100.0, threadf)*rColorHot;
-    rColor *= circle(coords, radius, 0.01);
+    // rColor *= circle(coords, radius, 0.01);
 
     // color output
     // multiplying c increases wave intensity
-    vec3 outcolor = bColor * c * c * c * c + rColor;
+    vec3 outcolor = bColor * c * c * c * c; // + rColor;
 
     float coreIndex = 0.0;
     for (int i = 0; i < CORES; i++) {

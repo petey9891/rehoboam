@@ -6,7 +6,7 @@ SOURCES := $(wildcard *.cpp)
 OBJECTS := $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(SOURCES))
 
 CPPFLAGS :=-I../../include -I/opt/vc/include -MMD -MP
-CXXFLAGS :=-O3 -W -Wall -Wextra -Wno-unused-parameter -D_FILE_OFFSET_BITS=64
+CXXFLAGS :=-std=c++17 -O3 -W -Wall -Wextra -Wno-unused-parameter -D_FILE_OFFSET_BITS=64
 
 .PHONY: window
 
