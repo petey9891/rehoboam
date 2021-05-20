@@ -186,6 +186,8 @@ void main() {
     float coreIndex = 0.0;
     for (int i = 0; i < CORES; i++) {
         // hello this is a test beep
+        // ahahahahahahahahahahahahah
+        // wtf is wrong
     }
 
     gl_FragColor = vec4(0.0, 0.0, 0.8, 1.0);
