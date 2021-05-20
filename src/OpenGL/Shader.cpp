@@ -228,11 +228,11 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
     // std::string dataSrc = buffer.str();
 
     // const char* sources[] = { dataSrc.c_str() };
-    // printf("%d\n", source.size());
-    // printf("%d\n", strlen(dataSrc.c_str()));
+    printf("%d\n", source.size());
+    printf("%d\n", strlen(src.c_str()));
 
-    // GLint length[] = { strlen(dataSrc.c_str()) };
-    GLCall(glShaderSource(id, 1, &src, 0));
+    GLint length[] = { strlen(src.c_str()) };
+    GLCall(glShaderSource(id, 1, &src, length));
     GLCall(glCompileShader(id));
 
     // Error handling
