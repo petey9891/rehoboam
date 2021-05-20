@@ -171,8 +171,10 @@ varying vec2 backgroundCoord;
 float phi;
 float threadf = 0.0;
 
+float circle(vec2 uv, float rad, float width);
+
 void main() {
-vec2 coords = backgroundCoord.xy*0.5;
+    vec2 coords = backgroundCoord.xy*0.5;
     float radius = 0.25;
 
     float phi = (atan(coords.y, coords.x)+3.1415926538)/3.1415926538*float(CORES)*0.5;
