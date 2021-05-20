@@ -104,6 +104,10 @@ unsigned int Shader::compileShader(unsigned int type, const std::vector<fs::path
 
     printf("test code final: %s\n", test);
 
+    for (std::string s : sources) {
+        std::cout << s << std::endl;
+    } 
+
     printf(">>>>>> <Shader> Generating %s source files\n", shaderType.c_str());
     GLCall(unsigned int id = glCreateShader(type));
 
