@@ -25,7 +25,6 @@ varying vec2 backgroundCoord;
 float phi;
 float threadf = 0.0;
 
-// forward declare
 float circle(vec2 uv, float rad, float width);
 
 void main() {
