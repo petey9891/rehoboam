@@ -100,11 +100,12 @@ unsigned int Shader::compileShader(unsigned int type, const std::vector<fs::path
         assert(src.size() <= this->MAX_SIZE);
         if (test == nullptr) {
             test = src.c_str();
+            printf("test code initial: %s\n", test);
         }
         sources.push_back(src.c_str());
     }
 
-    printf("%s\n", test);
+    printf("test code final: %s\n", test);
 
     printf(">>>>>> <Shader> Generating %s source files\n", shaderType.c_str());
     GLCall(unsigned int id = glCreateShader(type));
