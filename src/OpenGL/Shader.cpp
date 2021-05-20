@@ -188,7 +188,6 @@ void main() {
         // hello this is a test beep
         // ahahahahahahahahahahahahah
         // wtf is wrong
-        //
 
     }
 
@@ -210,7 +209,7 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
 
     // const char* sources[] = { dataSrc.c_str() };
 
-    // Current max length 2048
+    // Current max length 2041
     // Current working length 2029 -- no variance or any circle code
 
     printf("%d\n", source.size());
