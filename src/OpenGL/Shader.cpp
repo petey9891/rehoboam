@@ -223,18 +223,31 @@ unsigned int Shader::compileShader(unsigned int type, const std::string& source)
     // buffer << iStream.rdbuf();
     // std::string dataSrc = buffer.str();
 
-    const char* sources[] = { source.c_str() };
+    if (type == GL_FRAGMENT_SHADER) {
+        const char* sources[] = { source.c_str(), circle };
+
+        printf("%d\n", source.size());
+        printf("%d\n", strlen(source.c_str()));
+        printf("%d\n", strlen(circle));
+
+        GLint length[] = { strlen(source.c_str()), strlen(circle) };
+        GLCall(glShaderSource(id, 1, sources, length));
+        GLCall(glCompileShader(id));
+    } else {
+        const char* sources[] = { source.c_str() };
+
+        printf("%d\n", source.size());
+        printf("%d\n", strlen(source.c_str()));
+
+        GLint length[] = { strlen(source.c_str()) };
+        GLCall(glShaderSource(id, 1, sources, length));
+        GLCall(glCompileShader(id));
+    }
+    
 
     // Current max length 2032
     // Current working length 2032 -- no variance or any circle code
 
-
-    printf("%d\n", source.size());
-    printf("%d\n", strlen(source.c_str()));
-
-    GLint length[] = { strlen(source.c_str()) };
-    GLCall(glShaderSource(id, 1, sources, length));
-    GLCall(glCompileShader(id));
 
     // WORKING:
     // printf("%d\n", source.size());
