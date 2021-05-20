@@ -7,8 +7,6 @@
 #include <sstream>
 #include <filesystem>
 
-namespace fs = std::filesystem;
-
 Shader::Shader(const std::string& folderPath): m_RendererID(0), m_FolderPath(folderPath) {
     printf(">>> <Shader> Initializing shader from file %s\n", this->m_FolderPath.c_str());
 
@@ -142,7 +140,7 @@ std::vector<std::string> Shader::aggregateShaders(const ShaderType type) {
         path += "/fragment";
     }
 
-    for (const auto& entry : fs::directory_iterator(path)) {
+    for (const auto& entry : std::filesystem::directory_iterator(path)) {
         std::cout << entry.path() << std::endl;
         files.insert(entry.path());
     }
