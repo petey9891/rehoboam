@@ -3,6 +3,7 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <filesystem>
 
 class Shader {
     public: 
@@ -36,7 +37,7 @@ class Shader {
         int getAttributeLocation(const std::string& name);
         
         // Shader generation
-        const char* parseShader(const std::string& path);
+        std::string parseShader(const std::filesystem::path path);
         std::vector<std::string> aggregateShaders(const ShaderType type);
         unsigned int compileShader(unsigned int type, const std::vector<std::string> sourceFiles);
         unsigned int createShaders();

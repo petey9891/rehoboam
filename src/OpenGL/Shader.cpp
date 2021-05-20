@@ -5,7 +5,8 @@
 #include <string>
 #include <fstream>
 #include <sstream>
-#include <filesystem>
+
+namespace fs = std::filesystem;
 
 Shader::Shader(const std::string& folderPath): m_RendererID(0), m_FolderPath(folderPath) {
     printf(">>> <Shader> Initializing shader from file %s\n", this->m_FolderPath.c_str());
@@ -80,13 +81,13 @@ int Shader::getAttributeLocation(const std::string& name) {
     return location;
 }
 
-const char* Shader::parseShader(const std::string& path) {
+std::string Shader::parseShader(const std::filesystem::path path) {
     std::ifstream ifs(path);
     if(!ifs)
         throw(std::runtime_error("File:"+path+" not opened."));
     std::ostringstream stream;
     stream<<ifs.rdbuf();
-    return stream.str().c_str();
+    return stream.str();
 }
 
 unsigned int Shader::compileShader(unsigned int type, const std::vector<std::string> sourceFiles) {
@@ -95,9 +96,9 @@ unsigned int Shader::compileShader(unsigned int type, const std::vector<std::str
     std::vector<const char*> sources;
     for (std::string path : sourceFiles) {
         printf(">>>>>> <Shader> Parsing %s\n", path.c_str());
-        const char* src = this->parseShader(path);
+        std::string src = this->parseShader(path);
         assert(strlen(src) <= this->MAX_SIZE);
-        sources.insert(src);
+        sources.insert(src.c_str());
     }
 
     printf(">>>>>> <Shader> Generating %s source files\n", shaderType.c_str());
@@ -128,8 +129,8 @@ unsigned int Shader::compileShader(unsigned int type, const std::vector<std::str
     return id;
 }
 
-std::vector<std::string> Shader::aggregateShaders(const ShaderType type) {
-    std::vector<std::string> files;
+std::vector<fs::path> Shader::aggregateShaders(const ShaderType type) {
+    std::vector<fs::path> files;
 
     std::string path = this->m_FolderPath;
     if (type == VERTEX) {
@@ -138,9 +139,9 @@ std::vector<std::string> Shader::aggregateShaders(const ShaderType type) {
         path += "/fragment"; 
     }
 
-    for (const auto& entry : std::filesystem::directory_iterator(path)) {
+    for (const auto& entry : fs::directory_iterator(path)) {
         std::cout << entry.path() << std::endl;
-        files.insert(entry.path().string());
+        files.insert(entry.path());
     }
 
     return files;
@@ -150,8 +151,8 @@ unsigned int Shader::createShaders() {
     // create a shader program
     unsigned int program = glCreateProgram();
 
-    std::vector<std::string> vertexFiles = this->aggregateShaders(VERTEX);
-    std::vector<std::string> fragmentFiles = this->aggregateShaders(FRAGMENT);
+    std::vector<fs::path> vertexFiles = this->aggregateShaders(VERTEX);
+    std::vector<fs::path> fragmentFiles = this->aggregateShaders(FRAGMENT);
 
     unsigned int vs = this->compileShader(GL_VERTEX_SHADER, vertexFiles);
     unsigned int fs = this->compileShader(GL_FRAGMENT_SHADER, fragmentFiles);
