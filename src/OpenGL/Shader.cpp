@@ -5,6 +5,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 
 namespace fs = std::filesystem;
 
@@ -108,7 +109,8 @@ unsigned int Shader::compileShader(unsigned int type, const std::vector<fs::path
     }
 
        std::vector<char*>  vc;
-       std::transform(sources.begin(), sources.end(), std::back_inserter(vc), convert);   
+       std::transform(sources.begin(), sources.end(), std::back_inserter(vc), convert);
+       
 
 
     printf(">>>>>> <Shader> Generating %s source files\n", shaderType.c_str());
