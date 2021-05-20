@@ -39,14 +39,16 @@ int main(int argc, char* argv[]) {
     
     // Create applications
     // Loading* loading = new Loading(loadingShader, matrix, canvas);
-    // Rehoboam* rehoboam = new Rehoboam(rehoboamShader, matrix, canvas);
+    Rehoboam* rehoboam = new Rehoboam(rehoboamShader, matrix, canvas);
     ColorPulse* pulse = new ColorPulse(matrix, canvas);
 
     // Bind the loading shader for the loading sequence
     // loadingShader.bind();
+    rehoboamShader.bind();
 
     // Runnable* program = loading;
-    Runnable* program = pulse;
+    // Runnable* program = pulse;
+    Runnable* program = rehoboam;
     // Runnable* fallback = pulse;
     // Runnable* fallback = rehoboam;
 
