@@ -1,4 +1,4 @@
-// #include <Renderer.h>
+#include <Renderer.h>
 #include <Shader.h>
 
 #include <iostream>
