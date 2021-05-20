@@ -123,6 +123,10 @@ void main() {
 )GLSL";
 
 const char* const circle = 1 + R"GLSL(
+float variance(float normalizedCoord, float strength, float speed) {
+	return sin(normalizedCoord * strength + time * speed) / 100.0;
+}
+
 float circle(vec2 uv, float rad, float width) {
     float strength = 5.0;
     float speed = 2.0;
