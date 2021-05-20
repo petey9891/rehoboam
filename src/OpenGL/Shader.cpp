@@ -99,7 +99,7 @@ unsigned int Shader::compileShader(unsigned int type, const std::vector<fs::path
         std::string src = this->parseShader(path);
         assert(src.size() <= this->MAX_SIZE);
 
-        const char* d = const_cast<const char*>(src.c_str());
+        const char* d = static_cast<const char*>(src.c_str());
         test = d;
 
         sources.push_back(d);
