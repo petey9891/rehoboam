@@ -37,6 +37,7 @@ class Shader {
         int getAttributeLocation(const std::string& name);
         
         // Shader generation
+        const char* convert(const std::string& s);
         std::string parseShader(const std::filesystem::path path);
         std::vector<std::filesystem::path> aggregateShaders(const ShaderType type);
         unsigned int compileShader(unsigned int type, const std::vector<std::filesystem::path> sourceFiles);

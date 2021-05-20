@@ -90,6 +90,13 @@ std::string Shader::parseShader(const std::filesystem::path path) {
     return stream.str();
 }
 
+const char* Shader::convert(const std::string& s)
+{
+   char* pc = new char[s.size()+1];
+   std::strcpy(pc, s.c_str());
+   return pc; 
+}
+
 unsigned int Shader::compileShader(unsigned int type, const std::vector<fs::path> sourceFiles) {
     std::string shaderType = type == GL_VERTEX_SHADER ? "vertex" : "fragment";
     std::vector<std::string> sources;
@@ -100,10 +107,9 @@ unsigned int Shader::compileShader(unsigned int type, const std::vector<fs::path
         sources.push_back(src);
     }
 
-    std::vector<const char*> data;
-    for (std::string s : sources) {
-        data.push_back(s.c_str());
-    }
+       std::vector<char*>  vc;
+       std::transform(sources.begin(), sources.end(), std::back_inserter(vc), convert);   
+
 
     printf(">>>>>> <Shader> Generating %s source files\n", shaderType.c_str());
     GLCall(unsigned int id = glCreateShader(type));
