@@ -104,7 +104,7 @@ int main(int argc, char* argv[]) {
 
     delete pulse;
     // delete loading;
-    // delete rehoboam;
+    delete rehoboam;
 
     client.Disconnect();
     window.destroy();
