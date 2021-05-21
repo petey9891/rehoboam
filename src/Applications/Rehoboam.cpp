@@ -52,7 +52,9 @@ void Rehoboam::run() {
 
     GLCall(glFlush());
     GLCall(glFinish());
+    printf("about to read pixels...\n");
     GLCall(glReadPixels(0, 0, PANEL_WIDTH, PANEL_HEIGHT, GL_RGB, GL_UNSIGNED_BYTE, buffer));
+    printf("I have read the pixels\n");
 
     for (int x = 0; x < PANEL_WIDTH; x++) {
         for (int y = 0; y < PANEL_HEIGHT; y++) {
