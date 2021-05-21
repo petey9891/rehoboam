@@ -28,6 +28,7 @@ Loading::~Loading() {
 void Loading::setInitialState() {
     this->shader.setUniform1f("fade", 1.0f);
     printf(">>> <Loading> Set initial state\n");
+    GLCall(glPixelStorei(GL_PACK_ALIGNMENT, 1))
 }
 
 void Loading::run() {
