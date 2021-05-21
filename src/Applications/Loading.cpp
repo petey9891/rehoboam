@@ -28,7 +28,6 @@ Loading::~Loading() {
 void Loading::setInitialState() {
     this->shader.setUniform1f("fade", 1.0f);
     printf(">>> <Loading> Set initial state\n");
-    GLCall(glPixelStorei(GL_PACK_ALIGNMENT, 1));
 }
 
 void Loading::run() {
@@ -64,6 +63,7 @@ void Loading::run() {
     GLCall(glFlush());
     GLCall(glFinish());
     printf("about to read pixels...\n");
+    GLCall(glPixelStorei(GL_PACK_ALIGNMENT, 1));
     GLCall(glReadPixels(0, 0, PANEL_WIDTH, PANEL_HEIGHT, GL_RGB, GL_UNSIGNED_BYTE, this->buffer));
     printf("I have read the pixels\n");
 
