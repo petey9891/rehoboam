@@ -30,7 +30,8 @@ void SolidColor::setCommand(Command cmd) {
                 this->COLOR_STEP *= -1.0f;
             }
         }
-
+        printf("expected brightness: %f\n", this->expectedBrightness);
+        printf("brightness: %f\n", this->brightness);
     }
 }
 
@@ -53,6 +54,7 @@ void SolidColor::run() {
         }
     }
 
+    printf("current brightness: %f\n", this->brightness);
     this->canvas->Fill(
         this->color.r * this->brightness,
         this->color.g * this->brightness,
