@@ -10,6 +10,7 @@
 #include <ColorPulse.h>
 #include <Loading.h>
 #include <Rehoboam.h>
+#include <SolidColor.h>
 
 int main(int argc, char* argv[]) {
     CubeWindow window;
@@ -39,6 +40,7 @@ int main(int argc, char* argv[]) {
     Loading* loading = new Loading(loadingShader, matrix, canvas);
     Rehoboam* rehoboam = new Rehoboam(rehoboamShader, matrix, canvas);
     ColorPulse* pulse = new ColorPulse(matrix, canvas);
+    SolidColor* solid = new SolidColor(matrix, canvas);
 
     // Bind the loading shader for the loading sequence
     loadingShader.bind();
@@ -78,6 +80,13 @@ int main(int argc, char* argv[]) {
                     rehoboamShader.bind();
                     program = rehoboam;
                     break;
+                case SetSolidColor:
+                    // if (power) {
+                        // need to check for power otherwise this can override display off
+                        program = solid;
+                        program->setCommand(cmd);
+                    // }
+                    break;
             }
         }
 
@@ -101,6 +110,7 @@ int main(int argc, char* argv[]) {
     delete pulse;
     delete loading;
     delete rehoboam;
+    delete solid;
 
     client.Disconnect();
     window.destroy();
