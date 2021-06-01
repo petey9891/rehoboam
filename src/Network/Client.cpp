@@ -48,8 +48,8 @@ void Client::OnMessageRecieved(Message<MessageType>& msg) {
             // std::vector<uint8_t> rgb;
             uint8_t rgb[3];
             msg >> rgb;
-
-            this->commands.push_front({ StaticColor, 3, rgb });
+            Command _cmd(StaticColor, 3, rgb);
+            this->commands.push_front(_cmd);
             break;
         }
         case Success:
