@@ -48,7 +48,7 @@ void Client::OnMessageRecieved(Message<MessageType>& msg) {
             // std::vector<uint8_t> rgb;
             uint8_t rgb[3];
             msg >> rgb;
-            Command _cmd(StaticColor, 3, rgb);
+            Command _cmd(StaticColor, 3U8, rgb);
             this->commands.push_front(_cmd);
             break;
         }
