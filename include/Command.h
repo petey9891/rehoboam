@@ -8,7 +8,7 @@ enum CommandType: uint8_t {
     Brightness,
     ColorPulseMode,
     RehoboamMode,
-    SetSolidColor
+    StaticColor
 };
 
 struct Command {

@@ -80,7 +80,7 @@ int main(int argc, char* argv[]) {
                     rehoboamShader.bind();
                     program = rehoboam;
                     break;
-                case SetSolidColor:
+                case StaticColor:
                     // if (power) {
                         // need to check for power otherwise this can override display off
                     program = solid;

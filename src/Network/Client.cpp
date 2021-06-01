@@ -44,10 +44,11 @@ void Client::OnMessageRecieved(Message<MessageType>& msg) {
             this->commands.push_front({ RehoboamMode });
             break;
         case SetSolidColor:
-            uint8_t rgb[3];
+            std::vector<uint8_t> rgb;
+            // uint8_t rgb[3];
             msg >> rgb;
 
-            this->commands.push_front({ SetSolidColor, { rgb } });
+            this->commands.push_front({ StaticColor, rgb });
             break;
         case Success:
             break;
