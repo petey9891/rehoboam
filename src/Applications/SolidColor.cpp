@@ -15,23 +15,30 @@ void SolidColor::setCommand(Command cmd) {
             this->color = { r, g, b };
         }
     } else if (cmd.type == Brightness) {
-        this->expectedBrightness = cmd.data[0] / 100.f;
+        if (cmd.data.size() == 1) {
+            const uint8_t data = cmd.data[0];
+            if (data >= 1 && data <= 100) {
+                // Get the brightness from the data
+                this->expectedBrightness = data / 100.0f;
 
-        // Set the current state, whether it is going up or down
-        // change the polarity of the color step depending on change of direction
-        if (this->expectedBrightness < this->brightness) {
-            this->state = DECREASING;
-            if (this->COLOR_STEP > 0.0f) {
-                this->COLOR_STEP *= -1.0f;
-            }
-        } else if (this->expectedBrightness > this->brightness) {
-            this->state = INCREASING;
-            if (this->COLOR_STEP < 0.0f) {
-                this->COLOR_STEP *= -1.0f;
+                // Set the current state, whether it is going up or down
+                // change the polarity of the color step depending on change of direction
+                if (this->expectedBrightness < this->brightness) {
+                    this->state = DECREASING;
+                    if (this->COLOR_STEP > 0.0f) {
+                        this->COLOR_STEP *= -1.0f;
+                    }
+                } else if (this->expectedBrightness > this->brightness) {
+                    this->state = INCREASING;
+                    if (this->COLOR_STEP < 0.0f) {
+                        this->COLOR_STEP *= -1.0f;
+                    }
+                }
+
+                printf("expected brightness: %f\n", this->expectedBrightness);
+                printf("brightness: %f\n", this->brightness);
             }
         }
-        printf("expected brightness: %f\n", this->expectedBrightness);
-        printf("brightness: %f\n", this->brightness);
     }
 }
 
