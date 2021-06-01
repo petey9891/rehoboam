@@ -17,7 +17,7 @@ void SolidColor::setCommand(Command cmd) {
         }
     } else if (cmd.type == Brightness) {
         printf("data: %d\n", cmd.data[0]);
-        const float brightness = cmd.data[0] / 10.0f;
+        const float brightness = cmd.data[0] / 100.0f;
         
         printf("brightness: %f\n", brightness);
 
