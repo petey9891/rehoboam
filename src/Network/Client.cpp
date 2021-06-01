@@ -35,13 +35,19 @@ void Client::OnMessageRecieved(Message<MessageType>& msg) {
             uint8_t value;
             msg >> value;
 
-            this->commands.push_front({ Brightness, { value }});
+            this->commands.push_front({ Brightness, { value } });
             break;
         case CubePulse:
             this->commands.push_front({ ColorPulseMode });
             break;
         case CubeRehoboam:
             this->commands.push_front({ RehoboamMode });
+            break;
+        case SetSolidColor:
+            uint8_t[] value;
+            msg >> value;
+
+            this->commands.push_front({ SetSolidColor, { value } });
             break;
         case Success:
             break;

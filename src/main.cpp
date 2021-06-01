@@ -83,8 +83,8 @@ int main(int argc, char* argv[]) {
                 case SetSolidColor:
                     // if (power) {
                         // need to check for power otherwise this can override display off
-                        program = solid;
-                        program->setCommand(cmd);
+                    program = solid;
+                    program->setCommand(cmd);
                     // }
                     break;
             }
