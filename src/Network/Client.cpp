@@ -16,7 +16,6 @@ bool Client::hasCommands() {
 }
 
 void Client::OnMessageRecieved(Message<MessageType>& msg) {
-    printf("new command incoming: %d\n", msg.header.id);
     switch (msg.header.id) {
         case ServerPing:
             break;
