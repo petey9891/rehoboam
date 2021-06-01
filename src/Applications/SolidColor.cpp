@@ -32,7 +32,6 @@ void SolidColor::setCommand(Command cmd) {
         }
 
     }
-    this->canvas = this->matrix->SwapOnVSync(this->canvas);
 }
 
 void SolidColor::run() {
@@ -54,7 +53,10 @@ void SolidColor::run() {
         }
     }
 
-    this->canvas->Fill(this->color.r, this->color.g, this->color.b);
+    this->canvas->Fill(
+        this->color.r * this->brightness,
+        this->color.g * this->brightness,
+        this->color.b * this->brightness
+    );
     this->canvas = this->matrix->SwapOnVSync(this->canvas);
-
 }
