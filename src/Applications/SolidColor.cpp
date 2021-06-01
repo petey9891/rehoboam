@@ -9,8 +9,8 @@ void SolidColor::setCommand(Command cmd) {
     if (cmd.type == StaticColor) {
         if (cmd.dataLength == 3) {
             // this->currentColor = { cmd.data[0], cmd.data[1], cmd.data[2] };
-            this->canvas->Fill(cmd.data[0], cmd.data[1], cmd.data[2]);
-            this->canvas = this->matrix->SwapOnVSync(this->canvas);
+            // this->canvas->Fill(cmd.data[0], cmd.data[1], cmd.data[2]);
+            // this->canvas = this->matrix->SwapOnVSync(this->canvas);
         }
     }
 }

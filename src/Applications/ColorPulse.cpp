@@ -8,7 +8,7 @@ ColorPulse::ColorPulse(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Ru
 void ColorPulse::setCommand(Command cmd) {
     if (cmd.type == Brightness) {
         if (cmd.dataLength == 1) {
-            const uint8_t data = cmd.data[0];
+            const uint8_t data = *cmd.data[0];
             if (data >= 1 && data <= 100) {
                 // Get the brightness from the data
                 this->expectedBrightness = data / 100.0f;
