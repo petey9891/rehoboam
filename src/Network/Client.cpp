@@ -31,25 +31,27 @@ void Client::OnMessageRecieved(Message<MessageType>& msg) {
                 this->commands.push_front({ DisplayOff });
             }
             break;
-        case CubeBrightness:
+        case CubeBrightness: {
             uint8_t value;
             msg >> value;
 
             this->commands.push_front({ Brightness, { value } });
             break;
+        }
         case CubePulse:
             this->commands.push_front({ ColorPulseMode });
             break;
         case CubeRehoboam:
             this->commands.push_front({ RehoboamMode });
             break;
-        case SetSolidColor:
+        case SetSolidColor: {
             std::vector<uint8_t> rgb;
             // uint8_t rgb[3];
             msg >> rgb;
 
             this->commands.push_front({ StaticColor, rgb });
             break;
+        }
         case Success:
             break;
     }
