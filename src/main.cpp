@@ -34,16 +34,16 @@ int main(int argc, char* argv[]) {
     
     // Create shaders
     Shader loadingShader("/home/pi/rehoboam/shaders/loading");
-    Shader rehoboamShader("/home/pi/rehoboam/shaders/rehoboam");
+    // Shader rehoboamShader("/home/pi/rehoboam/shaders/rehoboam");
     
     // Create applications
     Loading* loading = new Loading(loadingShader, matrix, canvas);
-    Rehoboam* rehoboam = new Rehoboam(rehoboamShader, matrix, canvas);
+    // Rehoboam* rehoboam = new Rehoboam(rehoboamShader, matrix, canvas);
     ColorPulse* pulse = new ColorPulse(matrix, canvas);
     SolidColor* solid = new SolidColor(matrix, canvas);
 
     // Bind the loading shader for the loading sequence
-    loadingShader.bind();
+    // loadingShader.bind();
 
     // Runnable* program = loading;
     Runnable* program = pulse;
@@ -77,8 +77,8 @@ int main(int argc, char* argv[]) {
                     program = pulse;
                     break;
                 case RehoboamMode:
-                    rehoboamShader.bind();
-                    program = rehoboam;
+                    // rehoboamShader.bind();
+                    // program = rehoboam;
                     break;
                 case StaticColor:
                     program = solid;
@@ -106,7 +106,7 @@ int main(int argc, char* argv[]) {
 
     delete pulse;
     delete loading;
-    delete rehoboam;
+    // delete rehoboam;
     delete solid;
 
     client.Disconnect();
