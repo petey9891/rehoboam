@@ -13,6 +13,6 @@ enum CommandType: uint8_t {
 
 struct Command {
     CommandType type;
-    uint8_t data[];
     uint8_t dataLength;
+    uint8_t data[];
 };
