@@ -16,7 +16,6 @@ bool Client::hasCommands() {
 }
 
 void Client::OnMessageRecieved(Message<MessageType>& msg) {
-void Client::OnMessageRecieved() {
     switch (msg.header.id) {
         case ServerPing:
             break;
@@ -33,10 +32,10 @@ void Client::OnMessageRecieved() {
             }
             break;
         case CubeBrightness: {
-            // uint8_t value[1];
-            // msg >> value;
+            uint8_t value[1];
+            msg >> value;
 
-            // this->commands.push_front({ Brightness, 1, value });
+            this->commands.push_front({ Brightness, 1, value });
             break;
         }
         case CubePulse:
