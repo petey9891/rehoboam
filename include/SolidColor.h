@@ -12,9 +12,9 @@ public:
 private:
 
     struct RGBColor {
-        uint8_t r;
-        uint8_t g;
-        uint8_t b;
+        float r;
+        float g;
+        float b;
     };
 
     RGBColor color;
