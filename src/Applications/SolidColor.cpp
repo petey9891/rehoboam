@@ -1,6 +1,6 @@
 #include <SolidColor.h>
 
-SolidColor::SolidColor(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, c), currentColor { 0, 0, 0 } {
+SolidColor::SolidColor(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, c), color { 0, 0, 0 } {
     printf(">>> <SolidColor> Initializing SolidColor application\n");
     printf(">>> <SolidColor> Initialized SolidColor application\n");
 }
