@@ -17,5 +17,5 @@ private:
         uint8_t b;
     };
 
-    RGBColor currentColor;
+    RGBColor color;
 };

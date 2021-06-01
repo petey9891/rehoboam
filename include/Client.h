@@ -4,23 +4,6 @@
 #include <SocketServer/SocketClient.h>
 #include <SocketServer/SocketConnection.h>
 #include <Command.h>
-
-// class Client {
-// public:
-//     Client();
-
-// public:
-//     Command getNextCommand();
-//     bool hasCommands();
-
-// protected:
-//     void OnMessageRecieved();
-
-// private: 
-//     bool power = true;
-// };
-
-
 class Client: public SocketClient<MessageType> {
 public:
     Client();

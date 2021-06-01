@@ -25,10 +25,10 @@ void Client::OnMessageRecieved(Message<MessageType>& msg) {
         case CubeDisplayOnOff:
             if (!this->power) {
                 this->power = true;
-                this->commands.push_front({ DisplayOn, 0});
+                this->commands.push_front({ DisplayOn });
             } else {
                 this->power = false;
-                this->commands.push_front({ DisplayOff, 0});
+                this->commands.push_front({ DisplayOff });
             }
             break;
         case CubeBrightness: {
@@ -39,20 +39,17 @@ void Client::OnMessageRecieved(Message<MessageType>& msg) {
             break;
         }
         case CubePulse:
-            this->commands.push_front({ ColorPulseMode, 0 });
+            this->commands.push_front({ ColorPulseMode });
             break;
         case CubeRehoboam:
-            this->commands.push_front({ RehoboamMode, 0 });
+            this->commands.push_front({ RehoboamMode });
             break;
         case SetSolidColor: {
             uint8_t rgb[3];
             msg >> rgb;
-
             std::vector<uint8_t> _rgb(&rgb[0], &rgb[3]);
-
-            uint8_t length = 3;
-            Command _cmd = { StaticColor, length, _rgb };
-            this->commands.push_front(_cmd);
+            
+            this->commands.push_front({ StaticColor, _rgb });
             break;
         }
         case Success:

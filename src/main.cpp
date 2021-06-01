@@ -81,11 +81,11 @@ int main(int argc, char* argv[]) {
                     program = rehoboam;
                     break;
                 case StaticColor:
-                    // if (power) {
+                    if (power) {
                         // need to check for power otherwise this can override display off
-                    program = solid;
-                    program->setCommand(cmd);
-                    // }
+                        program = solid;
+                        program->setCommand(cmd);
+                    }
                     break;
             }
         }
