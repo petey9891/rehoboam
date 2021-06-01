@@ -13,23 +13,48 @@ void SolidColor::setCommand(Command cmd) {
             const float b = cmd.data[2];
 
             this->color = { r, g, b };
-            this->canvas->Fill(this->color.r, this->color.g, this->color.b);
         }
     } else if (cmd.type == Brightness) {
-        printf("data: %d\n", cmd.data[0]);
-        const float brightness = cmd.data[0] / 100.0f;
-        
-        printf("brightness: %f\n", brightness);
+        this->expectedBrightness = cmd.data[0] / 100.f;
 
-        printf("r: %f\n", this->color.r * brightness);
-        printf("g: %f\n", this->color.g * brightness);
-        printf("b: %f\n", this->color.b * brightness);
+        // Set the current state, whether it is going up or down
+        // change the polarity of the color step depending on change of direction
+        if (this->expectedBrightness < this->brightness) {
+            this->state = DECREASING;
+            if (this->COLOR_STEP > 0.0f) {
+                this->COLOR_STEP *= -1.0f;
+            }
+        } else if (this->expectedBrightness > this->brightness) {
+            this->state = INCREASING;
+            if (this->COLOR_STEP < 0.0f) {
+                this->COLOR_STEP *= -1.0f;
+            }
+        }
 
-        this->canvas->Fill(
-            this->color.r * brightness,
-            this->color.b * brightness,
-            this->color.g * brightness
-        );
     }
     this->canvas = this->matrix->SwapOnVSync(this->canvas);
+}
+
+void SolidColor::run() {
+    if (this->state == DECREASING) {
+        // If it is decreasing, update the brightness to go down
+        if (this->brightness >= this->expectedBrightness) {
+            this->brightness += this->COLOR_STEP;
+        } else {
+            // If it is done, reset the state
+            this->state = NONE;
+        }
+    } else if (this->state == INCREASING) {
+        // If it is increasing, update the brightness to go up
+        if (this->brightness < this->expectedBrightness) {
+            this->brightness += this->COLOR_STEP;
+        } else {
+            // If it is done, reset the state
+            this->state = NONE;        
+        }
+    }
+
+    this->canvas->Fill(this->color.r, this->color.g, this->color.b);
+    this->canvas = this->matrix->SwapOnVSync(this->canvas);
+
 }
