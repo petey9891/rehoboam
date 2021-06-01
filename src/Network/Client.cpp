@@ -44,7 +44,7 @@ void Client::OnMessageRecieved(Message<MessageType>& msg) {
             this->commands.push_front({ RehoboamMode });
             break;
         case SetSolidColor:
-            uint8_t[3] value;
+            uint8_t value[3];
             msg >> value;
 
             this->commands.push_front({ SetSolidColor, { value } });
