@@ -16,20 +16,13 @@ void SolidColor::setCommand(Command cmd) {
             this->canvas->Fill(this->color.r, this->color.g, this->color.b);
         }
     } else if (cmd.type == Brightness) {
-        printf("data: %d\n", cmd.data[0]);
         const float brightness = cmd.data[0] / 10.0f;
-        
-        printf("brightness: %f\n", brightness);
 
-        this->color.r *= brightness;
-        this->color.b *= brightness;
-        this->color.g *= brightness;
-
-        printf("r: %f\n", this->color.r);
-        printf("g: %f\n", this->color.g);
-        printf("b: %f\n", this->color.b);
-
-        this->canvas->Fill(this->color.r, this->color.g, this->color.b);
+        this->canvas->Fill(
+            this->color.r *= brightness,
+            this->color.b *= brightness,
+            this->color.g *= brightness
+        );
     }
     this->canvas = this->matrix->SwapOnVSync(this->canvas);
 }
