@@ -19,7 +19,6 @@ void SolidColor::setCommand(Command cmd) {
             const uint8_t data = cmd.data[0];
             if (data >= 1 && data <= 100) {
                 // Get the brightness from the data
-                printf("incoming data: %d\n", data);
                 this->expectedBrightness = data / 100.0f;
 
                 // Set the current state, whether it is going up or down
@@ -35,9 +34,6 @@ void SolidColor::setCommand(Command cmd) {
                         this->COLOR_STEP *= -1.0f;
                     }
                 }
-
-                printf("expected brightness: %f\n", this->expectedBrightness);
-                printf("brightness: %f\n", this->brightness);
             }
         }
     }
@@ -60,10 +56,6 @@ void SolidColor::run() {
             // If it is done, reset the state
             this->state = NONE;        
         }
-    }
-
-    if (this->state != NONE) {
-        printf("current brightness: %f\n", this->brightness);
     }
     
     this->canvas->Fill(

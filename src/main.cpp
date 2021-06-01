@@ -62,7 +62,7 @@ int main(int argc, char* argv[]) {
         if (client.hasCommands()) {
             Command nextCmd = client.getNextCommand();
             cmd = nextCmd;
-
+            printf("cmd: %d\n", cmd.type);
             switch (cmd.type) {
                 case DisplayOn:
                     power = true;
