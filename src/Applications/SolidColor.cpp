@@ -16,7 +16,7 @@ void SolidColor::setCommand(Command cmd) {
             this->canvas->Fill(this->color.r, this->color.g, this->color.b);
         }
     } else if (cmd.type == Brightness) {
-        const uint8_t brightness = cmd.data[0] / 100.0f;
+        const float brightness = cmd.data[0] / 100.0f;
         
         printf("brightness: %f\n", brightness);
 
