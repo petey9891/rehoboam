@@ -35,7 +35,7 @@ void Client::OnMessageRecieved(Message<MessageType>& msg) {
             uint8_t value;
             msg >> value;
 
-            this->commands.push_front({ Brightness, 1, { value } });
+            this->commands.push_front({ Brightness, { value } });
             break;
         }
         case CubePulse:
