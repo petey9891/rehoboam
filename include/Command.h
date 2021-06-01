@@ -17,7 +17,7 @@ struct Command {
     uint8_t dataLength;
     uint8_t data[];
 
-    Command(CommandType t, uint8_t l, uint8_t d[])
-        : type { type }, dataLength { l }, data { d }
-    {}
+    // Command(CommandType t, uint8_t l, uint8_t d[])
+    //     : type { type }, dataLength { l }, data { d }
+    // {}
 };
