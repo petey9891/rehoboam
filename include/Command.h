@@ -13,5 +13,6 @@ enum CommandType: uint8_t {
 
 struct Command {
     CommandType type;
-    std::vector<uint8_t> data;
+    // std::vector<uint8_t> data;
+    uint8_t data[];
 };

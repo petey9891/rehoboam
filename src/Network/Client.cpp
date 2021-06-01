@@ -35,7 +35,8 @@ void Client::OnMessageRecieved(Message<MessageType>& msg) {
             uint8_t value;
             msg >> value;
 
-            this->commands.push_front({ Brightness, { value } });
+            // this->commands.push_front({ Brightness, { value } });
+            this->commands.push_front({ Brightness, value });
             break;
         }
         case CubePulse:
@@ -45,8 +46,8 @@ void Client::OnMessageRecieved(Message<MessageType>& msg) {
             this->commands.push_front({ RehoboamMode });
             break;
         case SetSolidColor: {
-            std::vector<uint8_t> rgb;
-            // uint8_t rgb[3];
+            // std::vector<uint8_t> rgb;
+            uint8_t rgb[3];
             msg >> rgb;
 
             this->commands.push_front({ StaticColor, rgb });
