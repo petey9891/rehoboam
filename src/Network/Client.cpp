@@ -5,7 +5,7 @@ std::string cert = "/home/pi/rehoboam/certs/client.pem";
 std::string key = "/home/pi/rehoboam/certs/client.key";
 std::string ca = "/home/pi/rehoboam/certs/ca.pem";
 
-Client::Client(): SocketClient("www.rehoboamcube.com", 60000, cert, key, ca) {}
+Client::Client(): SocketClient("www.rehoboamcube.com", 60000, cert, key, ca, CUBE) {}
 
 Command Client::getNextCommand() {
     return this->commands.pop_front();
