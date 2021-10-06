@@ -11,6 +11,7 @@
 #include <Loading.h>
 #include <Rehoboam.h>
 #include <SolidColor.h>
+#include <Clock.h>
 
 int main(int argc, char* argv[]) {
     CubeWindow window;
@@ -41,12 +42,14 @@ int main(int argc, char* argv[]) {
     // Rehoboam* rehoboam = new Rehoboam(rehoboamShader, matrix, canvas);
     ColorPulse* pulse = new ColorPulse(matrix, canvas);
     SolidColor* solid = new SolidColor(matrix, canvas);
+    Clock* clock = new Clock(matrix, canvas);
 
     // Bind the loading shader for the loading sequence
     // loadingShader.bind();
 
     // Runnable* program = loading;
-    Runnable* program = pulse;
+    // Runnable* program = pulse;
+    Runnable* program = clock;
     // Runnable* program = rehoboam;
     // Runnable* fallback = pulse;
     // Runnable* fallback = rehoboam;
@@ -84,6 +87,9 @@ int main(int argc, char* argv[]) {
                     program = solid;
                     program->setCommand(cmd);
                     break;
+                case ClockMode:
+                    program = clock;
+                case 
             }
         }
 
@@ -108,6 +114,7 @@ int main(int argc, char* argv[]) {
     delete loading;
     // delete rehoboam;
     delete solid;
+    delete clock;
 
     client.Disconnect();
     window.destroy();
