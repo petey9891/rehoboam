@@ -5,6 +5,10 @@ Clock::Clock(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, 
     printf(">>> <Clock> Initialized Clock application\n");
 }
 
+void Clock::setCommand(Command cmd) {
+    // do nothing
+};
+
 void Clock::run() {
     this->canvas->Fill(50, 102, 168);
     this->canvas = this->matrix->SwapOnVSync(this->canvas);
