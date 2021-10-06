@@ -89,7 +89,7 @@ int main(int argc, char* argv[]) {
                     break;
                 case ClockMode:
                     program = clock;
-                case 
+                    break;
             }
         }
 
