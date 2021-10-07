@@ -10,8 +10,8 @@ Clock::Clock(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, 
     this->nextTime.tv_nsec = 0;
 
 
-    printf("%s", std::filesystem::current_path().c_str());
-    if (!this->font.LoadFont("../resources/fonts/8x13.bdf")) {
+    printf("%s./resources/fonts/8x13.bdf\n", std::filesystem::current_path().c_str());
+    if (!this->font.LoadFont("./resources/fonts/8x13.bdf")) {
         printf(">>> <Clock> Error: Unable to load font\n");
     }
     
