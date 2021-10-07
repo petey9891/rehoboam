@@ -1,6 +1,7 @@
 #include <Clock.h>
 #include <time.h>
 #include <filesystem>
+#include <iostream>
 
 
 Clock::Clock(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, c) {
@@ -12,9 +13,8 @@ Clock::Clock(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, 
     if (!this->font.LoadFont("./resources/fonts/8x13.bdf")) {
         printf(">>> <Clock> Error: Unable to load font\n");
     }
-    
-    printf("%s", rgb_matrix::PixelMapper::GetName());
-
+    std::cout << rgb_matrix::PixelMapper::GetName << std::endl;
+   
     printf(">>> <Clock> Initialized Clock application\n");
 }
 
