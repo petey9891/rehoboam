@@ -14,9 +14,12 @@ Clock::Clock(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, 
         printf(">>> <Clock> Error: Unable to load font\n");
     }
     
-    for(const std::string &line : rgb_matrix::GetAvailablePixelMappers()) {
-        printf("%s\n", line.c_str());
-    }
+    if (rgb_matrix::FindPixelMapper("Rotate", 0, 0, "90") != nullptr) {
+        printf("Found rotate mapper");
+    } else {
+        printf("Did not find rotate mapper");
+    };
+
 
     printf(">>> <Clock> Initialized Clock application\n");
 }
