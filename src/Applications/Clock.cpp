@@ -27,8 +27,8 @@ void Clock::run() {
     strftime(buffer, sizeof(buffer), format.c_str(), &tm);
 
     rgb_matrix::DrawText(this->canvas, this->font, 0, 0 + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
+    rgb_matrix::DrawText(this->canvas, this->font, 64, 0 + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
     rgb_matrix::DrawText(this->canvas, this->font, 128, 0 + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
-    rgb_matrix::DrawText(this->canvas, this->font, 256, 0 + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
 
     clock_nanosleep(CLOCK_REALTIME, TIMER_ABSTIME, &nextTime, nullptr);
     
