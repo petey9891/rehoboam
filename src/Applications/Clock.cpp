@@ -13,8 +13,11 @@ Clock::Clock(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, 
     if (!this->font.LoadFont("./resources/fonts/8x13.bdf")) {
         printf(">>> <Clock> Error: Unable to load font\n");
     }
-    std::cout << rgb_matrix::PixelMapper::GetName << std::endl;
-   
+    
+    for(const std::string &line : rgb_matrix::GetAvailablePixelMappers()) {
+        printf("%s\n", line.c_str());
+    }
+
     printf(">>> <Clock> Initialized Clock application\n");
 }
 
