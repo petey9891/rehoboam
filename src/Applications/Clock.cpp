@@ -9,8 +9,6 @@ Clock::Clock(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, 
     this->nextTime.tv_sec = time(nullptr);
     this->nextTime.tv_nsec = 0;
 
-
-    printf("%s./resources/fonts/8x13.bdf\n", std::filesystem::current_path().c_str());
     if (!this->font.LoadFont("./resources/fonts/8x13.bdf")) {
         printf(">>> <Clock> Error: Unable to load font\n");
     }
@@ -23,7 +21,7 @@ void Clock::setCommand(Command cmd) {
 };
 
 void Clock::run() {
-    this->canvas->Fill(0, 0, 0);
+    this->canvas->Fill(0, 0, 128);
     localtime_r(&nextTime.tv_sec, &tm);
 
     strftime(buffer, sizeof(buffer), format.c_str(), &tm);
