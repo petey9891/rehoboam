@@ -15,9 +15,10 @@ Clock::Clock(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, 
         printf(">>> <Clock> Error: Unable to load font\n");
     }
     
-    this->matrix->ApplyPixelMapper(rgb_matrix::FindPixelMapper("Rotate", 0, 1, "90"));
+    this->matrix->ApplyPixelMapper(rgb_matrix::FindPixelMapper("Rotate", 0, 2, "90"));
 
-    // tested 0 0
+    // tested 0 0 - moved from top panel to bottom left panel
+    // tested 0 1 - no change
 
     printf(">>> <Clock> Initialized Clock application\n");
 }
