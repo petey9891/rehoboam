@@ -15,6 +15,8 @@ Clock::Clock(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, 
         printf(">>> <Clock> Error: Unable to load font\n");
     }
     
+    // this->matrix->ApplyPixelMapper(rgb_matrix::FindPixelMapper("Rotate", 1, 1, "90"));
+
     printf(">>> <Clock> Initialized Clock application\n");
 }
 
@@ -27,7 +29,14 @@ void Clock::run() {
     localtime_r(&nextTime.tv_sec, &tm);
 
     strftime(buffer, sizeof(buffer), format.c_str(), &tm);
-    this->matrix->ApplyPixelMapper(rgb_matrix::FindPixelMapper("Rotate", 0, 0, "90"));
+    // this rotates it 90deg each time. currently trying to rotate each panel at time
+    // https://github.com/hzeller/rpi-rgb-led-matrix
+    // https://github.com/hzeller/rpi-rgb-led-matrix/blob/master/include/pixel-mapper.h
+    // https://github.com/hzeller/rpi-rgb-led-matrix/blob/master/include/led-matrix.h
+    // https://github.com/hzeller/rpi-rgb-led-matrix/issues/606
+    // https://github.com/hzeller/rpi-rgb-led-matrix/blob/master/examples-api-use/clock.cc
+    // https://github.com/Tecate/bitmap-fonts
+
 
     rgb_matrix::DrawText(this->canvas, this->font, this->canvas->width()/2, this->canvas->height()/2 + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
     rgb_matrix::DrawText(this->canvas, this->font, this->canvas->width()/2, this->canvas->height()/2 + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
