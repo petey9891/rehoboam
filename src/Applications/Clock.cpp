@@ -15,7 +15,7 @@ Clock::Clock(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, 
         printf(">>> <Clock> Error: Unable to load font\n");
     }
     
-    // this->matrix->ApplyPixelMapper(rgb_matrix::FindPixelMapper("Rotate", 0, 1, "90"));
+    this->matrix->ApplyPixelMapper(rgb_matrix::FindPixelMapper("Rotate", 0, 0, "90"));
 
     // tested 0 0 - moved from top panel to bottom left panel
     // tested 0 1 - no change
@@ -37,21 +37,6 @@ void Clock::run() {
     char buffer2[] = "Panel 2";
     char buffer3[] = "Panel 3";
 
-    // char* panel1 = "Panel 1";
-    // char buffer1[256];
-    // memset(buffer1, 0 ,sizeof(buffer1));
-    // strncpy(buffer, panel1, sizeof(buffer1) - 1);
-
-    // char* panel2 = "Panel 2";
-    // char buffer2[256];
-    // memset(buffer2, 0 ,sizeof(buffer2));
-    // strncpy(buffer, panel2, sizeof(buffer2) - 1);
-
-    // char* panel3 = "Panel 3";
-    // char buffer3[256];
-    // memset(buffer3, 0 ,sizeof(buffer3));
-    // strncpy(buffer, panel3, sizeof(buffer3) - 1);
-
     strftime(buffer, sizeof(buffer), format.c_str(), &tm);
     // this rotates it 90deg each time. currently trying to rotate each panel at time
     // https://github.com/hzeller/rpi-rgb-led-matrix
@@ -62,33 +47,9 @@ void Clock::run() {
     // https://github.com/Tecate/bitmap-fonts
 
 
-    rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer1, 0);
-    // rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline() * 2, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
-    // rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline() * 3, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
-    // rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline() * 4, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
-    // rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline() * 5, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
-    // rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline() * 6, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
-    // rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline() * 7, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
-    // rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline() * 8, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
-    // rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline() * 9, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
-    // rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline() * 10, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
-    // rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline() * 11, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
-    // rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline() * 12, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
-    // rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline() * 13, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
-    // rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline() * 14, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
-    // rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline() * 15, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
-    
+    rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer1, 0);   
     rgb_matrix::DrawText(this->canvas, this->font, 64, this->font.baseline() * 2, rgb_matrix::Color(255, 255, 255), nullptr, buffer2, 0);
-
     rgb_matrix::DrawText(this->canvas, this->font, 128, this->font.baseline() * 2, rgb_matrix::Color(255, 255, 255), nullptr, buffer3, 0);
-
-    // rgb_matrix::DrawText(this->canvas, this->font, 64, this->font.baseline() * 3, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
-    // rgb_matrix::DrawText(this->canvas, this->font, 64, this->font.baseline() * 4, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
-    // rgb_matrix::DrawText(this->canvas, this->font, 64, this->font.baseline() * 5, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
-    // rgb_matrix::DrawText(this->canvas, this->font, 64, this->font.baseline() * 6, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
-
-    // rgb_matrix::DrawText(this->canvas, this->font, this->canvas->width()/2, this->canvas->height()/2 + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
-
 
     clock_nanosleep(CLOCK_REALTIME, TIMER_ABSTIME, &nextTime, nullptr);
     
