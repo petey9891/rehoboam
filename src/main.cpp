@@ -18,7 +18,8 @@ int main(int argc, char* argv[]) {
     window.createEGLWindow();
 
     RGBMatrixConfig config;
-    RGBMatrix* matrix = rgb_matrix::CreateFromFlags(&argc, &argv, &config.defaults, &config.runtime);
+    
+    RGBMatrix* matrix = RGBMatrix::CreateFromFlags(&argc, &argv, &config.defaults, &config.runtime);
     FrameCanvas* canvas = matrix->CreateFrameCanvas();
     if (matrix == nullptr) {
         fprintf(stderr, "Error! Unable to create matrix!\n");
