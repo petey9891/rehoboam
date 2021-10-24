@@ -17,7 +17,8 @@ struct RGBMatrixConfig {
         defaults.pwm_lsb_nanoseconds = 50;
         // defaults.panel_type = "FM6126A";
         defaults.rows = 64;
-        defaults.cols = 192;
+        // defaults.cols = 192;
+        defaults.cols = 64;
         defaults.chain_length = 3;
         defaults.brightness = 80; // 60 is a good brightness for downtime
         // defaults.brightness = 20;
