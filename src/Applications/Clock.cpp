@@ -33,20 +33,24 @@ void Clock::run() {
     this->canvas->Fill(0, 0, 0);
     localtime_r(&nextTime.tv_sec, &tm);
 
-    char* panel1 = "Panel 1";
-    char buffer1[256];
-    memset(buffer1, 0 ,sizeof(buffer1));
-    strncpy(buffer, panel1, sizeof(buffer1) - 1);
+    char buffer1[] = "Panel 1";
+    char buffer2[] = "Panel 2";
+    char buffer3[] = "Panel 3";
 
-    char* panel2 = "Panel 2";
-    char buffer2[256];
-    memset(buffer2, 0 ,sizeof(buffer2));
-    strncpy(buffer, panel2, sizeof(buffer2) - 1);
+    // char* panel1 = "Panel 1";
+    // char buffer1[256];
+    // memset(buffer1, 0 ,sizeof(buffer1));
+    // strncpy(buffer, panel1, sizeof(buffer1) - 1);
 
-    char* panel3 = "Panel 3";
-    char buffer3[256];
-    memset(buffer3, 0 ,sizeof(buffer3));
-    strncpy(buffer, panel3, sizeof(buffer3) - 1);
+    // char* panel2 = "Panel 2";
+    // char buffer2[256];
+    // memset(buffer2, 0 ,sizeof(buffer2));
+    // strncpy(buffer, panel2, sizeof(buffer2) - 1);
+
+    // char* panel3 = "Panel 3";
+    // char buffer3[256];
+    // memset(buffer3, 0 ,sizeof(buffer3));
+    // strncpy(buffer, panel3, sizeof(buffer3) - 1);
 
     strftime(buffer, sizeof(buffer), format.c_str(), &tm);
     // this rotates it 90deg each time. currently trying to rotate each panel at time
