@@ -4,6 +4,35 @@
 #include <iostream>
 
 
+class RotateSinglePanelPixelMapper : public PixelMapper {
+public:
+  RotateSinglePanelPixelMapper() : chain_(0) {}
+
+  virtual const char *GetName() const { return "RotatePanel"; }
+
+  virtual bool SetParameters(int chain, int parallel, const char *param) {
+    chain_ = chain;
+    return true;
+  }
+
+  virtual bool GetSizeMapping(int matrix_width, int matrix_height, int *visible_width, int *visible_height) const {
+      *visible_width = matrix_height * chain_;
+      *visible_height = matrix_width / chain_;
+        return true;
+  }
+
+  virtual void MapVisibleToMatrix(int matrix_width, int matrix_height, int x, int y, int *matrix_x, int *matrix_y) const {
+    const int panel_width = matrix_width / chain_;
+    const int panel_height = matrix_height;
+    
+    *matrix_x = matrix_width - (y + panel_width * (x / panel_height)) - 1;
+    *matrix_y = x % panel_height;
+}
+
+private:
+  int chain_;
+};
+
 Clock::Clock(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, c) {
     printf(">>> <Clock> Initializing Clock application\n");
     
@@ -15,8 +44,10 @@ Clock::Clock(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, 
         printf(">>> <Clock> Error: Unable to load font\n");
     }
     
-    // rgb_matrix::RegisterPixelMapper(new RotateSinglePanelPixelMapper());
-    // this->matrix->ApplyPixelMapper(rgb_matrix::FindPixelMapper("Rotate", 0, 0, "-90"));
+    // PixelMapper* rotation = new RotateSinglePanelPixelMapper();
+
+    rgb_matrix::RegisterPixelMapper(new RotateSinglePanelPixelMapper());
+    this->matrix->ApplyPixelMapper(rgb_matrix::FindPixelMapper("Rotate", 0, 0, "-90").set);
 
     // tested 0 0 - moved from top panel to bottom left panel
     // tested 0 1 - no change
