@@ -3,7 +3,6 @@
 #include <Runnable.h>
 #include <rpi-led-matrix/graphics.h>
 #include <rpi-led-matrix/pixel-mapper.h>
-// #include <RotateSinglePanelPixelMapper.h>
 
 class Clock: public Runnable {
 public:
