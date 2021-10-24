@@ -50,7 +50,7 @@ void Clock::run() {
     rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline() * 5, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
     rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline() * 6, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
 
-    rgb_matrix::DrawText(this->canvas, this->font, 64, this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
+    rgb_matrix::DrawText(this->canvas, this->font, 50, this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
     // rgb_matrix::DrawText(this->canvas, this->font, 64, this->font.baseline() * 2, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
     // rgb_matrix::DrawText(this->canvas, this->font, 64, this->font.baseline() * 3, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
     // rgb_matrix::DrawText(this->canvas, this->font, 64, this->font.baseline() * 4, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
