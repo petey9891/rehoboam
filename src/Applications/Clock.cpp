@@ -38,9 +38,9 @@ void Clock::run() {
     // https://github.com/Tecate/bitmap-fonts
 
 
-    rgb_matrix::DrawText(this->canvas, this->font, this->canvas->width()/2, this->canvas->height()/2 + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
-    rgb_matrix::DrawText(this->canvas, this->font, this->canvas->width()/2, this->canvas->height()/2 + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
-    rgb_matrix::DrawText(this->canvas, this->font, this->canvas->width()/2, this->canvas->height()/2 + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
+    rgb_matrix::DrawText(this->canvas, this->font, 0, 0 + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
+    // rgb_matrix::DrawText(this->canvas, this->font, this->canvas->width()/2, this->canvas->height()/2 + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
+    // rgb_matrix::DrawText(this->canvas, this->font, this->canvas->width()/2, this->canvas->height()/2 + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
 
 
     clock_nanosleep(CLOCK_REALTIME, TIMER_ABSTIME, &nextTime, nullptr);
