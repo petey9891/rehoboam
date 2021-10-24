@@ -16,7 +16,7 @@ Clock::Clock(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, 
     }
     
     // rgb_matrix::RegisterPixelMapper(new RotateSinglePanelPixelMapper());
-    this->matrix->ApplyPixelMapper(rgb_matrix::FindPixelMapper("Rotate", 0, 0, "-90"));
+    // this->matrix->ApplyPixelMapper(rgb_matrix::FindPixelMapper("Rotate", 0, 0, "-90"));
 
     // tested 0 0 - moved from top panel to bottom left panel
     // tested 0 1 - no change
