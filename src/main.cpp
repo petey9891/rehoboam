@@ -49,8 +49,8 @@ int main(int argc, char* argv[]) {
     // loadingShader.bind();
 
     // Runnable* program = loading;
-    // Runnable* program = pulse;
-    Runnable* program = clock;
+    Runnable* program = pulse;
+    // Runnable* program = clock;
     // Runnable* program = rehoboam;
     // Runnable* fallback = pulse;
     // Runnable* fallback = rehoboam;
