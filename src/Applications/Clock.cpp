@@ -49,9 +49,11 @@ void Clock::run() {
 
     // this->matrix->ApplyPixelMapper(rgb_matrix::FindPixelMapper("Rotate", 0, 0, "-90"));
 
-    rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer1, 0);   
-    rgb_matrix::DrawText(this->canvas, this->font, 64, this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer2, 0);
-    rgb_matrix::DrawText(this->canvas, this->font, 128, this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer3, 0);
+    rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer1, 0);
+    rgb_matrix::DrawText(this->canvas, this->font, 0, 64 + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer2, 0);
+    rgb_matrix::DrawText(this->canvas, this->font, 0, 128 + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer3, 0);   
+    // rgb_matrix::DrawText(this->canvas, this->font, 64, this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer2, 0);
+    // rgb_matrix::DrawText(this->canvas, this->font, 128, this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer3, 0);
 
     clock_nanosleep(CLOCK_REALTIME, TIMER_ABSTIME, &nextTime, nullptr);
     
