@@ -14,7 +14,7 @@ Clock::Clock(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, 
         printf(">>> <Clock> Error: Unable to load font\n");
     }
 
-    if (!this->font.LoadFont("./resources/fonts/9x18.bdf")) {
+    if (!this->font.LoadFont("./resources/fonts/9x18B.bdf")) {
         printf(">>> <Clock> Error: Unable to load font\n");
     }
 
