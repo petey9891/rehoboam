@@ -10,7 +10,6 @@ Clock::Clock(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, 
     this->nextTime.tv_sec = time(nullptr);
     this->nextTime.tv_nsec = 0;
 
-
     if (!this->font.LoadFont("./resources/fonts/8x13.bdf")) {
         printf(">>> <Clock> Error: Unable to load font\n");
     }
