@@ -14,7 +14,11 @@ Clock::Clock(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, 
         printf(">>> <Clock> Error: Unable to load font\n");
     }
 
-    if (!this->font.LoadFont("./resources/fonts/9x18B.bdf")) {
+    if (!this->dateFont.LoadFont("./resources/fonts/9x18B.bdf")) {
+        printf(">>> <Clock> Error: Unable to load font\n");
+    }
+
+    if (!this->weekdayFont.LoadFont("./resources/fonts/6x13B.bdf")) {
         printf(">>> <Clock> Error: Unable to load font\n");
     }
 
@@ -36,7 +40,10 @@ void Clock::run() {
     strftime(amPm, sizeof(amPm), "%p", &tm);
     
     // rgb_matrix::DrawText(this->canvas, this->font, 0, this->heightOffset + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, weekday, 0);
-    rgb_matrix::DrawText(this->canvas, this->font, 0, this->heightOffset + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, month, 0);
+
+    rgb_matrix::DrawText(this->canvas, this->weekdayFont, 0, this->heightOffset + this->weekdayFont.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, weekday, 0);
+
+    rgb_matrix::DrawText(this->canvas, this->dateFont, 0, this->heightOffset + this->weekdayFont.baseline() + this->dateFont.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, month, 0);
     // rgb_matrix::DrawText(this->canvas, this->font, 0, this->heightOffset + this->font.baseline() * 3, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
     // rgb_matrix::DrawText(this->canvas, this->tinyFont, 0, this->heightOffset + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, seconds, 0);
     // rgb_matrix::DrawText(this->canvas, this->tinyFont, 0, this->heightOffset + this->font.baseline() * 2, rgb_matrix::Color(255, 255, 255), nullptr, amPm, 0);

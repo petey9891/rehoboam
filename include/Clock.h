@@ -23,7 +23,8 @@ private:
     struct timespec nextTime;
     struct tm tm;
     
-    rgb_matrix::Font font;
+    rgb_matrix::Font weekdayFont;
+    rgb_matrix::Font dateFont;
     rgb_matrix::Font tinyFont;
 
     int heightOffset = 3;
