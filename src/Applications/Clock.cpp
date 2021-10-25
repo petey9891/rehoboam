@@ -22,6 +22,9 @@ Clock::Clock(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, 
     if (!this->tinyFont.LoadFont("./resources/fonts/6x10.bdf")) {
         printf(">>> <Clock> Error: Unable to load font\n");
     }
+    printf("S %d", this->dateFont.CharacterWidth('S'));
+    printf("a %d", this->dateFont.CharacterWidth('a'));
+
     printf(">>> <Clock> Initialized Clock application\n");
 }
 
@@ -36,7 +39,7 @@ void Clock::run() {
     strftime(weekday, sizeof(weekday), "%A", &tm);
     strftime(month, sizeof(month), "%b %d", &tm);
     strftime(timestamp, sizeof(timestamp), "%I:%M:%S%p", &tm);
-    
+
     rgb_matrix::DrawText(this->canvas, this->weekdayFont, 0, this->heightOffset + this->weekdayFont.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, weekday, 0);
     rgb_matrix::DrawText(this->canvas, this->dateFont, 0, this->heightOffset + this->weekdayFont.baseline() + this->dateFont.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, month, 0);
     rgb_matrix::DrawText(this->canvas, this->tinyFont, 24, this->heightOffset + this->weekdayFont.baseline() + this->dateFont.baseline() + this->tinyFont.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, timestamp, 0);
