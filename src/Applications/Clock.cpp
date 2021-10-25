@@ -10,7 +10,7 @@ Clock::Clock(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, 
     this->nextTime.tv_sec = time(nullptr);
     this->nextTime.tv_nsec = 0;
 
-    if (!this->font.LoadFont("./resources/fonts/8x13.bdf")) {
+    if (!this->font.LoadFont("./resources/fonts/6x13.bdf")) {
         printf(">>> <Clock> Error: Unable to load font\n");
     }
 
@@ -26,7 +26,7 @@ void Clock::run() {
     localtime_r(&nextTime.tv_sec, &tm);
 
     strftime(buffer, sizeof(buffer), format.c_str(), &tm);
-    strftime(weekday, sizeof(weekday), "%A", &tm);
+    strftime(weekday, sizeof(weekday), "%A,", &tm);
     strftime(month, sizeof(month), "%B %d", &tm);
     
     rgb_matrix::DrawText(this->canvas, this->font, 0, this->heightOffset + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, weekday, 0);
