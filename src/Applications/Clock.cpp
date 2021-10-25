@@ -24,7 +24,7 @@ Clock::Clock(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, 
     }
     printf("S %d\n", this->dateFont.CharacterWidth('S'));
     printf("a %d\n", this->dateFont.CharacterWidth('a'));
-    printf("weekday %\n", tm.tm_wday);
+    printf("weekday %d\n", tm.tm_wday);
 
     printf(">>> <Clock> Initialized Clock application\n");
 }
