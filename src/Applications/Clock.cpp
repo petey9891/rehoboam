@@ -15,12 +15,7 @@ Clock::Clock(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, 
         printf(">>> <Clock> Error: Unable to load font\n");
     }
     
-    this->matrix->ApplyPixelMapper(rgb_matrix::FindPixelMapper("Rotate", 0, 0, "90"));
-
-    // tested 0 0 - moved from top panel to bottom left panel
-    // tested 0 1 - no change
-    // tested 0 2 - no change
-    // tested 1 0 - no change
+    this->matrix->ApplyPixelMapper(rgb_matrix::FindPixelMapper("Rotate", 0, 0, "-90"));
 
     printf(">>> <Clock> Initialized Clock application\n");
 }
@@ -38,23 +33,20 @@ void Clock::run() {
     char buffer3[] = "Panel 3";
 
     strftime(buffer, sizeof(buffer), format.c_str(), &tm);
-    // this rotates it 90deg each time. currently trying to rotate each panel at time
-    // https://github.com/hzeller/rpi-rgb-led-matrix
-    // https://github.com/hzeller/rpi-rgb-led-matrix/blob/master/include/pixel-mapper.h
-    // https://github.com/hzeller/rpi-rgb-led-matrix/blob/master/include/led-matrix.h
-    // https://github.com/hzeller/rpi-rgb-led-matrix/issues/606
-    // https://github.com/hzeller/rpi-rgb-led-matrix/blob/master/examples-api-use/clock.cc
-    // https://github.com/Tecate/bitmap-fonts
+
+    // rgb_matrix::DrawText(this->canvas, this->font, 0, 128 + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer1, 0);
+    // rgb_matrix::DrawText(this->canvas, this->font, 0, 64 + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer2, 0);
+    // rgb_matrix::DrawText(this->canvas, this->font, 0, 0 + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer3, 0);   
+
+    rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
+    rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline() * 2, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
+    rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline() * 3, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
+    rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline() * 4, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
+    rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline() * 5, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
+    rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline() * 6, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
 
 
-    // this->matrix->ApplyPixelMapper(rgb_matrix::FindPixelMapper("Rotate", 0, 0, "-90"));
-
-rgb_matrix::DrawText(this->canvas, this->font, 0, 128 + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer1, 0);
-    rgb_matrix::DrawText(this->canvas, this->font, 0, 64 + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer2, 0);
-    rgb_matrix::DrawText(this->canvas, this->font, 0, 0 + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer3, 0);   
-
-
-    // rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer1, 0);
+    rgb_matrix::DrawText(this->canvas, this->font, 0, this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer1, 0);
     // rgb_matrix::DrawText(this->canvas, this->font, 0, 64 + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer2, 0);
     // rgb_matrix::DrawText(this->canvas, this->font, 0, 128 + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer3, 0);   
     // rgb_matrix::DrawText(this->canvas, this->font, 64, this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, buffer2, 0);
