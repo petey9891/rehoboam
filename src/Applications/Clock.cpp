@@ -15,7 +15,7 @@ Clock::Clock(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, 
         printf(">>> <Clock> Error: Unable to load font\n");
     }
     
-    this->heightOffset = this->font.height();
+    this->heightOffset = this->font.height() / 2;
 
     printf(">>> <Clock> Initialized Clock application\n");
 }
