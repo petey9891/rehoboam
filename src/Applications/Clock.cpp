@@ -18,7 +18,7 @@ Clock::Clock(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, 
         printf(">>> <Clock> Error: Unable to load font\n");
     }
 
-    if (!this->weekdayFont.LoadFont("./resources/fonts/6x13B.bdf")) {
+    if (!this->weekdayFont.LoadFont("./resources/fonts/6x13.bdf")) {
         printf(">>> <Clock> Error: Unable to load font\n");
     }
 
