@@ -22,7 +22,7 @@ Clock::Clock(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, 
     if (!this->tinyFont.LoadFont("./resources/fonts/6x10.bdf")) {
         printf(">>> <Clock> Error: Unable to load font\n");
     }
-    printf("S %d\n", this->dateFont.CharacterWidth('S'));
+    printf("S %d\n", this->dateFont.CharacterWidth('Sunday'));
     printf("a %d\n", this->dateFont.CharacterWidth('a'));
     printf("weekday %d\n", tm.tm_wday);
 
