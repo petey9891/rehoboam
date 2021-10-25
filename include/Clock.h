@@ -17,6 +17,6 @@ private:
     struct timespec nextTime;
     struct tm tm;
     rgb_matrix::Font font;
-    int heightOffset = 9;
+    int heightOffset = 4;
     std::string format = "%H:%M";
 };
