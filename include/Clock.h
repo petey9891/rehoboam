@@ -13,12 +13,9 @@ public:
     void setCommand(Command cmd) override;
 
 private:
-    char buffer[256];
     char weekday[256];
     char month[256];
-    char date[256];
-    char seconds[256];
-    char amPm[256];
+    char timestamp[256];
 
     struct timespec nextTime;
     struct tm tm;
@@ -28,5 +25,4 @@ private:
     rgb_matrix::Font tinyFont;
 
     int heightOffset = 3;
-    std::string format = "%I:%M:%S%p";
 };
