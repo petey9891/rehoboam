@@ -22,7 +22,7 @@ Clock::Clock(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, 
     if (!this->tinyFont.LoadFont("./resources/fonts/6x10.bdf")) {
         printf(">>> <Clock> Error: Unable to load font\n");
     }
-    printf("S %d\n", this->dateFont.CharacterWidth('Sunday'));
+    
     printf("a %d\n", this->dateFont.CharacterWidth('a'));
     printf("weekday %d\n", tm.tm_wday);
 
@@ -41,9 +41,9 @@ void Clock::run() {
     strftime(month, sizeof(month), "%b %d", &tm);
     strftime(timestamp, sizeof(timestamp), "%I:%M:%S%p", &tm);
 
-    rgb_matrix::DrawText(this->canvas, this->weekdayFont, 0, this->heightOffset + this->weekdayFont.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, weekday, 0);
-    rgb_matrix::DrawText(this->canvas, this->dateFont, 0, this->heightOffset + this->weekdayFont.baseline() + this->dateFont.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, month, 0);
-    rgb_matrix::DrawText(this->canvas, this->tinyFont, 6, this->heightOffset + this->weekdayFont.baseline() + this->dateFont.baseline() + this->tinyFont.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, timestamp, 0);
+    rgb_matrix::DrawText(this->canvas, this->weekdayFont, 0, this->heightOffset + this->weekdayFont.baseline(), rgb_matrix::Color(255, 255, 255), weekday, 0);
+    rgb_matrix::DrawText(this->canvas, this->dateFont, 0, this->heightOffset + this->weekdayFont.baseline() + this->dateFont.baseline(), rgb_matrix::Color(255, 255, 255), month, 0);
+    rgb_matrix::DrawText(this->canvas, this->tinyFont, 0, this->heightOffset + this->weekdayFont.baseline() + this->dateFont.baseline() + this->tinyFont.baseline(), rgb_matrix::Color(255, 255, 255), timestamp, 5);
     // rgb_matrix::DrawText(this->canvas, this->font, 0, this->heightOffset + this->font.baseline() * 3, rgb_matrix::Color(255, 255, 255), nullptr, buffer, 0);
     // rgb_matrix::DrawText(this->canvas, this->tinyFont, 0, this->heightOffset + this->font.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, seconds, 0);
     // rgb_matrix::DrawText(this->canvas, this->tinyFont, 0, this->heightOffset + this->font.baseline() * 2, rgb_matrix::Color(255, 255, 255), nullptr, amPm, 0);
