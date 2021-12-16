@@ -7,18 +7,16 @@
 
 class Shader {
     public: 
-        unsigned int m_RendererID;
+        GLuint id;
     private:
-        std::string m_FolderPath;
         std::unordered_map<std::string, int> m_UniformLocationCache;
         std::unordered_map<std::string, int> m_AttributeLocationCache;
         enum ShaderType {
             NONE = -1, VERTEX = 0, FRAGMENT = 1
         };
-        unsigned int MAX_SIZE = 2032;
 
     public:
-        Shader(const std::string& filepath);
+        Shader(const char* vertexFile, const char* fragmentFile);
         ~Shader();
 
         void bind() const;
@@ -37,9 +35,6 @@ class Shader {
         int getAttributeLocation(const std::string& name);
         
         // Shader generation
-        std::string parseShader(const std::filesystem::path path);
-        std::vector<std::filesystem::path> aggregateShaders(const ShaderType type);
-        unsigned int compileShader(unsigned int type, const std::vector<std::filesystem::path> sourceFiles);
-        unsigned int createShaders();
-
+        unsigned int createShaders(const char* vertexFile, const char* fragmentFile);
+        void compileErrors(unsigned int shader, const char* type);
 };

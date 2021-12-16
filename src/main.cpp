@@ -33,21 +33,22 @@ int main(int argc, char* argv[]) {
     GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
     
     // Create shaders
-    Shader loadingShader("/home/pi/rehoboam/shaders/loading");
-    // Shader rehoboamShader("/home/pi/rehoboam/shaders/rehoboam");
+    // Shader loadingShader("/home/pi/rehoboam/shaders/loading");
+    Shader rehoboamShader("/home/pi/rehoboam/shaders/rehoboam/main.vert", "/home/pi/rehoboam/shaders/rehoboam/main.frag");
     
     // Create applications
     Loading* loading = new Loading(loadingShader, matrix, canvas);
-    // Rehoboam* rehoboam = new Rehoboam(rehoboamShader, matrix, canvas);
+    Rehoboam* rehoboam = new Rehoboam(rehoboamShader, matrix, canvas);
     ColorPulse* pulse = new ColorPulse(matrix, canvas);
     SolidColor* solid = new SolidColor(matrix, canvas);
 
     // Bind the loading shader for the loading sequence
     // loadingShader.bind();
+    rehoboamShader.bind();
 
     // Runnable* program = loading;
-    Runnable* program = pulse;
-    // Runnable* program = rehoboam;
+    // Runnable* program = pulse;
+    Runnable* program = rehoboam;
     // Runnable* fallback = pulse;
     // Runnable* fallback = rehoboam;
 
