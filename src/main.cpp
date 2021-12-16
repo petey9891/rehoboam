@@ -106,8 +106,8 @@ int main(int argc, char* argv[]) {
     program->canvas->Clear();
 
     delete pulse;
-    delete loading;
-    // delete rehoboam;
+    // delete loading;
+    delete rehoboam;
     delete solid;
 
     client.Disconnect();
