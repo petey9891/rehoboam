@@ -28,7 +28,9 @@ void VertexBuffer::addLayout(const VertexBufferLayout& layout) {
     unsigned int offset = 0;
     for (unsigned int i = 0; i < elements.size(); i++) {
         const VertexBufferElement element = elements[i];
-
+        printf("glVertexAttribPointer id: %d", element.id);
+        printf("glVertexAttribPointer stride: %d", stride);
+        printf("glVertexAttribPointer offet: %d", offset);
         GLCall(glVertexAttribPointer(element.id, element.count, element.type, element.normalized, stride, INT2VOIDP(offset)));
         GLCall(glEnableVertexAttribArray(element.id));
 
