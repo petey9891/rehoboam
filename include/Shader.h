@@ -35,6 +35,6 @@ class Shader {
         int getAttributeLocation(const std::string& name);
         
         // Shader generation
-        unsigned int createShaders(const char* vertexFile, const char* fragmentFile);
+        void createShaders(const char* vertexFile, const char* fragmentFile);
         void compileErrors(unsigned int shader, const char* type);
 };

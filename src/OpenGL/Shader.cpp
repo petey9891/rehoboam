@@ -94,7 +94,7 @@ int Shader::getAttributeLocation(const std::string& name) {
     return location;
 }
 
-unsigned int Shader::createShaders(const char* vertexFile, const char* fragmentFile) {
+void Shader::createShaders(const char* vertexFile, const char* fragmentFile) {
     // Read vertexFile and fragmentFile and store the strings
     printf(">>> <Shader> Parsing vertex shader\n");
 	std::string vertexCode = get_file_contents(vertexFile);
@@ -126,14 +126,19 @@ unsigned int Shader::createShaders(const char* vertexFile, const char* fragmentF
     printf(">>> <Shader> Creating program\n");
 	// Create Shader Program Object and get its reference
 	this->id = glCreateProgram();
+
 	// Attach the Vertex and Fragment Shaders to the Shader Program
+    printf(">>> <Shader> Attaching shaders\n");
 	glAttachShader(this->id, vertexShader);
 	glAttachShader(this->id, fragmentShader);
+
 	// Wrap-up/Link all the shaders together into the Shader Program
+    printf(">>> <Shader> Linking programs\n");
 	glLinkProgram(this->id);
 	compileErrors(vertexShader, "PROGRAM");
 
 	// Delete the now useless Vertex and Fragment Shader objects
+    printf(">>> <Shader> Deleting shaders\n");
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 }
