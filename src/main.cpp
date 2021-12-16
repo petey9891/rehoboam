@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
     
     // Create shaders
     // Shader loadingShader("/home/pi/rehoboam/shaders/loading");
-    Shader rehoboamShader("/home/pi/rehoboam/shaders/rehoboam/main.vert", "/home/pi/rehoboam/shaders/rehoboam/main.frag");
+    Shader rehoboamShader("/home/pi/rehoboam/shaders/color/main.vert", "/home/pi/rehoboam/shaders/color/main.frag");
     
     // Create applications
     // Loading* loading = new Loading(loadingShader, matrix, canvas);

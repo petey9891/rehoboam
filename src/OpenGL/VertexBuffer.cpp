@@ -29,8 +29,8 @@ void VertexBuffer::addLayout(const VertexBufferLayout& layout) {
     for (unsigned int i = 0; i < elements.size(); i++) {
         const VertexBufferElement element = elements[i];
 
-        GLCall(glEnableVertexAttribArray(element.id));
         GLCall(glVertexAttribPointer(element.id, element.count, element.type, element.normalized, stride, INT2VOIDP(offset)));
+        GLCall(glEnableVertexAttribArray(element.id));
 
         offset += element.count * VertexBufferElement::getSizeOfType(element.type);
     }
