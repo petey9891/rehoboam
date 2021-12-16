@@ -41,6 +41,8 @@ void Clock::run() {
     strftime(month, sizeof(month), "%b %d", &tm);
     strftime(timestamp, sizeof(timestamp), "%I:%M:%S%p", &tm);
 
+    // https://www.cplusplus.com/reference/ctime/strftime/
+
     rgb_matrix::DrawText(this->canvas, this->weekdayFont, 0, this->heightOffset + this->weekdayFont.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, weekday, 0);
     rgb_matrix::DrawText(this->canvas, this->dateFont, 0, this->heightOffset + this->weekdayFont.baseline() + this->dateFont.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, month, 0);
     rgb_matrix::DrawText(this->canvas, this->tinyFont, 0, this->heightOffset + this->weekdayFont.baseline() + this->dateFont.baseline() + this->tinyFont.baseline(), rgb_matrix::Color(255, 255, 255), nullptr, timestamp, 0);
