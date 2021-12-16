@@ -10,7 +10,9 @@ Rehoboam::Rehoboam(Shader& shader, rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCa
 
     // Add an enable vertex attribute array and pointers
     VertexBufferLayout verticesLayout;
+    // verticesLayout.addFloat(shader.getAttribute("pos"), 3);
     verticesLayout.addFloat(shader.getAttribute("pos"), 3);
+    verticesLayout.addFloat(shader.getAttribute("aColor"), 3);
     verticesBuffer.addLayout(verticesLayout);
 
     

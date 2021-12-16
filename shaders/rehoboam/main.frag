@@ -19,6 +19,7 @@ uniform float age;
 uniform float fade;
 
 varying vec2 backgroundCoord;
+varying vec3 color;
 
 float phi;
 float threadf = 0.0;
@@ -89,5 +90,6 @@ void main() {
 
     outColor *= vec3(fade);
 
-    gl_FragColor = vec4(mix(outColor, outColor, smoothstep(5.0, 10.0, age)), 1.0);
+    // gl_FragColor = vec4(mix(outColor, outColor, smoothstep(5.0, 10.0, age)), 1.0);
+    gl_FragColor = vec4(color, 1.0);
 }
