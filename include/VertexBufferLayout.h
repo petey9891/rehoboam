@@ -42,6 +42,12 @@ class VertexBufferLayout {
         void push(unsigned int id, unsigned int type, unsigned int count, unsigned char normalized) {
             struct VertexBufferElement vbe = {id, type, count, normalized};
             m_Elements.push_back(vbe);
+
+            printf("addFloat id: %d\n", id);
+            printf("addFloat count: %d\n", count);
+            printf("addFloat size: %d\n", VertexBufferElement::getSizeOfType(type));
+            printf("addFloat stride: %d\n", count * VertexBufferElement::getSizeOfType(type));
+
             m_Stride += count * VertexBufferElement::getSizeOfType(type);
         };
 };
