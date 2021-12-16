@@ -27,8 +27,10 @@ std::string get_file_contents(const char* filename)
 }
 
 Shader::Shader(const char* vertexFile, const char* fragmentFile) {
+    printf(">>> <Shader> Initializing shader\n");
     this->createShaders(vertexFile, fragmentFile);
     GLCall(glUseProgram(this->id));
+    printf(">>> <Shader> Completed initializing shader\n");
 }
 
 Shader::~Shader() {
@@ -94,13 +96,16 @@ int Shader::getAttributeLocation(const std::string& name) {
 
 unsigned int Shader::createShaders(const char* vertexFile, const char* fragmentFile) {
     // Read vertexFile and fragmentFile and store the strings
+    printf(">>> <Shader> Parsing vertex shader\n");
 	std::string vertexCode = get_file_contents(vertexFile);
+    printf(">>> <Shader> Parsing fragment shader\n");
 	std::string fragmentCode = get_file_contents(fragmentFile);
     
     // Convert the shader source strings into character arrays
 	const char* vertexSource = vertexCode.c_str();
 	const char* fragmentSource = fragmentCode.c_str();
     
+    printf(">>> <Shader> Compiling vertex shader\n");
 	// Create Vertex Shader Object and get its reference
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	// Attach Vertex Shader source to the Vertex Shader Object
@@ -109,6 +114,7 @@ unsigned int Shader::createShaders(const char* vertexFile, const char* fragmentF
 	glCompileShader(vertexShader);
 	compileErrors(vertexShader, "VERTEX");
 
+    printf(">>> <Shader> Compiling fragment shader\n");
 	// Create Fragment Shader Object and get its reference
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	// Attach Fragment Shader source to the Fragment Shader Object
@@ -117,6 +123,7 @@ unsigned int Shader::createShaders(const char* vertexFile, const char* fragmentF
 	glCompileShader(fragmentShader);
 	compileErrors(vertexShader, "FRAGMENT");
 
+    printf(">>> <Shader> Creating program\n");
 	// Create Shader Program Object and get its reference
 	this->id = glCreateProgram();
 	// Attach the Vertex and Fragment Shaders to the Shader Program

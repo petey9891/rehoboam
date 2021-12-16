@@ -26,7 +26,10 @@ Rehoboam::~Rehoboam() {
 }
 
 void Rehoboam::setInitialState() {
-    this->shader.setUniform1f("fade", 0.0f);
+    this->shader.setUniform1f("fade", 1.0f);
+    printf(">>> <Rehoboam> Set initial state\n");
+
+    // this->shader.setUniform1f("fade", 0.0f);
 }
 
 void Rehoboam::run() {
