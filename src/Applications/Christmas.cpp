@@ -29,3 +29,4 @@ void Christmas::run() {
 
     this->canvas->Fill(r, g, b);
     this->canvas = this->matrix->SwapOnVSync(this->canvas);
+}
