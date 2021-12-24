@@ -12,7 +12,8 @@ void Christmas::setCommand(Command cmd) {
 }
 
 void Christmas::setInitialState() {
-    this->canvas->SetBrightness(5);
+    // this->canvas->SetBrightness(5);
+    this->matrix->SetBrightness(20);
 }
 
 void Christmas::run() {
