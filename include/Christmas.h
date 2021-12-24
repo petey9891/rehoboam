@@ -10,6 +10,7 @@ public:
 
     void run() override;
     void setCommand(Command cmd) override;
+    void setInitialState() override;
 
 private:
     uint32_t continuum = 0;

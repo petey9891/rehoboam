@@ -3,12 +3,16 @@
 Christmas::Christmas(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runnable(m, c) {
     printf(">>> <Christmas> Initializing Christmas application\n");
     printf(">>> <Christmas> Initialized Christmas application\n");
-    c->SetBrightness(50);
+    
 }
 
 
 void Christmas::setCommand(Command cmd) {
     // do nothing
+}
+
+void Christmas::setInitialState() {
+    this->canvas->SetBrightness(5);
 }
 
 void Christmas::run() {
