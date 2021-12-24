@@ -11,6 +11,7 @@
 #include <Loading.h>
 #include <Rehoboam.h>
 #include <SolidColor.h>
+#include <Christmas.h>
 
 int main(int argc, char* argv[]) {
     CubeWindow window;
@@ -41,12 +42,14 @@ int main(int argc, char* argv[]) {
     // Rehoboam* rehoboam = new Rehoboam(rehoboamShader, matrix, canvas);
     ColorPulse* pulse = new ColorPulse(matrix, canvas);
     SolidColor* solid = new SolidColor(matrix, canvas);
+    Christmas* christmas = new Christmas(matrix, canvas);
 
     // Bind the loading shader for the loading sequence
     // loadingShader.bind();
 
     // Runnable* program = loading;
-    Runnable* program = pulse;
+    // Runnable* program = pulse;
+    Runnable* program = christmas;
     // Runnable* program = rehoboam;
     // Runnable* fallback = pulse;
     // Runnable* fallback = rehoboam;
@@ -108,6 +111,7 @@ int main(int argc, char* argv[]) {
     delete loading;
     // delete rehoboam;
     delete solid;
+    delete christmas;
 
     client.Disconnect();
     window.destroy();
