@@ -48,8 +48,8 @@ int main(int argc, char* argv[]) {
     // loadingShader.bind();
 
     // Runnable* program = loading;
-    // Runnable* program = pulse;
-    Runnable* program = christmas;
+    Runnable* program = pulse;
+    // Runnable* program = christmas;
     // Runnable* program = rehoboam;
     // Runnable* fallback = pulse;
     // Runnable* fallback = rehoboam;
@@ -86,6 +86,9 @@ int main(int argc, char* argv[]) {
                 case StaticColor:
                     program = solid;
                     program->setCommand(cmd);
+                    break;
+                case ChristmasMode:
+                    program = christmas;
                     break;
             }
         }

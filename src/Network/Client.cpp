@@ -52,6 +52,8 @@ void Client::OnMessageRecieved(Message<MessageType>& msg) {
             this->commands.push_front({ StaticColor, _rgb });
             break;
         }
+        case Christmas:
+            this->commands.push_front({ ChristmasMode });
         case Success:
             break;
     }
