@@ -5,6 +5,11 @@ Christmas::Christmas(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runn
     printf(">>> <Christmas> Initialized Christmas application\n");
 }
 
+
+void Christmas::setCommand(Command cmd) {
+    // do nothing
+}
+
 void Christmas::run() {
     usleep(5 * 1000);
     this->continuum += 1;
