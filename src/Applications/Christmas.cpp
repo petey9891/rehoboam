@@ -6,7 +6,6 @@ Christmas::Christmas(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runn
     
 }
 
-
 void Christmas::setCommand(Command cmd) {
     if (cmd.type == Brightness) {
         if (cmd.data.size() == 1) {
