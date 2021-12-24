@@ -21,7 +21,8 @@ void Christmas::run() {
     if (this->continuum <= 255) {
         int c = this->continuum;
         printf("in FIRST section of continuum -- c: %d\n", c);
-        b = 255 - c;
+        // b = 255 - c; // starts with blue first
+        g = 255 - c; // starts with green first
         r = c;
     } else if (this->continuum > 255 && this->continuum <= 511) {
         int c = this->continuum - 256;
@@ -30,9 +31,9 @@ void Christmas::run() {
         g = c;
     } else {
         int c = this->continuum - 512;
-        printf("in THIRD section of continuum -- c: %d\n", c);
-        g = 255 - c;
-        b = c;
+        // printf("in THIRD section of continuum -- c: %d\n", c);
+        // g = 255 - c;
+        // b = c;
     }
     printf("END r: %d, g: %d, b: %d, continuum: %d\n", r, g, b, this->continuum);
 
