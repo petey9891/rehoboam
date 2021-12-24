@@ -17,17 +17,20 @@ void Christmas::run() {
 
     int r = 0, g = 0, b = 0;
 
-    printf("continuum: %d", this->continuum);
+    printf("r: %d, g: %d, b: %d, continuum: %d\n", this->continuum);
     if (this->continuum <= 255) {
         int c = this->continuum;
+        printf("in FIRST section of continuum -- c: %d\n", c);
         b = 255 - c;
         r = c;
     } else if (this->continuum > 255 && this->continuum <= 511) {
         int c = this->continuum - 256;
+        printf("in SECOND section of continuum -- c: %d\n", c);
         r = 255 - c;
         g = c;
     } else {
         int c = this->continuum - 512;
+        printf("in THIRD section of continuum -- c: %d\n", c);
         g = 255 - c;
         b = c;
     }
