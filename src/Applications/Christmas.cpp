@@ -17,7 +17,7 @@ void Christmas::run() {
 
     int r = 0, g = 0, b = 0;
 
-    printf("r: %d, g: %d, b: %d, continuum: %d\n", this->continuum);
+    printf("r: %d, g: %d, b: %d, continuum: %d\n", r, g, b, this->continuum);
     if (this->continuum <= 255) {
         int c = this->continuum;
         printf("in FIRST section of continuum -- c: %d\n", c);
