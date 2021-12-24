@@ -42,7 +42,7 @@ int main(int argc, char* argv[]) {
     // Rehoboam* rehoboam = new Rehoboam(rehoboamShader, matrix, canvas);
     ColorPulse* pulse = new ColorPulse(matrix, canvas);
     SolidColor* solid = new SolidColor(matrix, canvas);
-    Christmas* christmas = new Christmas(matrix, canvas);
+    Christmas* christmasMode = new Christmas(matrix, canvas);
 
     // Bind the loading shader for the loading sequence
     // loadingShader.bind();
@@ -88,7 +88,7 @@ int main(int argc, char* argv[]) {
                     program->setCommand(cmd);
                     break;
                 case ChristmasMode:
-                    program = christmas;
+                    program = christmasMode;
                     break;
             }
         }
@@ -114,7 +114,7 @@ int main(int argc, char* argv[]) {
     delete loading;
     // delete rehoboam;
     delete solid;
-    delete christmas;
+    delete christmasMode;
 
     client.Disconnect();
     window.destroy();
