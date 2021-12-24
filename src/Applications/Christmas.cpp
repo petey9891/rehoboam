@@ -8,16 +8,19 @@ Christmas::Christmas(rgb_matrix::RGBMatrix* m, rgb_matrix::FrameCanvas* c): Runn
 
 
 void Christmas::setCommand(Command cmd) {
-    // do nothing
-}
-
-void Christmas::setInitialState() {
-    // this->canvas->SetBrightness(5);
-    this->matrix->SetBrightness(20);
+    if (cmd.type == Brightness) {
+        if (cmd.data.size() == 1) {
+            const uint8_t data = cmd.data[0];
+            if (data >= 1 && data <= 100) {
+                // Get the brightness from the data
+                this->matrix->SetBrightness(data);
+            }
+        }
+    }
 }
 
 void Christmas::run() {
-    usleep(10 * 1000);
+    usleep(7 * 1000);
     this->continuum += 1;
     this->continuum %= 3 * 255;
 
