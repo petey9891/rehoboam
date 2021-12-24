@@ -30,7 +30,7 @@ void Christmas::run() {
         r = 255 - c;
         g = c;
     } else {
-        int c = this->continuum - 512;
+        this->continuum -= 512;
         // printf("in THIRD section of continuum -- c: %d\n", c);
         // g = 255 - c;
         // b = c;
