@@ -19,9 +19,9 @@ void Christmas::setCommand(Command cmd) {
 }
 
 void Christmas::run() {
-    usleep(7 * 1000);
+    usleep(6 * 1000);
     this->continuum += 1;
-    this->continuum %= 3 * 255;
+    this->continuum %= 2 * 255;
 
     int r = 0, g = 0, b = 0;
 
