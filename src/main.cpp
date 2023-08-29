@@ -1,123 +1,125 @@
 #include <iostream>
 
-#include <Client.h>
-#include <Command.h>
-#include <Window.h>
-#include <RGBMatrixConfig.h>
-#include <Shader.h>
-
-#include <Runnable.h>
-#include <ColorPulse.h>
-#include <Loading.h>
-#include <Rehoboam.h>
-#include <SolidColor.h>
-#include <Christmas.h>
+//#include <Client.h>
+//#include <Command.h>
+//#include <Window.h>
+//#include <RGBMatrixConfig.h>
+//#include <Shader.h>
+//
+//#include <Runnable.h>
+//#include <ColorPulse.h>
+//#include <Loading.h>
+//#include <Rehoboam.h>
+//#include <SolidColor.h>
+//#include <Christmas.h>
 
 int main(int argc, char* argv[]) {
-    CubeWindow window;
-    window.createEGLWindow();
+    printf("Hello\n");
 
-    RGBMatrixConfig config;
-    RGBMatrix* matrix = RGBMatrix::CreateFromFlags(&argc, &argv, &config.defaults, &config.runtime);
-    FrameCanvas* canvas = matrix->CreateFrameCanvas();
-    if (matrix == nullptr) {
-        fprintf(stderr, "Error! Unable to create matrix!\n");
-        return EXIT_FAILURE;
-    }
+    //CubeWindow window;
+    //window.createEGLWindow();
 
-    Client client;
-    client.Connect();
-    client.HandleMessages();
+    //RGBMatrixConfig config;
+    //RGBMatrix* matrix = RGBMatrix::CreateFromFlags(&argc, &argv, &config.defaults, &config.runtime);
+    //FrameCanvas* canvas = matrix->CreateFrameCanvas();
+    //if (matrix == nullptr) {
+    //    fprintf(stderr, "Error! Unable to create matrix!\n");
+    //    return EXIT_FAILURE;
+    //}
 
-    // Clear the whole screen (front buffer)
-    GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
-    GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
-    
-    // Create shaders
-    Shader loadingShader("/home/pi/rehoboam/shaders/loading");
-    // Shader rehoboamShader("/home/pi/rehoboam/shaders/rehoboam");
-    
-    // Create applications
-    Loading* loading = new Loading(loadingShader, matrix, canvas);
-    // Rehoboam* rehoboam = new Rehoboam(rehoboamShader, matrix, canvas);
-    ColorPulse* pulse = new ColorPulse(matrix, canvas);
-    SolidColor* solid = new SolidColor(matrix, canvas);
-    Christmas* christmas = new Christmas(matrix, canvas);
+    //Client client;
+    //client.Connect();
+    //client.HandleMessages();
 
-    // Bind the loading shader for the loading sequence
-    // loadingShader.bind();
+    //// Clear the whole screen (front buffer)
+    //GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
+    //GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+    //
+    //// Create shaders
+    //Shader loadingShader("/home/pi/rehoboam/shaders/loading");
+    //// Shader rehoboamShader("/home/pi/rehoboam/shaders/rehoboam");
+    //
+    //// Create applications
+    //Loading* loading = new Loading(loadingShader, matrix, canvas);
+    //// Rehoboam* rehoboam = new Rehoboam(rehoboamShader, matrix, canvas);
+    //ColorPulse* pulse = new ColorPulse(matrix, canvas);
+    //SolidColor* solid = new SolidColor(matrix, canvas);
+    //Christmas* christmas = new Christmas(matrix, canvas);
 
-    // Runnable* program = loading;
-    Runnable* program = pulse;
-    // Runnable* program = christmas;
-    // Runnable* program = rehoboam;
-    // Runnable* fallback = pulse;
-    // Runnable* fallback = rehoboam;
+    //// Bind the loading shader for the loading sequence
+    //// loadingShader.bind();
 
-    printf(">>> <Main> Running program\n");
+    //// Runnable* program = loading;
+    //Runnable* program = pulse;
+    //// Runnable* program = christmas;
+    //// Runnable* program = rehoboam;
+    //// Runnable* fallback = pulse;
+    //// Runnable* fallback = rehoboam;
 
-    program->setInitialState();
+    //printf(">>> <Main> Running program\n");
 
-    bool power = true;
-    Command cmd;
+    //program->setInitialState();
 
-    while (true) {
-        if (client.hasCommands()) {
-            Command nextCmd = client.getNextCommand();
-            cmd = nextCmd;
+    //bool power = true;
+    //Command cmd;
 
-            switch (cmd.type) {
-                case DisplayOn:
-                    power = true;
-                    break;
-                case DisplayOff:
-                    power = false;
-                    break;
-                case Brightness:
-                    program->setCommand(cmd);
-                    break;
-                case ColorPulseMode:
-                    program = pulse;
-                    break;
-                case RehoboamMode:
-                    // rehoboamShader.bind();
-                    // program = rehoboam;
-                    break;
-                case StaticColor:
-                    program = solid;
-                    program->setCommand(cmd);
-                    break;
-                case ChristmasMode:
-                    program = christmas;
-                    break;
-            }
-        }
+    //while (true) {
+    //    if (client.hasCommands()) {
+    //        Command nextCmd = client.getNextCommand();
+    //        cmd = nextCmd;
 
-        if (power) {
-            program->run();
-        } else {
-            canvas->Fill(0, 0, 0);
-            matrix->SwapOnVSync(canvas);
-        }
+    //        switch (cmd.type) {
+    //            case DisplayOn:
+    //                power = true;
+    //                break;
+    //            case DisplayOff:
+    //                power = false;
+    //                break;
+    //            case Brightness:
+    //                program->setCommand(cmd);
+    //                break;
+    //            case ColorPulseMode:
+    //                program = pulse;
+    //                break;
+    //            case RehoboamMode:
+    //                // rehoboamShader.bind();
+    //                // program = rehoboam;
+    //                break;
+    //            case StaticColor:
+    //                program = solid;
+    //                program->setCommand(cmd);
+    //                break;
+    //            case ChristmasMode:
+    //                program = christmas;
+    //                break;
+    //        }
+    //    }
 
-        // if (loading->isDoneLoading && loading->shouldChangeScenes) {
-        //     rehoboamShader.bind();
-        //     program = fallback;
-        //     program->setInitialState();
-        //     loading->setSceneChangeIsFinished();
-        // }
-    }
+    //    if (power) {
+    //        program->run();
+    //    } else {
+    //        canvas->Fill(0, 0, 0);
+    //        matrix->SwapOnVSync(canvas);
+    //    }
 
-    program->canvas->Clear();
+    //    // if (loading->isDoneLoading && loading->shouldChangeScenes) {
+    //    //     rehoboamShader.bind();
+    //    //     program = fallback;
+    //    //     program->setInitialState();
+    //    //     loading->setSceneChangeIsFinished();
+    //    // }
+    //}
 
-    delete pulse;
-    delete loading;
-    // delete rehoboam;
-    delete solid;
-    delete christmas;
+    //program->canvas->Clear();
 
-    client.Disconnect();
-    window.destroy();
+    //delete pulse;
+    //delete loading;
+    //// delete rehoboam;
+    //delete solid;
+    //delete christmas;
+
+    //client.Disconnect();
+    //window.destroy();
 
     return 0;
 }
