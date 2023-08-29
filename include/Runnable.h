@@ -1,7 +1,8 @@
 #pragma once
 
-#include <rpi-led-matrix/led-matrix.h>
-#include <Command.h>
+#include "rpi-rgb-led-matrix/led-matrix.h"
+#include "Command.h"
+
 
 class Runnable {
 public:
