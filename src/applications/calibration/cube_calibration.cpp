@@ -1,7 +1,7 @@
 #include <applications/cube_calibration.h>
 
 CubeCalibration::CubeCalibration() {
-	this->m_shader = std::make_unique<Shader>("shaders/main.vert.glsl", "shaders/rehoboam/rehoboam.frag.glsl");
+	this->m_shader = std::make_unique<Shader>("shaders/main.vert.glsl", "shaders/lava-lamp/lava-lamp.frag.glsl");
 
 	this->m_geometry = std::make_unique<ShaderGeometry>(true, false);
 }

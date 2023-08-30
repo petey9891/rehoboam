@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef _WIN32  // If on Windows
+#if defined(_WIN32) || defined(__APPLE__)
 
 #include <string>
 
@@ -23,4 +23,4 @@ private:
 	GLFWwindow* m_window;
 };
 
-#endif // _WIN32
+#endif // _WIN32 || __APPLE__

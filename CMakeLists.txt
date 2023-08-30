@@ -29,36 +29,37 @@ else()
     endif()
 endif()
 
-
-
 # Include directories
 include_directories(/opt/vc/include)
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
 # Determine the appropriate library directory based on the platform
-if(WIN32 OR APPLE)
-    link_directories(${CMAKE_SOURCE_DIR}/lib/x64)
+if(WIN3)
+    link_directories(${CMAKE_SOURCE_DIR}/lib/x64/windows)
+elseif(APPLE)
+    link_directories(${CMAKE_SOURCE_DIR}/lib/x64/macos)
 elseif(UNIX) # Assuming UNIX is Linux for Raspberry Pi
     link_directories(${CMAKE_SOURCE_DIR}/lib/armv7l)
 endif()
-
-# Linker directories
-# link_directories(lib)
-#link_directories(/opt/vc/lib)
 
 # Source files
 file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.c")
 
 # Define the executable
 add_executable(rehoboam ${SOURCES})
-#add_executable(rehoboam "src/main.cpp" "include/window/VirtualCube.h" "include/GLFW/glfw3.h" "include/GLFW/glfw3native.h" "include/window/Cube.h" "src/Window/VirtualCube.cpp" "include/glad/glad.h" "src/glad.c" "src/Window/Cube.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET rehoboam PROPERTY CXX_STANDARD 20)
 endif()
 
 # Link libraries to the executable
-target_link_libraries(rehoboam glfw3)
+if(WIN3)
+    target_link_libraries(rehoboam glfw3)
+elseif(APPLE)
+    target_link_libraries(rehoboam glfw3 "-framework Cocoa" "-framework IOKit" "-framework CoreVideo")
+elseif(UNIX) # Assuming UNIX is Linux for Raspberry Pi
+    target_link_libraries(rehoboam glfw3)
+endif()
 
 # Copy shaders to build directory
 file(COPY ${CMAKE_SOURCE_DIR}/shaders/ DESTINATION ${CMAKE_BINARY_DIR}/shaders/)

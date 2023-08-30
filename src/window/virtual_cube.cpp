@@ -1,17 +1,23 @@
-#ifdef _WIN32  // If on Windows
+#if defined(_WIN32) || defined(__APPLE__)
 
 #include <iostream>
 #include <window/virtual_cube.h>
 
+
 VirtualCube::VirtualCube(int width, int height, std::string name) : Window(width, height) {
 	// Initialize GLFW
+    glfwSetErrorCallback([](int error, const char* description) {
+        std::cerr << "GLFW Error: " << description << std::endl;
+    });
+
 	if (!glfwInit()) {
 		std::cerr << "Failed to initialize GLFW" << std::endl;
 	}
 
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
@@ -59,4 +65,4 @@ void VirtualCube::processInput() {
 		glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 }
 
-#endif // _WIN32
+#endif // _WIN32 || __APPLE__
