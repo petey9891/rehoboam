@@ -1,4 +1,4 @@
-#ifndef _WIN32  // If not on Windows
+#if !defined(_WIN32) && !defined(__APPLE__)
 
 #include <iostream>
 #include <window/cube.h>
@@ -115,4 +115,4 @@ void Cube::unuse() {
 
 }
 
-#endif  // !_WIN32
+#endif  // !_WIN32 and !__APPLE__

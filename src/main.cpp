@@ -22,11 +22,11 @@
 int main(int argc, char* argv[]) {
     std::unique_ptr<Window> window = nullptr;
     
-    #if defined(__APPLE__) || defined(__linux__)
+    #if !defined(__APPLE__) && !defined(__linux__)
     std::make_unique<Cube>(192, 64);
-    #elif defined(WIN32)
+    #else
     window = std::make_unique<VirtualCube>(1200, 1200, "Rehoboam Sandbox");
-    #endif
+    #endif  // !_WIN32 and !__APPLE__
 
     if (window == nullptr) {
         std::cerr << "Failed to create window" << std::endl;
