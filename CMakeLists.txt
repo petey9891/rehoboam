@@ -47,7 +47,7 @@ endif()
 #link_directories(/opt/vc/lib)
 
 # Source files
-file(GLOB_RECURSE SOURCES "src/*.cpp")
+file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.c")
 
 # Define the executable
 add_executable(rehoboam ${SOURCES})
@@ -58,16 +58,7 @@ if (CMAKE_VERSION VERSION_GREATER 3.12)
 endif()
 
 # Link libraries to the executable
-# target_link_libraries(rehoboam
-#    ssl
-#    dl
-#    crypto
-#    rgbmatrix
-#    m
-#    pthread
-#    rt
-#    brcmEGL
-#    brcmGLESv2
-#    GLESv2
-#    stdc++fs
-# )
+target_link_libraries(rehoboam glfw3)
+
+# Copy shaders to build directory
+file(COPY ${CMAKE_SOURCE_DIR}/shaders/ DESTINATION ${CMAKE_BINARY_DIR}/shaders/)

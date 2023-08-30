@@ -1,3 +1,13 @@
 # ninja log v5
-1	974	7149789357827944	CMakeFiles/rehoboam.dir/src/main.cpp.obj	d5cb51a04f3a506d
-976	1226	7149789360147961	rehoboam.exe	39376a7ae23636eb
+20	73	7150746833644564	CMakeFiles/rehoboam.dir/src/window/cube.cpp.obj	28f6399846b75cb
+7	337	7150746836273837	CMakeFiles/rehoboam.dir/src/glad.c.obj	afeaad298dd928ed
+24	995	7150746842853119	CMakeFiles/rehoboam.dir/src/window/virtual_cube.cpp.obj	981a0681e359b52
+14	929	7150747097403779	CMakeFiles/rehoboam.dir/src/main.cpp.obj	edc93e4e1778c929
+14	1027	7150746843161647	CMakeFiles/rehoboam.dir/src/opengl/shader.cpp.obj	d3ae0b21db8492cc
+19	947	7150749829356072	CMakeFiles/rehoboam.dir/src/applications/calibration/cube_calibration.cpp.obj	b193dcac7d819874
+17	1064	7150746843533928	CMakeFiles/rehoboam.dir/src/opengl/shader_geometry.cpp.obj	5bb5ae3c970ce989
+948	1156	7150749830946096	rehoboam.exe	b8c6e2f382a9c3e4
+5	965	7150750256755432	CMakeFiles/rehoboam.dir/src/opengl/shader_geometry.cpp.obj	5bb5ae3c970ce989
+966	1092	7150750257725446	rehoboam.exe	b8c6e2f382a9c3e4
+13	986	7150750457415686	CMakeFiles/rehoboam.dir/src/opengl/shader_geometry.cpp.obj	5bb5ae3c970ce989
+986	1108	7150750458355671	rehoboam.exe	b8c6e2f382a9c3e4

@@ -1,6 +1,12 @@
 #include <iostream>
+#include <memory>
 
-//#include <Client.h>
+#include <window/window.h>
+#include <window/cube.h>
+#include <window/virtual_cube.h>
+
+#include <applications/shader_application.h>
+#include <applications/cube_calibration.h>
 //#include <Command.h>
 //#include <Window.h>
 //#include <RGBMatrixConfig.h>
@@ -14,10 +20,30 @@
 //#include <Christmas.h>
 
 int main(int argc, char* argv[]) {
-    printf("Hello\n");
+    std::unique_ptr<Window> window = nullptr;
+    
+    #if defined(__APPLE__) || defined(__linux__)
+    std::make_unique<Cube>(192, 64);
+    #elif defined(WIN32)
+    window = std::make_unique<VirtualCube>(1200, 1200, "Rehoboam Sandbox");
+    #endif
 
-    //CubeWindow window;
-    //window.createEGLWindow();
+    if (window == nullptr) {
+        std::cerr << "Failed to create window" << std::endl;
+        return 1;
+    }
+
+    // Programs
+    std::unique_ptr<ShaderApplication> application = std::make_unique<CubeCalibration>();
+
+    application->activate();
+    while (!window->windowShouldClose()) {
+        window->use();
+
+        application->run();
+
+        window->unuse();
+    }
 
     //RGBMatrixConfig config;
     //RGBMatrix* matrix = RGBMatrix::CreateFromFlags(&argc, &argv, &config.defaults, &config.runtime);
@@ -102,12 +128,12 @@ int main(int argc, char* argv[]) {
     //        matrix->SwapOnVSync(canvas);
     //    }
 
-    //    // if (loading->isDoneLoading && loading->shouldChangeScenes) {
-    //    //     rehoboamShader.bind();
-    //    //     program = fallback;
-    //    //     program->setInitialState();
-    //    //     loading->setSceneChangeIsFinished();
-    //    // }
+    //     if (loading->isDoneLoading && loading->shouldChangeScenes) {
+    //         rehoboamShader.bind();
+    //         program = fallback;
+    //         program->setInitialState();
+    //         loading->setSceneChangeIsFinished();
+    //     }
     //}
 
     //program->canvas->Clear();

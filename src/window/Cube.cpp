@@ -1,4 +1,7 @@
-#include "window/Cube.h"
+#ifndef _WIN32  // If not on Windows
+
+#include <iostream>
+#include <window/cube.h>
 
 static const EGLint eglConfigAttribs[] = {
     EGL_SURFACE_TYPE, EGL_PBUFFER_BIT,
@@ -111,3 +114,5 @@ void Cube::use() {
 void Cube::unuse() {
 
 }
+
+#endif  // !_WIN32

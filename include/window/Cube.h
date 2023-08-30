@@ -1,14 +1,9 @@
 #pragma once
-#include "Window.h"
 
-#if defined(__APPLE__) || defined(__linux__)
-#include "EGL/egl.h"
-#include <GLES3/gl3.h>
-#elif defined(WIN32)
-using EGLDisplay = void*;
-using EGLSurface = void*;
-using EGLContext = void*;
-#endif
+#ifndef _WIN32  // If not on Windows
+
+#include "window.h"
+#include <opengl/opengl_includes.h>
 
 struct EGLWindow {
     EGLDisplay display;
@@ -23,4 +18,11 @@ public:
 
     virtual void use() override;
     virtual void unuse() override;
+
+    int windowShouldClose() const override { return false; } // never closes
+
+private:
+    EGLWindow* m_window;
 };
+
+#endif  // !_WIN32

@@ -49,123 +49,59 @@ cmake_ninja_workdir = C$:\Users\16ape\git\rehoboam\out\build\x64-Debug\
 
 build cmake_object_order_depends_target_rehoboam: phony || CMakeFiles\rehoboam.dir
 
-build CMakeFiles\rehoboam.dir\src\Applications\Christmas.cpp.obj: CXX_COMPILER__rehoboam_unscanned_Debug C$:\Users\16ape\git\rehoboam\src\Applications\Christmas.cpp || cmake_object_order_depends_target_rehoboam
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3 /D_FILE_OFFSET_BITS=64 /Zi /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -ZI
+build CMakeFiles\rehoboam.dir\src\applications\calibration\cube_calibration.cpp.obj: CXX_COMPILER__rehoboam_unscanned_Debug C$:\Users\16ape\git\rehoboam\src\applications\calibration\cube_calibration.cpp || cmake_object_order_depends_target_rehoboam
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3 /D_FILE_OFFSET_BITS=64 /Zi /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
   INCLUDES = -I\opt\vc\include -IC:\Users\16ape\git\rehoboam\include
   OBJECT_DIR = CMakeFiles\rehoboam.dir
-  OBJECT_FILE_DIR = CMakeFiles\rehoboam.dir\src\Applications
+  OBJECT_FILE_DIR = CMakeFiles\rehoboam.dir\src\applications\calibration
   TARGET_COMPILE_PDB = CMakeFiles\rehoboam.dir\
   TARGET_PDB = rehoboam.pdb
 
-build CMakeFiles\rehoboam.dir\src\Applications\ColorPulse.cpp.obj: CXX_COMPILER__rehoboam_unscanned_Debug C$:\Users\16ape\git\rehoboam\src\Applications\ColorPulse.cpp || cmake_object_order_depends_target_rehoboam
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3 /D_FILE_OFFSET_BITS=64 /Zi /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -ZI
+build CMakeFiles\rehoboam.dir\src\glad.c.obj: C_COMPILER__rehoboam_unscanned_Debug C$:\Users\16ape\git\rehoboam\src\glad.c || cmake_object_order_depends_target_rehoboam
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -ZI
   INCLUDES = -I\opt\vc\include -IC:\Users\16ape\git\rehoboam\include
   OBJECT_DIR = CMakeFiles\rehoboam.dir
-  OBJECT_FILE_DIR = CMakeFiles\rehoboam.dir\src\Applications
-  TARGET_COMPILE_PDB = CMakeFiles\rehoboam.dir\
-  TARGET_PDB = rehoboam.pdb
-
-build CMakeFiles\rehoboam.dir\src\Applications\Loading.cpp.obj: CXX_COMPILER__rehoboam_unscanned_Debug C$:\Users\16ape\git\rehoboam\src\Applications\Loading.cpp || cmake_object_order_depends_target_rehoboam
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3 /D_FILE_OFFSET_BITS=64 /Zi /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -ZI
-  INCLUDES = -I\opt\vc\include -IC:\Users\16ape\git\rehoboam\include
-  OBJECT_DIR = CMakeFiles\rehoboam.dir
-  OBJECT_FILE_DIR = CMakeFiles\rehoboam.dir\src\Applications
-  TARGET_COMPILE_PDB = CMakeFiles\rehoboam.dir\
-  TARGET_PDB = rehoboam.pdb
-
-build CMakeFiles\rehoboam.dir\src\Applications\Rehoboam.cpp.obj: CXX_COMPILER__rehoboam_unscanned_Debug C$:\Users\16ape\git\rehoboam\src\Applications\Rehoboam.cpp || cmake_object_order_depends_target_rehoboam
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3 /D_FILE_OFFSET_BITS=64 /Zi /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -ZI
-  INCLUDES = -I\opt\vc\include -IC:\Users\16ape\git\rehoboam\include
-  OBJECT_DIR = CMakeFiles\rehoboam.dir
-  OBJECT_FILE_DIR = CMakeFiles\rehoboam.dir\src\Applications
-  TARGET_COMPILE_PDB = CMakeFiles\rehoboam.dir\
-  TARGET_PDB = rehoboam.pdb
-
-build CMakeFiles\rehoboam.dir\src\Applications\SolidColor.cpp.obj: CXX_COMPILER__rehoboam_unscanned_Debug C$:\Users\16ape\git\rehoboam\src\Applications\SolidColor.cpp || cmake_object_order_depends_target_rehoboam
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3 /D_FILE_OFFSET_BITS=64 /Zi /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -ZI
-  INCLUDES = -I\opt\vc\include -IC:\Users\16ape\git\rehoboam\include
-  OBJECT_DIR = CMakeFiles\rehoboam.dir
-  OBJECT_FILE_DIR = CMakeFiles\rehoboam.dir\src\Applications
-  TARGET_COMPILE_PDB = CMakeFiles\rehoboam.dir\
-  TARGET_PDB = rehoboam.pdb
-
-build CMakeFiles\rehoboam.dir\src\Network\Client.cpp.obj: CXX_COMPILER__rehoboam_unscanned_Debug C$:\Users\16ape\git\rehoboam\src\Network\Client.cpp || cmake_object_order_depends_target_rehoboam
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3 /D_FILE_OFFSET_BITS=64 /Zi /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -ZI
-  INCLUDES = -I\opt\vc\include -IC:\Users\16ape\git\rehoboam\include
-  OBJECT_DIR = CMakeFiles\rehoboam.dir
-  OBJECT_FILE_DIR = CMakeFiles\rehoboam.dir\src\Network
-  TARGET_COMPILE_PDB = CMakeFiles\rehoboam.dir\
-  TARGET_PDB = rehoboam.pdb
-
-build CMakeFiles\rehoboam.dir\src\OpenGL\IndexBuffer.cpp.obj: CXX_COMPILER__rehoboam_unscanned_Debug C$:\Users\16ape\git\rehoboam\src\OpenGL\IndexBuffer.cpp || cmake_object_order_depends_target_rehoboam
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3 /D_FILE_OFFSET_BITS=64 /Zi /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -ZI
-  INCLUDES = -I\opt\vc\include -IC:\Users\16ape\git\rehoboam\include
-  OBJECT_DIR = CMakeFiles\rehoboam.dir
-  OBJECT_FILE_DIR = CMakeFiles\rehoboam.dir\src\OpenGL
-  TARGET_COMPILE_PDB = CMakeFiles\rehoboam.dir\
-  TARGET_PDB = rehoboam.pdb
-
-build CMakeFiles\rehoboam.dir\src\OpenGL\Renderer.cpp.obj: CXX_COMPILER__rehoboam_unscanned_Debug C$:\Users\16ape\git\rehoboam\src\OpenGL\Renderer.cpp || cmake_object_order_depends_target_rehoboam
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3 /D_FILE_OFFSET_BITS=64 /Zi /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -ZI
-  INCLUDES = -I\opt\vc\include -IC:\Users\16ape\git\rehoboam\include
-  OBJECT_DIR = CMakeFiles\rehoboam.dir
-  OBJECT_FILE_DIR = CMakeFiles\rehoboam.dir\src\OpenGL
-  TARGET_COMPILE_PDB = CMakeFiles\rehoboam.dir\
-  TARGET_PDB = rehoboam.pdb
-
-build CMakeFiles\rehoboam.dir\src\OpenGL\Shader.cpp.obj: CXX_COMPILER__rehoboam_unscanned_Debug C$:\Users\16ape\git\rehoboam\src\OpenGL\Shader.cpp || cmake_object_order_depends_target_rehoboam
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3 /D_FILE_OFFSET_BITS=64 /Zi /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -ZI
-  INCLUDES = -I\opt\vc\include -IC:\Users\16ape\git\rehoboam\include
-  OBJECT_DIR = CMakeFiles\rehoboam.dir
-  OBJECT_FILE_DIR = CMakeFiles\rehoboam.dir\src\OpenGL
-  TARGET_COMPILE_PDB = CMakeFiles\rehoboam.dir\
-  TARGET_PDB = rehoboam.pdb
-
-build CMakeFiles\rehoboam.dir\src\OpenGL\VertexArray.cpp.obj: CXX_COMPILER__rehoboam_unscanned_Debug C$:\Users\16ape\git\rehoboam\src\OpenGL\VertexArray.cpp || cmake_object_order_depends_target_rehoboam
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3 /D_FILE_OFFSET_BITS=64 /Zi /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -ZI
-  INCLUDES = -I\opt\vc\include -IC:\Users\16ape\git\rehoboam\include
-  OBJECT_DIR = CMakeFiles\rehoboam.dir
-  OBJECT_FILE_DIR = CMakeFiles\rehoboam.dir\src\OpenGL
-  TARGET_COMPILE_PDB = CMakeFiles\rehoboam.dir\
-  TARGET_PDB = rehoboam.pdb
-
-build CMakeFiles\rehoboam.dir\src\OpenGL\VertexBuffer.cpp.obj: CXX_COMPILER__rehoboam_unscanned_Debug C$:\Users\16ape\git\rehoboam\src\OpenGL\VertexBuffer.cpp || cmake_object_order_depends_target_rehoboam
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3 /D_FILE_OFFSET_BITS=64 /Zi /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -ZI
-  INCLUDES = -I\opt\vc\include -IC:\Users\16ape\git\rehoboam\include
-  OBJECT_DIR = CMakeFiles\rehoboam.dir
-  OBJECT_FILE_DIR = CMakeFiles\rehoboam.dir\src\OpenGL
-  TARGET_COMPILE_PDB = CMakeFiles\rehoboam.dir\
-  TARGET_PDB = rehoboam.pdb
-
-build CMakeFiles\rehoboam.dir\src\Window\Cube.cpp.obj: CXX_COMPILER__rehoboam_unscanned_Debug C$:\Users\16ape\git\rehoboam\src\Window\Cube.cpp || cmake_object_order_depends_target_rehoboam
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3 /D_FILE_OFFSET_BITS=64 /Zi /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -ZI
-  INCLUDES = -I\opt\vc\include -IC:\Users\16ape\git\rehoboam\include
-  OBJECT_DIR = CMakeFiles\rehoboam.dir
-  OBJECT_FILE_DIR = CMakeFiles\rehoboam.dir\src\Window
-  TARGET_COMPILE_PDB = CMakeFiles\rehoboam.dir\
-  TARGET_PDB = rehoboam.pdb
-
-build CMakeFiles\rehoboam.dir\src\Window\VirtualCube.cpp.obj: CXX_COMPILER__rehoboam_unscanned_Debug C$:\Users\16ape\git\rehoboam\src\Window\VirtualCube.cpp || cmake_object_order_depends_target_rehoboam
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3 /D_FILE_OFFSET_BITS=64 /Zi /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -ZI
-  INCLUDES = -I\opt\vc\include -IC:\Users\16ape\git\rehoboam\include
-  OBJECT_DIR = CMakeFiles\rehoboam.dir
-  OBJECT_FILE_DIR = CMakeFiles\rehoboam.dir\src\Window
-  TARGET_COMPILE_PDB = CMakeFiles\rehoboam.dir\
-  TARGET_PDB = rehoboam.pdb
-
-build CMakeFiles\rehoboam.dir\src\Window\Window.cpp.obj: CXX_COMPILER__rehoboam_unscanned_Debug C$:\Users\16ape\git\rehoboam\src\Window\Window.cpp || cmake_object_order_depends_target_rehoboam
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3 /D_FILE_OFFSET_BITS=64 /Zi /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -ZI
-  INCLUDES = -I\opt\vc\include -IC:\Users\16ape\git\rehoboam\include
-  OBJECT_DIR = CMakeFiles\rehoboam.dir
-  OBJECT_FILE_DIR = CMakeFiles\rehoboam.dir\src\Window
+  OBJECT_FILE_DIR = CMakeFiles\rehoboam.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\rehoboam.dir\
   TARGET_PDB = rehoboam.pdb
 
 build CMakeFiles\rehoboam.dir\src\main.cpp.obj: CXX_COMPILER__rehoboam_unscanned_Debug C$:\Users\16ape\git\rehoboam\src\main.cpp || cmake_object_order_depends_target_rehoboam
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3 /D_FILE_OFFSET_BITS=64 /Zi /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -ZI
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3 /D_FILE_OFFSET_BITS=64 /Zi /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
   INCLUDES = -I\opt\vc\include -IC:\Users\16ape\git\rehoboam\include
   OBJECT_DIR = CMakeFiles\rehoboam.dir
   OBJECT_FILE_DIR = CMakeFiles\rehoboam.dir\src
+  TARGET_COMPILE_PDB = CMakeFiles\rehoboam.dir\
+  TARGET_PDB = rehoboam.pdb
+
+build CMakeFiles\rehoboam.dir\src\opengl\shader.cpp.obj: CXX_COMPILER__rehoboam_unscanned_Debug C$:\Users\16ape\git\rehoboam\src\opengl\shader.cpp || cmake_object_order_depends_target_rehoboam
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3 /D_FILE_OFFSET_BITS=64 /Zi /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
+  INCLUDES = -I\opt\vc\include -IC:\Users\16ape\git\rehoboam\include
+  OBJECT_DIR = CMakeFiles\rehoboam.dir
+  OBJECT_FILE_DIR = CMakeFiles\rehoboam.dir\src\opengl
+  TARGET_COMPILE_PDB = CMakeFiles\rehoboam.dir\
+  TARGET_PDB = rehoboam.pdb
+
+build CMakeFiles\rehoboam.dir\src\opengl\shader_geometry.cpp.obj: CXX_COMPILER__rehoboam_unscanned_Debug C$:\Users\16ape\git\rehoboam\src\opengl\shader_geometry.cpp || cmake_object_order_depends_target_rehoboam
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3 /D_FILE_OFFSET_BITS=64 /Zi /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
+  INCLUDES = -I\opt\vc\include -IC:\Users\16ape\git\rehoboam\include
+  OBJECT_DIR = CMakeFiles\rehoboam.dir
+  OBJECT_FILE_DIR = CMakeFiles\rehoboam.dir\src\opengl
+  TARGET_COMPILE_PDB = CMakeFiles\rehoboam.dir\
+  TARGET_PDB = rehoboam.pdb
+
+build CMakeFiles\rehoboam.dir\src\window\cube.cpp.obj: CXX_COMPILER__rehoboam_unscanned_Debug C$:\Users\16ape\git\rehoboam\src\window\cube.cpp || cmake_object_order_depends_target_rehoboam
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3 /D_FILE_OFFSET_BITS=64 /Zi /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
+  INCLUDES = -I\opt\vc\include -IC:\Users\16ape\git\rehoboam\include
+  OBJECT_DIR = CMakeFiles\rehoboam.dir
+  OBJECT_FILE_DIR = CMakeFiles\rehoboam.dir\src\window
+  TARGET_COMPILE_PDB = CMakeFiles\rehoboam.dir\
+  TARGET_PDB = rehoboam.pdb
+
+build CMakeFiles\rehoboam.dir\src\window\virtual_cube.cpp.obj: CXX_COMPILER__rehoboam_unscanned_Debug C$:\Users\16ape\git\rehoboam\src\window\virtual_cube.cpp || cmake_object_order_depends_target_rehoboam
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3 /D_FILE_OFFSET_BITS=64 /Zi /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
+  INCLUDES = -I\opt\vc\include -IC:\Users\16ape\git\rehoboam\include
+  OBJECT_DIR = CMakeFiles\rehoboam.dir
+  OBJECT_FILE_DIR = CMakeFiles\rehoboam.dir\src\window
   TARGET_COMPILE_PDB = CMakeFiles\rehoboam.dir\
   TARGET_PDB = rehoboam.pdb
 
@@ -177,10 +113,10 @@ build CMakeFiles\rehoboam.dir\src\main.cpp.obj: CXX_COMPILER__rehoboam_unscanned
 #############################################
 # Link the executable rehoboam.exe
 
-build rehoboam.exe: CXX_EXECUTABLE_LINKER__rehoboam_Debug CMakeFiles\rehoboam.dir\src\Applications\Christmas.cpp.obj CMakeFiles\rehoboam.dir\src\Applications\ColorPulse.cpp.obj CMakeFiles\rehoboam.dir\src\Applications\Loading.cpp.obj CMakeFiles\rehoboam.dir\src\Applications\Rehoboam.cpp.obj CMakeFiles\rehoboam.dir\src\Applications\SolidColor.cpp.obj CMakeFiles\rehoboam.dir\src\Network\Client.cpp.obj CMakeFiles\rehoboam.dir\src\OpenGL\IndexBuffer.cpp.obj CMakeFiles\rehoboam.dir\src\OpenGL\Renderer.cpp.obj CMakeFiles\rehoboam.dir\src\OpenGL\Shader.cpp.obj CMakeFiles\rehoboam.dir\src\OpenGL\VertexArray.cpp.obj CMakeFiles\rehoboam.dir\src\OpenGL\VertexBuffer.cpp.obj CMakeFiles\rehoboam.dir\src\Window\Cube.cpp.obj CMakeFiles\rehoboam.dir\src\Window\VirtualCube.cpp.obj CMakeFiles\rehoboam.dir\src\Window\Window.cpp.obj CMakeFiles\rehoboam.dir\src\main.cpp.obj
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3 /D_FILE_OFFSET_BITS=64 /Zi /MDd /Zi /Ob0 /Od /RTC1 -ZI
+build rehoboam.exe: CXX_EXECUTABLE_LINKER__rehoboam_Debug CMakeFiles\rehoboam.dir\src\applications\calibration\cube_calibration.cpp.obj CMakeFiles\rehoboam.dir\src\glad.c.obj CMakeFiles\rehoboam.dir\src\main.cpp.obj CMakeFiles\rehoboam.dir\src\opengl\shader.cpp.obj CMakeFiles\rehoboam.dir\src\opengl\shader_geometry.cpp.obj CMakeFiles\rehoboam.dir\src\window\cube.cpp.obj CMakeFiles\rehoboam.dir\src\window\virtual_cube.cpp.obj
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3 /D_FILE_OFFSET_BITS=64 /Zi /MDd /Ob0 /Od /RTC1 -ZI
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
-  LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  LINK_LIBRARIES = glfw3.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   LINK_PATH = -LIBPATH:C:\Users\16ape\git\rehoboam\lib\x64
   OBJECT_DIR = CMakeFiles\rehoboam.dir
   POST_BUILD = cd .
