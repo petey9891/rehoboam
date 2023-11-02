@@ -3,9 +3,9 @@
 
 class CubeCalibration : public ShaderApplication {
 public:
-	CubeCalibration();
-	~CubeCalibration();
-
-	void activate() override;
-	void run() override;
+    CubeCalibration() {
+        this->m_shader = std::make_unique<Shader>("shaders/main.vert.glsl", "shaders/calibration/calibration.frag.glsl");
+        this->m_geometry = std::make_unique<ShaderGeometry>(true, false);
+    }
 };
+

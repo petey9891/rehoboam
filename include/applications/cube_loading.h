@@ -1,3 +1,14 @@
+#pragma once
+#include "shader_application.h"
+
+class CubeLoading : public ShaderApplication {
+public:
+    CubeLoading() {
+        this->m_shader = std::make_unique<Shader>("shaders/main.vert.glsl", "shaders/lava-lamp/lava-lamp.frag.glsl");
+        this->m_geometry = std::make_unique<ShaderGeometry>(true, false);
+    }
+};
+
 //#pragma once
 //
 //#include <Runnable.h>

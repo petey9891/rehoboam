@@ -4,12 +4,16 @@
 #include <opengl/shader.h>
 #include <opengl/shader_geometry.h>
 
+// Forward declare
+class ApplicationState;
+
 class ShaderApplication {
 public:
-	virtual ~ShaderApplication() = default;
+    ShaderApplication();
+    ~ShaderApplication();
 
-	virtual void activate() = 0;
-	virtual void run() = 0;
+    void activate();
+    void run(const ApplicationState::State& state);
 
 protected:
 	uint16_t m_frameCounter = 0;

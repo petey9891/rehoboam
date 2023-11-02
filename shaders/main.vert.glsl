@@ -8,8 +8,7 @@ out vec2 fragCoord;
 // Values that stay constant for the whole mesh.
 uniform mat4 MVP;
 
-void main()
-{
+void main() {
     fragCoord = inUV;
 
     // Output position of the vertex, in clip space

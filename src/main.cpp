@@ -1,23 +1,13 @@
 #include <iostream>
 #include <memory>
 
+#include <network/command_message_client.h>
+#include <state/application_state.h>
 #include <window/window.h>
 #include <window/cube.h>
 #include <window/virtual_cube.h>
-
 #include <applications/shader_application.h>
 #include <applications/cube_calibration.h>
-//#include <Command.h>
-//#include <Window.h>
-//#include <RGBMatrixConfig.h>
-//#include <Shader.h>
-//
-//#include <Runnable.h>
-//#include <ColorPulse.h>
-//#include <Loading.h>
-//#include <Rehoboam.h>
-//#include <SolidColor.h>
-//#include <Christmas.h>
 
 int main(int argc, char* argv[]) {
     std::unique_ptr<Window> window = nullptr;
@@ -33,14 +23,21 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    // Programs
-    std::unique_ptr<ShaderApplication> application = std::make_unique<CubeCalibration>();
 
-    application->activate();
+    std::unique_ptr<ApplicationState> state = std::make_unique<ApplicationState>();
+    std::unique_ptr<CommandMessageClient> client = std::make_unique<CommandMessageClient>();
+
+    client->initialize();
+
     while (!window->windowShouldClose()) {
-        window->use();
+        client->processNextCommand(*state);
 
-        application->run();
+        window->use();
+        
+        auto activeApp = state->getActiveShaderApplication();
+        if (activeApp) {
+            activeApp->run(state->getState());
+        }
 
         window->unuse();
     }
@@ -53,18 +50,7 @@ int main(int argc, char* argv[]) {
     //    return EXIT_FAILURE;
     //}
 
-    //Client client;
-    //client.Connect();
-    //client.HandleMessages();
 
-    //// Clear the whole screen (front buffer)
-    //GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
-    //GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
-    //
-    //// Create shaders
-    //Shader loadingShader("/home/pi/rehoboam/shaders/loading");
-    //// Shader rehoboamShader("/home/pi/rehoboam/shaders/rehoboam");
-    //
     //// Create applications
     //Loading* loading = new Loading(loadingShader, matrix, canvas);
     //// Rehoboam* rehoboam = new Rehoboam(rehoboamShader, matrix, canvas);
@@ -137,15 +123,6 @@ int main(int argc, char* argv[]) {
     //}
 
     //program->canvas->Clear();
-
-    //delete pulse;
-    //delete loading;
-    //// delete rehoboam;
-    //delete solid;
-    //delete christmas;
-
-    //client.Disconnect();
-    //window.destroy();
 
     return 0;
 }

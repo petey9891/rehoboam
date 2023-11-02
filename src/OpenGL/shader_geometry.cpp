@@ -28,7 +28,7 @@ ShaderGeometry::ShaderGeometry(bool isPerspective, bool isProduction) : m_isPers
 			glm::vec3(2.0f, 1.0f, 0.0f),
 			glm::vec3(1.0f, 1.0f, 0.0f),
 
-			//// Top face
+			// Top face
 			// x, y, z
 			glm::vec3(3.0f, 0.0f, 0.0f),
 			glm::vec3(2.0f, 1.0f, 0.0f),
@@ -97,8 +97,8 @@ ShaderGeometry::ShaderGeometry(bool isPerspective, bool isProduction) : m_isPers
 			glm::vec3(1.0f, 1.0f, -1.0f),
 			glm::vec3(1.0f, 1.0f, 1.0f),
 
-			//// Top face
-			//// x, y, z
+			// Top face
+			// x, y, z
 			glm::vec3(1.0f, 1.0f, 1.0f),
 			glm::vec3(-1.0f, 1.0f, -1.0f),
 			glm::vec3(-1.0f, 1.0f, 1.0f),
@@ -139,7 +139,7 @@ ShaderGeometry::~ShaderGeometry() {
 glm::mat4 ShaderGeometry::initializeCamera() const {
 
 	if (this->m_isProduction) {
-		// Projection matrix : 45° Field of View, 1:1 ratio, display range : 0.1 unit <-> 100 units
+		// Projection matrix : 45ï¿½ Field of View, 1:1 ratio, display range : 0.1 unit <-> 100 units
 		float aspectRatio = 1.0f / 1.0f;
 		glm::mat4 Projection = glm::ortho(0.0f, 3.0f * aspectRatio, 0.0f, 1.0f, -1.0f, 1.0f);
 		// Camera 
@@ -156,7 +156,7 @@ glm::mat4 ShaderGeometry::initializeCamera() const {
 		return MVP;
 	}
 	else {
-		// Projection matrix : 45° Field of View, 1:1 ratio, display range : 0.1 unit <-> 100 units
+		// Projection matrix : 45ï¿½ Field of View, 1:1 ratio, display range : 0.1 unit <-> 100 units
 		glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 1.0f / 1.0f, 0.1f, 100.0f);
 		// Camera 
 		float cameraDistance = 10.0f;
