@@ -1,13 +1,13 @@
-#version 460 core
+#version 410 core
 
 in vec2 fragCoord;
 
 out vec4 fragColor;
 
-uniform vec3 iResolution; // Declare the resolution uniform
-uniform float iTime;      // Declare the time uniform
-uniform int iFrame;       // Declare the frame uniform
-
+uniform vec3 iResolution;       // Declare the resolution uniform
+uniform float iTime;            // Declare the time uniform
+uniform int iPower;             // Declare the power uniform
+uniform float iBrightness;      // Declare the brightness uniform
 
 #define TAU 6.28318530718
 #define MAX_ITER 5
@@ -50,4 +50,5 @@ void main()
 	#endif
     
 	fragColor = vec4(colour, 1.0);
+	fragColor *= iPower * iBrightness;
 }

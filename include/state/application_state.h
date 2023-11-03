@@ -14,12 +14,15 @@ public:
     enum Mode {
         LoadingMode,
         CalibrationMode,
-        LavaLampMode
+        LavaLampMode,
+        CloudsMode,
+        GyroidMode,
+        WaterMode
     };
 
     struct State {
         bool display_on;
-        uint8_t brightness;
+        float_t brightness;
     };
 
     ApplicationState();

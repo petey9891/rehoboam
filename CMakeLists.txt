@@ -52,7 +52,7 @@ endif()
 file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.c")
 
 # Define the executable
-add_executable(rehoboam ${SOURCES} include/network/command_message_client.h src/network/command_message_client.cpp include/network/command.h include/state/application_state.h src/state/application_state.cpp src/applications/shader_application.cpp include/applications/lava_lamp.h)
+add_executable(rehoboam ${SOURCES} include/network/command_message_client.h src/network/command_message_client.cpp include/network/command.h include/state/application_state.h src/state/application_state.cpp src/applications/shader_application.cpp include/applications/lava_lamp.h include/applications/clouds.h include/applications/gyroid.h include/applications/water.h)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET rehoboam PROPERTY CXX_STANDARD 20)

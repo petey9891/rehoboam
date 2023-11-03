@@ -1,13 +1,13 @@
-#version 460 core
+#version 410 core
 
 in vec2 fragCoord;
 
 out vec4 fragColor;
 
-uniform vec3 iResolution; // Declare the resolution uniform
-uniform float iTime;      // Declare the time uniform
-uniform int iFrame;       // Declare the frame uniform
-
+uniform vec3 iResolution;       // Declare the resolution uniform
+uniform float iTime;            // Declare the time uniform
+uniform int iPower;             // Declare the power uniform
+uniform float iBrightness;      // Declare the brightness uniform
 
 const float cloudscale = 1.1;
 const float speed = 0.03;
@@ -118,5 +118,7 @@ void main()
     
     vec3 result = mix(skycolour, clamp(skytint * skycolour + cloudcolour, 0.0, 1.0), clamp(f + c, 0.0, 1.0));
     
-	fragColor = vec4( result, 1.0 );
+	fragColor = vec4(result, 1.0);
+    fragColor *= iPower * iBrightness;
+
 }

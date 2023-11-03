@@ -4,9 +4,10 @@ in vec2 fragCoord;
 
 out vec4 fragColor;
 
-uniform vec3 iResolution; // Declare the resolution uniform
-uniform float iTime;      // Declare the time uniform
-
+uniform vec3 iResolution;       // Declare the resolution uniform
+uniform float iTime;            // Declare the time uniform
+uniform int iPower;             // Declare the power uniform
+uniform float iBrightness;      // Declare the brightness uniform
 
 // noise from https://www.shadertoy.com/view/4sc3z2
 vec3 hash33(vec3 p3)
@@ -120,7 +121,6 @@ void main()
     draw(col, uv);
 
     vec3 bg = BG_COLOR;
-
     fragColor.rgb = mix(bg, col.rgb, col.a); //normal blend
 }
 

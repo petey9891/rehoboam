@@ -45,7 +45,7 @@ void ShaderApplication::run(const ApplicationState::State& state) {
     this->m_shader->setFloat("iTime", glfwGetTime());
     this->m_shader->setInt("iFrame", this->m_frameCounter);
     this->m_shader->setInt("iPower", state.display_on);
-    this->m_shader->setInt("iBrightness", state.brightness);
+    this->m_shader->setFloat("iBrightness", state.brightness);
 
     this->m_geometry->draw();
 }

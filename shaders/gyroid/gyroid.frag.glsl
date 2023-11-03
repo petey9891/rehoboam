@@ -1,13 +1,13 @@
-#version 460 core
+#version 410 core
 
 in vec2 fragCoord;
 
 out vec4 fragColor;
 
-uniform vec3 iResolution; // Declare the resolution uniform
-uniform float iTime;      // Declare the time uniform
-
-
+uniform vec3 iResolution;       // Declare the resolution uniform
+uniform float iTime;            // Declare the time uniform
+uniform int iPower;             // Declare the power uniform
+uniform float iBrightness;      // Declare the brightness uniform
 
 void main() {
     vec2 scaledFragCoord = fragCoord * iResolution.xy; // Use the interpolated tex-coord to get fragCoord
@@ -22,4 +22,5 @@ void main() {
     }
     float c = 16.0 / (pos.z - iTime * 2.0 + 16.0);
     fragColor = vec4(0.1, 0.7, 1, 1) * c + vec4(0,0.1,0.1,1) * (1.0 - c);
+    fragColor *= iPower * iBrightness;
 }

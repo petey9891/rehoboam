@@ -42,7 +42,7 @@ void CommandMessageClient::OnMessageReceived(Message<Rehoboam::SocketLibrary::Me
     if (msg.header.id == MessageType::Success) return;
 
     if (msg.header.id == MessageType::ServerPing) {
-        LOG(INFO, "Heartbeat has been acknowledge");
+        LOG(INFO, "Heartbeat has been acknowledged");
     } else if (msg.header.id == MessageType::ServerShutdown) {
         system("sudo shutdown -P now");
     } else if (!msg.body.empty()) {
