@@ -32,5 +32,10 @@
 *.app
 
 .vscode
+.vs
+.idea
+
+cmake-build-debug
+out
 
 certs
