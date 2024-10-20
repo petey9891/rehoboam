@@ -11,26 +11,25 @@
 
 int main(int argc, char* argv[]) {
     std::unique_ptr<Window> window = nullptr;
-    
-    #if !defined(__APPLE__) && !defined(__linux__)
-    std::make_unique<Cube>(192, 64);
-    #else
+
+    #if defined(_WIN32) || defined(__APPLE__)
     window = std::make_unique<VirtualCube>(1200, 1200, "Rehoboam Sandbox");
-    #endif  // !_WIN32 and !__APPLE__
+    #else
+    window = std::make_unique<Cube>(192, 64);
+    #endif // _WIN32 || __APPLE__
 
     if (window == nullptr) {
         std::cerr << "Failed to create window" << std::endl;
         return 1;
     }
 
-
     std::unique_ptr<ApplicationState> state = std::make_unique<ApplicationState>();
-    std::unique_ptr<CommandMessageClient> client = std::make_unique<CommandMessageClient>();
+    //std::unique_ptr<CommandMessageClient> client = std::make_unique<CommandMessageClient>();
 
-    client->initialize();
+    //client->initialize();
 
     while (!window->windowShouldClose()) {
-        client->processNextCommand(*state);
+        //client->processNextCommand(*state);
 
         window->use();
         

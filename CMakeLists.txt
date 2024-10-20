@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.10)
 
 # Enable Hot Reload for MSVC compilers if supported.
 if (POLICY CMP0141)
-  cmake_policy(SET CMP0141 NEW)
-  set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
+    cmake_policy(SET CMP0141 NEW)
+    set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
 project("Rehoboam")
@@ -33,14 +33,16 @@ endif()
 include_directories(/opt/vc/include)
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
-# Find OpenSSL
-find_package(OpenSSL REQUIRED)
+if(!WIN32)
+    # Find OpenSSL
+    find_package(OpenSSL REQUIRED)
 
-# Find Rehoboam
-find_package(Rehoboam REQUIRED)
+    # Find Rehoboam
+    find_package(Rehoboam REQUIRED)
+endif()
 
 # Determine the appropriate library directory based on the platform
-if(WIN3)
+if(WIN32)
     link_directories(${CMAKE_SOURCE_DIR}/lib/x64/windows)
 elseif(APPLE)
     link_directories(${CMAKE_SOURCE_DIR}/lib/x64/macos)
@@ -52,15 +54,15 @@ endif()
 file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.c")
 
 # Define the executable
-add_executable(rehoboam ${SOURCES} include/network/command_message_client.h src/network/command_message_client.cpp include/network/command.h include/state/application_state.h src/state/application_state.cpp src/applications/shader_application.cpp include/applications/lava_lamp.h include/applications/clouds.h include/applications/gyroid.h include/applications/water.h)
+add_executable(rehoboam ${SOURCES})
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET rehoboam PROPERTY CXX_STANDARD 20)
+    set_property(TARGET rehoboam PROPERTY CXX_STANDARD 20)
 endif()
 
 # Link libraries to the executable
-if(WIN3)
-    target_link_libraries(rehoboam glfw3 Rehoboam::SocketLibrary OpenSSL::SSL OpenSSL::Crypto)
+if(WIN32)
+    target_link_libraries(rehoboam glfw3)
 elseif(APPLE)
     target_link_libraries(rehoboam glfw3 Rehoboam::SocketLibrary OpenSSL::SSL OpenSSL::Crypto "-framework Cocoa" "-framework IOKit" "-framework CoreVideo")
 elseif(UNIX) # Assuming UNIX is Linux for Raspberry Pi

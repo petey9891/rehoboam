@@ -4,6 +4,8 @@
 
 #include <cstdint>
 #include <unordered_map>
+#include <string>
+#include <memory>
 
 // Forward declare
 class ShaderApplication;
