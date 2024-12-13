@@ -52,9 +52,6 @@ int main(int argc, char* argv[]) {
     program->canvas->Clear();
 
     delete pulse;
-    delete loading;
-    delete solid;
-    delete christmas;
 
     window.destroy();
 
